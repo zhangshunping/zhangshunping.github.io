@@ -11,11 +11,11 @@
     
     <item>
       <title>Golang-Channel</title>
-      <link>https://zhangshunping.github.io/2020/05/gol/</link>
+      <link>https://zhangshunping.github.io/2020/05/golang-channel/</link>
       <pubDate>Tue, 12 May 2020 14:00:23 +0800</pubDate>
       
-      <guid>https://zhangshunping.github.io/2020/05/gol/</guid>
-      <description>[TOC] channle 都是应用于两个go程，一个读，一个写 channel 具有阻塞的作用，类似go程之间对同步资源进行锁机制 具有数据传递的功能 一、无缓冲channel &amp;md</description>
+      <guid>https://zhangshunping.github.io/2020/05/golang-channel/</guid>
+      <description>channle 都是应用于两个go程，一个读，一个写 channel 具有阻塞的作用，类似go程之间对同步资源进行锁机制 具有数据传递的功能 一、无缓冲channel &amp;mda</description>
     </item>
     
   </channel>
