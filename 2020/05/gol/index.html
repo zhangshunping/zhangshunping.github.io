@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Golang-Channel - CodingIsShit
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="A smalll description" />
+    <meta name="generator" content="Hugo 0.69.2 with theme pure" />
+    <title>Golang-Channel - CodingIsShit</title>
+    
+    
+    <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Golang-Channel" />
+<meta property="og:description" content="A smalll description" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/2020/05/gol/" />
+<meta property="article:published_time" content="2020-05-12T14:00:23+08:00" />
+<meta property="article:modified_time" content="2020-05-12T14:00:23+08:00" />
+<meta itemprop="name" content="Golang-Channel">
+<meta itemprop="description" content="A smalll description">
+<meta itemprop="datePublished" content="2020-05-12T14:00:23&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-12T14:00:23&#43;08:00" />
+<meta itemprop="wordCount" content="2408">
+
+
+
+<meta itemprop="keywords" content="channel,并发," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang-Channel"/>
+<meta name="twitter:description" content="A smalll description"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/zhangshunping" target="_blank">
+            <img class="img-circle img-rotate" src="https://zhangshunping.github.io/touxiang.ico" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">张顺平</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">个人头像</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>Weclome to my Blog!! </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/golang/" class="category-list-link">golang</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/channel/" class="tag-list-link">channel</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/%E5%B9%B6%E5%8F%91/" class="tag-list-link">并发</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/05/gol/" class="title">Golang-Channel</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-05-12 14:00:23 &#43;0800 CST" itemprop="datePublished">2020-05-12</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2020/05/gol/"
+    >Golang-Channel</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://zhangshunping.github.io/2020/05/gol/" class="article-date">
+  <time datetime="2020-05-12 14:00:23 &#43;0800 CST" itemprop="datePublished">2020-05-12</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/golang/"> golang </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/channel/"> channel </a>
+    <a class="article-tag-link" href="/tags/%E5%B9%B6%E5%8F%91/"> 并发 </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/05/gol/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2408字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>[TOC]</p>
+<h4 id="channle-都是应用于两个go程一个读一个写">channle 都是应用于<strong>两个go程</strong>，一个读，一个写</h4>
+<ul>
+<li>channel 具有阻塞的作用，类似go程之间对同步资源进行锁机制</li>
+<li>具有数据传递的功能</li>
+</ul>
+<h4 id="一无缓冲channel------同步">一、无缓冲channel  &mdash;-（同步）</h4>
+<h5 id="无缓冲channel-定义">无缓冲channel 定义</h5>
+<ul>
+<li><code>var ch =make(chan string )</code> 或者<code>ch :=make(chan string)</code></li>
+</ul>
+<h5 id="无缓冲channel的说明">无缓冲channel的说明</h5>
+<ul>
+<li>ch &lt;- &ldquo;hehe&rdquo; 写数据，数据没有被在读，则为阻塞</li>
+<li>&lt;-ch 读数据，数据没有没有在写， 则为阻塞</li>
+<li><code>len(ch)</code> ：channel中未读取的元素个数，<code>cap(ch)</code>:channel中通道的容量 。 都是零</li>
+</ul>
+<h4 id="二有缓冲channel-------异步">二、有缓冲channel &mdash;&mdash;（异步）</h4>
+<h5 id="有缓冲channel定义">有缓冲channel定义</h5>
+<ul>
+<li><code>var ch =make(chan string ,3)</code> 或者<code>ch :=make(chan string ,3)</code></li>
+<li>当存储的元素个数超过了<code>cap(ch)</code> 才会阻塞</li>
+</ul>
+<h4 id="三关闭channel">三、关闭channel</h4>
+<ul>
+<li>
+<p><code>close(ch)</code> ，不再向对端发送数据</p>
+</li>
+<li>
+<p>判断chan是否关闭 ，</p>
+<pre><code class="language-go">if num,ok:=&lt;-chan; ok ==true{
+    fmt.Println(&quot;已经关闭&quot;)   
+}
+  
+  
+  
+// 无缓冲 关闭channle，读端 ok为false，num为0
+// 如果channel已经关闭 ，写端出现panic send on closed channel
+// 如果channle有缓冲，当len(ch) 的值没有超过cap(ch),那么close(ch)是阻塞的
+// 如果channle无缓冲，当ch中存在元素，close（ch）也是阻塞的
+func main()  {
+  ch:=make(chan int)
+  
+  go func() {
+      for i:=0;i&lt;=100;i++{
+          ch &lt;-i
+      }
+      close(ch)   //这里close其实是阻塞的       
+          
+  }()
+  
+  go func() {
+      for{
+          if num,ok:=&lt;-ch;ok{
+              fmt.Print(num)
+              close(ch)
+          }else{
+              fmt.Println(&quot;jieshu&quot;,num)
+          }
+      }
+  }()
+</code></pre>
+</li>
+</ul>
+<h4 id="四单向channel">四、单向channel</h4>
+<ul>
+<li>
+<p>双向channel <code>ch:=make(chan string )</code></p>
+</li>
+<li>
+<p>单项写channel <code>var readCh chan&lt;- int</code></p>
+</li>
+<li>
+<p>单向读channel <code>var writech &lt;-chan</code></p>
+</li>
+</ul>
+<h5 id="单向channel和双向channel转换">单向channel和双向channel转换</h5>
+<ul>
+<li>双向转单向  <code>readch = ch</code></li>
+<li>单向不可以转双向</li>
+</ul>
+<h5 id="传参传引用">传参：传【引用】</h5>
+<p><strong>Channel通信的时候，要保证channle不能在同一个go程之中</strong></p>
+<h4 id="五消费者生产者模型">五、消费者，生产者模型</h4>
+<ul>
+<li>解耦（降低消费者和生产者直接的耦合度）</li>
+<li>并发（消费者，生产者消费不对等，能保持正常的通信）</li>
+<li>缓存（生产者和消费者处理不一致时，暂存数据）</li>
+</ul>
+<h5 id="生产者消费者实现">生产者，消费者实现：</h5>
+<pre><code>  -  有缓冲的channel ：异步同行
+  -   无缓冲的channel：同步通信
+</code></pre>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+type Orderinfo struct {
+	id int
+	price int
+}
+
+func producer(ch chan&lt;- Orderinfo)  {
+	for i:=0;i&lt;=1000;i++{
+
+		ch&lt;-Orderinfo{id:i+1,price: 10}
+	}
+	close(ch)
+}
+
+func consumer(ch &lt;-chan Orderinfo)  {
+	for order:=range(ch){
+		fmt.Println(&quot;订单价格：&quot;,order.price,&quot;订单编号：&quot;,order.id)
+	}
+}
+
+
+func main()  {
+	ch :=make(chan Orderinfo)
+
+
+	go producer(ch)
+	consumer(ch)
+}
+</code></pre>
+<h4 id="六定时器---三种定义方法">六、定时器:   三种定义方法</h4>
+<h6 id="timesleep---timenewtimer-timeafter">time.sleep() ;  time.NewTimer() ;time.After()</h6>
+<pre><code class="language-go">package main
+
+import (
+	&quot;fmt&quot;
+	&quot;time&quot;
+)
+
+func main()  {
+	//time.sleep定时
+	fmt.Println(&quot;当前时间&quot;,time.Now())
+	time.Sleep(time.Second*1)
+	fmt.Println(&quot;time.sleep定时当前时间&quot;,time.Now())
+
+
+	//time.Newtimer
+    // 创建定时器
+	t:=time.NewTimer(time.Second*1)
+	now:=&lt;-t.C
+	fmt.Println(&quot;time.NewTimer阻塞 t.C管道读取系统当前时间为：&quot;,now)
+	//time.After 返回一个管道
+	now=&lt;-time.After(time.Second)
+	fmt.Println(&quot;time.After，系统chan写满，则返回当前时间：&quot;,now)
+
+}
+</code></pre>
+<h4 id="七select-语句">七、select 语句</h4>
+<p>select (退出for 循环中的select ，用return 或者goto的方式)</p>
+<pre><code class="language-go">func main()  {
+	ch:=make(chan int)
+	quit:=make(chan bool)
+	fmt.Println(&lt;-time.After(time.Second))
+	go func() {
+		for{
+			select {
+			case num:=&lt;-ch:
+				fmt.Println(&quot;nume&quot;,num)
+
+			case &lt;-time.After(time.Second*3):
+				fmt.Println(&quot;超时&quot;)
+				quit&lt;-true
+				//return
+                goto loop
+			}
+		}
+        loop:
+        fmt.Println(&quot;for end&quot;)
+	}()
+
+	for i:=0;i&lt;4;i++{
+		ch&lt;-i
+		time.Sleep(time.Second)
+	}
+	&lt;-quit
+
+
+}
+
+</code></pre>
+<h4 id="八锁">八、锁</h4>
+<h5 id="golang死锁模型">golang死锁模型：</h5>
+<ul>
+<li>1、单go程自己死锁： channel至少在两个go程中使用，否则思索</li>
+<li>2、go程间channel访问顺序：使用channle一端写（读），要保证另一一段读（写），同时有机会执行，否则思索</li>
+<li>3、多go程，多channel交叉死锁</li>
+<li>4、在go语言中，尽量不要将互斥锁和channel一起使用，会造成隐形死锁</li>
+</ul>
+<h5 id="golang-锁">golang 锁</h5>
+<ul>
+<li>1.channel 定义互斥锁</li>
+</ul>
+<pre><code class="language-go">//定义个全局channel
+var ch =make(chan string)
+
+func Printer(s string){
+	for _,s1:=range(s){
+		fmt.Print(string(s1))
+		&lt;-time.After(time.Microsecond*500000)
+	}
+
+}
+
+func main()  {
+//go程里结束，向ch中传递
+	go func() {
+		Printer(&quot;hello&quot;)
+		ch&lt;-&quot;ok&quot;
+		close(ch)
+	}()
+    // 主go程在阻塞等待
+	&lt;-ch
+	Printer(&quot;world&quot;)
+
+}
+</code></pre>
+<ul>
+<li>
+<p>2.用锁定义互斥锁（这种锁，我们一般称为:&ndash;&gt;建议锁)</p>
+<pre><code class="language-go">var mutex sync.Mutex  //定义锁
+  
+//对共享资源枷锁
+mutex.Lock()
+fmt.Pirnt('hello')
+muter.Unlock()
+</code></pre>
+</li>
+<li>
+<p>3.读写锁: 读时共享，写时独占（写比读优先级要高）</p>
+<ul>
+<li><code>var rwmutex2 sync.RWMutex</code> 定了一把锁，这个锁带有读和写的属性</li>
+</ul>
+<pre><code class="language-go">var rwmutex2 sync.RWMutex
+  
+var I int
+func reader2(i int){
+  for{
+        // 读锁，并发共享
+      rwmutex2.RLock()
+      a:=I
+      rwmutex2.RUnlock()
+      fmt.Printf(&quot;=======第%d个读进程,读取到%d\n&quot;,i,a)
+      time.Sleep(time.Second)
+  }
+  
+}
+  
+func writer2(a int){
+  for{
+  
+      num:=rand.Intn(100)
+        // 写锁，独占
+      rwmutex2.Lock()
+      I=num
+      fmt.Printf(&quot;第%dth写go程,写数据:%d \n&quot; ,a,num)
+      time.Sleep(time.Second*2)
+      rwmutex2.Unlock()
+  }
+}
+  
+func main(){
+  
+  for i:=0;i&lt;=3;i++{
+      go reader2(i)
+  }
+  
+  for i:=0;i&lt;=3;i++{
+      go writer2(i)
+  }
+  
+  for{
+      ;
+  }
+  
+}
+</code></pre>
+<ul>
+<li>channel <strong>无法完成共享读</strong>，因此需要对读完成共享数据读的时候，使用读写锁</li>
+</ul>
+</li>
+</ul>
+<h5 id="条件变量-type-cond-struct">条件变量 type Cond struct</h5>
+<ul>
+<li>
+<p>适用生产者消费者模型：本身不是锁，经常要与锁结合使用,他是一个结构体</p>
+</li>
+<li>
+<p>作用：</p>
+<ul>
+<li>加锁</li>
+<li>访问公共区域（比如带缓冲channle）</li>
+<li>解锁</li>
+<li>唤醒阻塞在条件变量上对端</li>
+</ul>
+</li>
+<li>
+<p>条件变量Cond常见方法：</p>
+<ul>
+<li>
+<p><code>wait（）</code> 函数 使用场景</p>
+<ul>
+<li>阻塞等待条件变量满足</li>
+<li>释放已掌握的互斥锁相当于 cond.L.Unlock()  ;注意：<strong>两步分为原子操作</strong> &lt;&mdash;-及不可以分开</li>
+<li>当被唤醒，Wati（）函数返回时候，解决阻塞并重新获取互斥锁。相当于cond.L.Lock()</li>
+</ul>
+</li>
+<li>
+<p><code>cond.Single()</code> 唤醒对端</p>
+</li>
+<li>
+<p><code>cond.Broadcast()</code>惊群唤醒</p>
+</li>
+</ul>
+</li>
+<li>
+<p>创建条件变量流程</p>
+<pre><code class="language-go">//1.创建条件变量
+var cond sync.Cond
+//2.创建条件变量指定锁
+  cond.L=new(sync.Mutex)
+  
+//3. 给公共区加锁
+cond.L.Lock()
+//4.判断是否达到阻塞条件
+//
+//4.1 producer 端判断条件 
+for len(ch)==cap(ch){
+    cond.Wait() //1.阻塞2.解锁  3.加锁
+}
+//4.2 consumer端判断
+for len(ch)==0{
+    cond.Wait()
+}
+  
+//5.访问公共区，读写，打印
+  
+//6.对公共区条件变量解锁
+cond.L.Unlock()
+  
+//7.唤醒阻塞在条件变量对端
+cond.Single()
+</code></pre>
+<p>【条件变量示例】</p>
+<pre><code class="language-go">package main
+  
+import (
+  &quot;fmt&quot;
+  &quot;sync&quot;
+  &quot;time&quot;
+)
+  
+//1.创建条件变量
+var cond sync.Cond
+  
+func producer2(product chan&lt;- string,index int)  {
+      //3.使用条件变量给公共区加锁
+      cond.L.Lock()
+      //4. 判断是否已经填满缓冲区，如果填满则wait()
+      for len(product)==cap(product){
+          cond.Wait()
+      }
+      //5.执行写操作
+      str:=fmt.Sprintf(&quot;produce%d&quot;,index)
+      product&lt;-str
+      fmt.Printf(&quot;这是第%d个producer进程,produce %q \n&quot;,index,str)
+      time.Sleep(time.Millisecond*200)
+        // 6.解锁
+      cond.L.Unlock()
+      //7.唤醒阻塞的对端
+      cond.Signal()
+  
+}
+  
+func consumer2(product &lt;-chan string,index int)  {
+  
+  for{
+  
+      cond.L.Lock()
+      for len(product)==0{
+          cond.Wait()
+      }
+      str	:=&lt;-product
+  
+      fmt.Printf(&quot;--------这是第%d个consumer进程,consum %s \n&quot;,index,str)
+      cond.L.Unlock()
+      cond.Signal()
+  }
+}
+  
+  
+  
+func main()  {
+  
+  product:=make(chan string,3)
+  
+  // 2.指定条件变量用的锁为互斥锁
+  cond.L=new(sync.Mutex)
+  
+  for i:=1;i&lt;=1000;i++{
+      go producer2(product,i)
+  }
+  
+    for i:=1;i&lt;=3;i++{
+      go consumer2(product,i)
+  }
+  
+  for{
+      ;
+  }
+}
+  
+</code></pre>
+</li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/2020/05/gol/" title="Golang-Channel" target="_blank" rel="external">https://zhangshunping.github.io/2020/05/gol/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://zhangshunping.github.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://zhangshunping.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://zhangshunping.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/zhangshunping.github.io',
+            CONTENT_URL: 'https:\/\/zhangshunping.github.io\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://zhangshunping.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

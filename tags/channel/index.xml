@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>channel on CodingIsShit</title>
+    <link>https://zhangshunping.github.io/tags/channel/</link>
+    <description>Recent content in channel on CodingIsShit</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 12 May 2020 14:00:23 +0800</lastBuildDate>
+    
+        <atom:link href="https://zhangshunping.github.io/tags/channel/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Golang-Channel</title>
+      <link>https://zhangshunping.github.io/2020/05/gol/</link>
+      <pubDate>Tue, 12 May 2020 14:00:23 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/gol/</guid>
+      <description>[TOC] channle 都是应用于两个go程，一个读，一个写 channel 具有阻塞的作用，类似go程之间对同步资源进行锁机制 具有数据传递的功能 一、无缓冲channel &amp;md</description>
+    </item>
+    
+  </channel>
+</rss>
