@@ -39,7 +39,7 @@
 <meta itemprop="description" content="个人开源项目">
 <meta itemprop="datePublished" content="2020-06-15T18:27:19&#43;08:00" />
 <meta itemprop="dateModified" content="2020-06-15T18:27:19&#43;08:00" />
-<meta itemprop="wordCount" content="474">
+<meta itemprop="wordCount" content="475">
 
 
 
@@ -303,28 +303,28 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/06/project-healthy/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 474字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 475字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
       <p>[TOC]</p>
 <h4 id="需求背景">需求背景</h4>
-<p>​		公司的2B业务本地版落地后，用开源组件在客户本地建立一套运维体系，相对而言较为繁重因为</p>
+<p>​		公司的2B业务落地后，应用服务因为一些突发状况出现不在线情况。</p>
 <ul>
 <li>
-<p>客户本身关注的是SAAS业务，对运维工作几乎零要求。</p>
+<p>一些小型客户关注的是SAAS业务，不太关心运维体系，也没有充裕的资源建立一套运维系统。</p>
 </li>
 <li>
-<p>开源组件建立本地版运维体系，较为烦躁</p>
+<p>开源组件建立本地版运维体系，较为烦躁。</p>
 </li>
 <li>
-<p>希望能够建立一套健康检测系统，在服务出现问题是，能够到指定的机器上执行HOOK命令，同时在客户提供邮件系统的情况下，提供邮件报警通知服务，</p>
+<p>希望能够建立一套健康检测系统，在服务出现问题是，能够到连接到指定的机器上执行HOOK命令；同时根据用户实际情况，建立通知系统。</p>
 <p>由于最近半年在golang方面的东西，因此用golang语言写了一个Healthy健康检测服务，取名为<a href="https://gitee.com/zhangshunping123/Healthy.git">Healthy</a></p>
 </li>
 </ul>
 <h4 id="介绍">介绍</h4>
-<p>Healthy是一个通过golang语言写的服务健康检测服务，发现连续报错之后会通过ssh协议链接指定的主机上执行Hook指令。同时根据用户自定义的Email开关，实现邮件通知（故障报警，恢复通知，报警冷却）。</p>
+<p>Healthy是一个通过golang语言写的服务健康检测服务，再发现连续报错之后会通过ssh协议链接指定的主机上执行Hook指令。同时根据用户自定义的Email开关，实现邮件通知（故障报警，恢复通知，报警冷却）。</p>
 <h4 id="软件架构">软件架构</h4>
 <pre><code>- Appservice 服务注册，检测，执行Hook
 - Sshconnect ssh模块
