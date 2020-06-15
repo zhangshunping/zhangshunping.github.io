@@ -2,7 +2,7 @@
 <html lang="zh">
   <head>
     <title>
-         - 面对疾风吧！
+        Iptables(二) - 面对疾风吧！
       </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -22,29 +22,29 @@
     
     <meta name="description" content="A smalll description" />
     <meta name="generator" content="Hugo 0.69.2 with theme pure" />
-    <title> - 面对疾风吧！</title>
+    <title>Iptables(二) - 面对疾风吧！</title>
     
     
     <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="" />
+    <meta property="og:title" content="Iptables(二)" />
 <meta property="og:description" content="A smalll description" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhangshunping.github.io/2020/05/iptables-2/" />
 <meta property="article:published_time" content="2020-05-15T10:05:02+08:00" />
 <meta property="article:modified_time" content="2020-05-15T10:05:02+08:00" />
-<meta itemprop="name" content="">
+<meta itemprop="name" content="Iptables(二)">
 <meta itemprop="description" content="A smalll description">
 <meta itemprop="datePublished" content="2020-05-15T10:05:02&#43;08:00" />
 <meta itemprop="dateModified" content="2020-05-15T10:05:02&#43;08:00" />
-<meta itemprop="wordCount" content="735">
+<meta itemprop="wordCount" content="2058">
 
 
 
 <meta itemprop="keywords" content="iptables,防火墙," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
+<meta name="twitter:title" content="Iptables(二)"/>
 <meta name="twitter:description" content="A smalll description"/>
 
     <!--[if lte IE 9]>
@@ -203,7 +203,7 @@
             <li>
                 <div class="item-inner">
                     <p class="item-title">
-                        <a href="https://zhangshunping.github.io/2020/05/iptables-2/" class="title"></a>
+                        <a href="https://zhangshunping.github.io/2020/05/iptables-1/" class="title">Iptables(一)</a>
                     </p>
                     <p class="item-date">
                         <time datetime="2020-05-15 10:05:02 &#43;0800 CST" itemprop="datePublished">2020-05-15</time>
@@ -213,7 +213,7 @@
             <li>
                 <div class="item-inner">
                     <p class="item-title">
-                        <a href="https://zhangshunping.github.io/2020/05/iptables-1/" class="title">Iptables(一)</a>
+                        <a href="https://zhangshunping.github.io/2020/05/iptables-2/" class="title">Iptables(二)</a>
                     </p>
                     <p class="item-date">
                         <time datetime="2020-05-15 10:05:02 &#43;0800 CST" itemprop="datePublished">2020-05-15</time>
@@ -265,7 +265,7 @@
   <a
     class="article-title"
     href="/2020/05/iptables-2/"
-    ></a
+    >Iptables(二)</a
   >
 </h1>
 
@@ -289,12 +289,13 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/05/iptables-2/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 735字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2058字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <h4 id="state-模块">state 模块</h4>
+      <p>[TOC]</p>
+<h4 id="state-模块">state 模块</h4>
 <ul>
 <li>
 <p>对于state模块的连接而言，&ldquo;连接&quot;其中的报文可以分为5种状态，报文状态可以为NEW、ESTABLISHED、RELATED、INVALID、UNTRACKED</p>
@@ -326,7 +327,7 @@
 <li>
 <p>方式一：（不推荐）设置链路的默认规则为DROP\</p>
 <pre><code class="language-shell">##1、 设置链路的默认规则为Drop
-iptables  -P INPUT -j DROP
+iptables  -P INPUT  DROP
 ##2、放行
 iptables -I INPUT --dport 80 -j ACCEPT
   
@@ -345,6 +346,7 @@ iptables -A INPUT -j DROP
 </li>
 </ul>
 <h4 id="自定义链路">自定义链路</h4>
+<h5 id="创建自定义链路">创建自定义链路</h5>
 <pre><code class="language-shell">#1. -N 创建自定义表
 iptables -t filter -N IN_WEB
 #2. 常看自定义表
@@ -364,13 +366,135 @@ Chain INPUT (policy ACCEPT 273 packets, 24366 bytes)
  8339  783K KUBE-EXTERNAL-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes externally-visible service portals */
  828K  177M KUBE-FIREWALL  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
 [root@k8s-master01 ~]# iptables -vnL IN_WEB 
-Chain IN_WEB (1 references)
- pkts bytes target     prot opt in     out     source               destination         
+Chain IN_WEB (1 references)   ## 这里的 references为1 表示被引用一次
+   pkts bytes target     prot opt in     out     source               destination         
     2   120 REJECT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80 reject-with icmp-port-unreachable
 [root@k8s-master01 ~]# curl 127.0.0.1
 curl: (7) Failed connect to 127.0.0.1:80; 拒绝连接
 
 </code></pre>
+<h5 id="重命名自定义链路--e">重命名自定义链路 -E</h5>
+<pre><code class="language-shell">[root@k8s-master01 ~]# iptables -E IN_WEB IN_WEB2
+[root@k8s-master01 ~]# iptables -vnL INPUT
+Chain INPUT (policy ACCEPT 63 packets, 5259 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+    4   240 IN_WEB2    tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+ 8491  798K KUBE-EXTERNAL-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes externally-visible service portals */
+ 828K  177M KUBE-FIREWALL  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+[root@k8s-master01 ~]# iptables -vnL IN_WEB2
+Chain IN_WEB2 (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    4   240 REJECT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80 reject-with icmp-port-unreachable
+
+
+</code></pre>
+<h5 id="删除自定义链路--x">删除自定义链路 -X</h5>
+<pre><code class="language-shell">##删除链路需要满足
+## 1、自定义链没有被任何默认链引用，即自定义链的引用计数为0。
+##2、自定义链中没有任何规则，即自定义链为空。
+[root@k8s-master01 ~]# iptables -X IN_WEB2
+iptables: Too many links.
+[root@k8s-master01 ~]# iptables -D INPUT 1    ## 清空引用链路
+[root@k8s-master01 ~]# iptables -X IN_WEB2
+iptables: Directory not empty.
+[root@k8s-master01 ~]# iptables -F IN_WEB2   ## 清空规则
+[root@k8s-master01 ~]# iptables -X IN_WEB2
+</code></pre>
+<h4 id="iptables网络防火墙">Iptables网络防火墙</h4>
+<h5 id="1需求-主机a访问主机ca和c不在同一个网络借助主机b的iptables路由规则">1、需求： 主机A访问主机C，A和C不在同一个网络，借助主机B的iptables路由规则</h5>
+<p><img src="iptables-2.assets/image-20200615160051481.png" alt="image-20200615160051481"></p>
+<pre><code class="language-shell">##主机A,添加路由，去往192.168.181.0（外网）的报文的下一跳为主机B
+route add -net 192.168.181.0/24 gw 192.168.2.17
+
+##主机C，添加路由，去往192.168.2.0(外网的报文)的下一跳为主机B
+route add -net 192.168.2.0/24 gw 192.168.2.17
+
+## 主机B 永久开启路由转发
+vim /etc/sysctl.conf
+net.ipv4.ip_forward
+## 临时开启
+echo 1 &gt;/proc/sys/net/ipv4/ip_forward
+
+##主机B设置黑名单
+iptables -t filter -P FORWARD ACCEPT
+iptables -A FORWARD DROP
+iptables -E FORWARD_TEST 
+iptables -I FORWARD_TEST -s 192.168.2.0/24 -j ACCEPT
+iptables -I FORWARD_TEST -s 192.168.181.0/24 -j ACCEPT
+iptables -I FORWARD -j FORWARD_TEST
+</code></pre>
+<h5 id="2通过snatdnat转发实现公网端口暴露和私网上网">2、通过snat，dnat转发。实现公网端口暴露和私网上网</h5>
+<ul>
+<li>模型如下，主机A为公网客户都安，主机B为公司iptables linux，主机C为内网主机</li>
+</ul>
+<p><img src="iptables-2.assets/image-20200615160051481.png" alt="image-20200615160051481"></p>
+<ul>
+<li>
+<p>操作步骤</p>
+<pre><code class="language-shell">#主机B需开启路由
+vim /etc/sysctl.conf
+   
+ net.ipv4.ip_forward
+   
+# 添加snat配置(允许私网通过B主机的ip，访问A)
+iptables -t nat -I POSTROUTING -s 192.168.181.0/24 -j SNAT --to-source=192.168.2.17
+   
+# 添加dnat配置（A访问B的122端口，即可访问C主机的22端口
+iptables -t dnat -I PREROUTING -d 192.168.2.18 -p tcp --dport 122 --to-destination=192.168.181.129:22
+   
+##同时检查 filter表上是否有限制操作
+iptables -t filter -vnL FORWARD
+   
+## 主机c需要添加路由
+route add default gw 192.168.181.128
+   
+   
+   
+</code></pre>
+</li>
+</ul>
+<h6 id="dnat和snat转发普通路由转发的区别">dnat和snat转发，普通路由转发的区别</h6>
+<ul>
+<li>
+<p>共同点</p>
+<ul>
+<li>都需要linux 开启路由转发功能</li>
+<li>私有主机，及C主机都需要配置下一跳到B主机</li>
+</ul>
+</li>
+<li>
+<p>不同点</p>
+</li>
+<li>
+<p>dnat和snat 是描述的私网和公网的情况，因此主机A配置route 到B是广播不可达的；而但单纯的路由转发一般在同一二层网络中（比如vmware开启三台主机）</p>
+</li>
+<li>
+<p>dnat和snat 完成的地址转换，经过B主机之后，ip的地址都会变成B主机的地址；而单纯的路由转发，ip地址不变</p>
+</li>
+</ul>
+<h6 id="masquseade">MASQUSEADE</h6>
+<ul>
+<li>可以把MASQUERADE理解为动态的、自动化的SNAT，如果没有动态SNAT的需求，没有必要使用MASQUERADE，因为SNAT更加高效。</li>
+</ul>
+<pre><code class="language-shell">iptables -t nat -I POSTROUTING -s 192.168.181.0/24 -o ens32 -j MASQUSEADE
+</code></pre>
+<h4 id="redirect动作可以在本机上进行端口映射">REDIRECT动作可以在本机上进行端口映射</h4>
+<ul>
+<li>
+<p>比如，将本机的80端口映射到本机的8080端口上</p>
+<p><code>iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080</code></p>
+<p>经过上述规则映射后，当别的机器访问本机的80端口时，报文会被重定向到本机的8080端口上。</p>
+<p>REDIRECT规则只能定义在PREROUTING链或者OUTPUT链中。</p>
+</li>
+</ul>
+<h4 id="iptables-注意点">iptables 注意点：</h4>
+<ul>
+<li>针对相同服务的时候，严格的规则应该放在前面</li>
+<li>当规则中有多个匹配条件时，条件之间默认存在&quot;与&quot;的关系</li>
+<li>在不考虑1的情况下，应该将更容易被匹配到的规则放置在前面，通过iptables -vnL 查看（pkts计数）</li>
+<li>当IPTABLES所在主机作为网络防火 墙时，在配置规则时，应着重考虑方向性，双向都要考虑，从外到内，从内到外</li>
+<li>设置防护墙白名单的时候，默认规则应为ACCEPT，在某行增加DROP动作，防止iptables -F 导致不可登陆</li>
+</ul>
 
     </div>
     <div class="article-footer">
@@ -378,7 +502,7 @@ curl: (7) Failed connect to 127.0.0.1:80; 拒绝连接
   <ul class="post-copyright list-unstyled">
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接: </strong>
-      <a href="https://zhangshunping.github.io/2020/05/iptables-2/" title="" target="_blank" rel="external">https://zhangshunping.github.io/2020/05/iptables-2/</a>
+      <a href="https://zhangshunping.github.io/2020/05/iptables-2/" title="Iptables(二)" target="_blank" rel="external">https://zhangshunping.github.io/2020/05/iptables-2/</a>
     </li>
     <li class="post-copyright-license">
       <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
@@ -410,9 +534,14 @@ curl: (7) Failed connect to 127.0.0.1:80; 拒绝连接
     <div class="bar-inner">
         <ul class="pager pull-left">
             <li class="prev">
-                <a href="https://zhangshunping.github.io/2020/05/iptables-1/" title="Iptables(一)"><i
+                <a href="https://zhangshunping.github.io/2020/05/golang-channel/" title="Golang-Channel"><i
                         class="icon icon-angle-left"
                         aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://zhangshunping.github.io/2020/05/iptables-1/"
+                    title="Iptables(一)"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
             </li>
             
             <li class="toggle-toc">
