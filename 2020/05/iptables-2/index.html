@@ -2,7 +2,8 @@
 <html lang="zh">
   <head>
     <title>
-        面对疾风吧！</title>
+         - 面对疾风吧！
+      </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -19,25 +20,32 @@
     <meta http-equiv="window-target" content="_top" />
     
     
-    
+    <meta name="description" content="A smalll description" />
     <meta name="generator" content="Hugo 0.69.2 with theme pure" />
-    <title>面对疾风吧！</title>
+    <title> - 面对疾风吧！</title>
     
-    <link rel="alternate" type="application/rss+xml" href="https://zhangshunping.github.io/categories/linux/index.xml" title="面对疾风吧！" />
     
     <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="Linux" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zhangshunping.github.io/categories/linux/" />
-<meta property="og:updated_time" content="2020-05-12T14:00:23+08:00" />
-<meta itemprop="name" content="Linux">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Linux"/>
-<meta name="twitter:description" content=""/>
+    <meta property="og:title" content="" />
+<meta property="og:description" content="A smalll description" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/2020/05/iptables-2/" />
+<meta property="article:published_time" content="2020-05-15T10:05:02+08:00" />
+<meta property="article:modified_time" content="2020-05-15T10:05:02+08:00" />
+<meta itemprop="name" content="">
+<meta itemprop="description" content="A smalll description">
+<meta itemprop="datePublished" content="2020-05-15T10:05:02&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-15T10:05:02&#43;08:00" />
+<meta itemprop="wordCount" content="735">
+
+
+
+<meta itemprop="keywords" content="iptables,防火墙," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="A smalll description"/>
 
     <!--[if lte IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -240,44 +248,190 @@
 
     
     
-<main class="main" role="main">
-    <article class="article article-categories article-type-list" itemscope="">
-        <header class="article-header">
-            <h1 itemprop="name" class="hidden-xs">Linux</h1>
-            <p class="text-muted hidden-xs">共 3 个分类</p>
-            <nav role="navigation" id="nav-main" class="okayNav">
-                <ul>
-                    <li><a href="/categories/">All</a></li>
-                    <li><a href="https://zhangshunping.github.io/categories/linux/">Linux</a></li>
-                    <li><a href="https://zhangshunping.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络，安全</a></li>
-                    <li><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/">语言-golang</a></li>
-                </ul>
-            </nav>
-        </header>
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2020/05/iptables-2/"
+    ></a
+  >
+</h1>
+
+      <div class="article-meta">
         
-        <div class="article-body">
-            <div class="panel panel-default b-no">
-                <div class="panel-heading" role="tab">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapseedc9f0a5a5d57797bf68e37364743831" aria-expanded="true">
-                            <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>Linux
-                        </a>
-                        <small class="text-muted">(Total1 articles)</small>
-                    </h4>
-                </div>
-                <div id="collapseedc9f0a5a5d57797bf68e37364743831" class="panel-collapse collapse in" role="tabpanel"
-                    aria-labelledby="headingedc9f0a5a5d57797bf68e37364743831">
-                    <div class="panel-body">
-                        <div class="collection"><a href="https://zhangshunping.github.io/2020/05/rsync/" class="collection-item" itemprop="url" target="_blank">
-    <time datetime="2020-05-12 14:00:23 &#43;0800 CST" itemprop="datePublished" style="margin-right: 5px;">2020-05-12
-    </time>Rsync
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://zhangshunping.github.io/2020/05/iptables-2/" class="article-date">
+  <time datetime="2020-05-15 10:05:02 &#43;0800 CST" itemprop="datePublished">2020-05-15</time>
 </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"> 网络，安全 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/iptables/"> iptables </a>
+    <a class="article-tag-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/"> 防火墙 </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/05/iptables-2/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 735字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h4 id="state-模块">state 模块</h4>
+<ul>
+<li>
+<p>对于state模块的连接而言，&ldquo;连接&quot;其中的报文可以分为5种状态，报文状态可以为NEW、ESTABLISHED、RELATED、INVALID、UNTRACKED</p>
+<ul>
+<li>
+<p>NEW: 新连接得第一个包为new</p>
+</li>
+<li>
+<p>ESTABLISHED: NEW状态包后面的包的状态理解为ESTABLISHED，表示已建立链接</p>
+</li>
+<li>
+<p>RELATED：有些报文返回是需要多个进程直接相互配合进项，比如FTP服务命令进程和数据进程是有关系的，因此数据链接的报文可能就是RELATED，因为他是由命令进程控制的。</p>
+</li>
+<li>
+<p>INVALID: 报文没有被识别，包没有状态，包的状态INVALID，可以主动屏蔽INVALID的报文</p>
+</li>
+<li>
+<p>UNTRACED:报文没有被追踪，表示无法找到相关的链接</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>因此：客户端，怎样判断这些报文是为了回应我们之前发出的报文，还是主动向我们发送的报文呢？</p>
+<pre><code>iptables -t fiflter -I INPUT  -m state --state RELATED,ESTABLISHED  -j ACCEPT
+</code></pre>
+<p>则表示，客户端不允许被主动发起报文。</p>
+<h4 id="黑白名单">黑白名单</h4>
+<ul>
+<li>
+<p>方式一：（不推荐）设置链路的默认规则为DROP\</p>
+<pre><code class="language-shell">##1、 设置链路的默认规则为Drop
+iptables  -P INPUT -j DROP
+##2、放行
+iptables -I INPUT --dport 80 -j ACCEPT
+  
+## 问题
+如果不小心执行iptahles -F 的会导致所有请求无法访问
+  
+</code></pre>
+</li>
+<li>
+<p>方式二：（推荐）设置链路的默认规则为ACCEPT，在末尾设置DROP</p>
+<pre><code class="language-shell">iptables -P INPUT -j ACCEPT
+iptables -I INPUT --dport 80 -j ACCEPT
+iptables -A INPUT -j DROP
+  
+</code></pre>
+</li>
+</ul>
+<h4 id="自定义链路">自定义链路</h4>
+<pre><code class="language-shell">#1. -N 创建自定义表
+iptables -t filter -N IN_WEB
+#2. 常看自定义表
+iptables --line -vnL IN_WEB
+##显示如下 ： 0 references 表示没有被引用
+</code></pre>
+<p><img src="iptables-2.assets/image-20200615135849734.png" alt="image-20200615135849734"></p>
+<pre><code class="language-shell">#3、在默认链路上引用IN_WEB
+
+## 在INPUT链路上插入规则，表示访问80的端口，跳转到IN_WEB自定义链路上
+iptables -I INPUT -p tcp --dport 80 -j IN_WEB
+
+[root@k8s-master01 ~]# iptables -vnL INPUT
+Chain INPUT (policy ACCEPT 273 packets, 24366 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+    2   120 IN_WEB     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80
+ 8339  783K KUBE-EXTERNAL-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes externally-visible service portals */
+ 828K  177M KUBE-FIREWALL  all  --  *      *       0.0.0.0/0            0.0.0.0/0           
+[root@k8s-master01 ~]# iptables -vnL IN_WEB 
+Chain IN_WEB (1 references)
+ pkts bytes target     prot opt in     out     source               destination         
+    2   120 REJECT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80 reject-with icmp-port-unreachable
+[root@k8s-master01 ~]# curl 127.0.0.1
+curl: (7) Failed connect to 127.0.0.1:80; 拒绝连接
+
+</code></pre>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/2020/05/iptables-2/" title="" target="_blank" rel="external">https://zhangshunping.github.io/2020/05/iptables-2/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://zhangshunping.github.io/2020/05/iptables-1/" title="Iptables(一)"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
         </div>
-    </article>
+    </div>
+</nav>
+
 </main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
 <ul class="social-links">
     <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
@@ -352,6 +506,7 @@
         hasInnerContainers: true,
     });
 </script>
+
 
   </body>
 </html>
