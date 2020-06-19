@@ -2,7 +2,7 @@
 <html lang="zh">
   <head>
     <title>
-        Channel 死锁场景总结 - 面对疾风吧！
+        Golang-Channel死锁场景总结 - 面对疾风吧！
       </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -22,20 +22,20 @@
     
     <meta name="description" content="golang channel Deadlock总结" />
     <meta name="generator" content="Hugo 0.69.2 with theme pure" />
-    <title>Channel 死锁场景总结 - 面对疾风吧！</title>
+    <title>Golang-Channel死锁场景总结 - 面对疾风吧！</title>
     
     
     <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="Channel 死锁场景总结" />
+    <meta property="og:title" content="Golang-Channel死锁场景总结" />
 <meta property="og:description" content="golang channel Deadlock总结" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/" />
 <meta property="article:published_time" content="2020-06-12T14:00:23+08:00" />
 <meta property="article:modified_time" content="2020-06-12T14:00:23+08:00" />
-<meta itemprop="name" content="Channel 死锁场景总结">
+<meta itemprop="name" content="Golang-Channel死锁场景总结">
 <meta itemprop="description" content="golang channel Deadlock总结">
 <meta itemprop="datePublished" content="2020-06-12T14:00:23&#43;08:00" />
 <meta itemprop="dateModified" content="2020-06-12T14:00:23&#43;08:00" />
@@ -43,8 +43,8 @@
 
 
 
-<meta itemprop="keywords" content="golang-channel," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Channel 死锁场景总结"/>
+<meta itemprop="keywords" content="golang-channel,golang," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang-Channel死锁场景总结"/>
 <meta name="twitter:description" content="golang channel Deadlock总结"/>
 
     <!--[if lte IE 9]>
@@ -170,7 +170,7 @@
             
             
             <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang/" class="tag-list-link">golang</a><span
-                    class="tag-list-count">1</span></li>
+                    class="tag-list-count">2</span></li>
             
             
             <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang-channel/" class="tag-list-link">golang-channel</a><span
@@ -218,7 +218,7 @@
             <li>
                 <div class="item-inner">
                     <p class="item-title">
-                        <a href="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/" class="title">Channel 死锁场景总结</a>
+                        <a href="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/" class="title">Golang-Channel死锁场景总结</a>
                     </p>
                     <p class="item-date">
                         <time datetime="2020-06-12 14:00:23 &#43;0800 CST" itemprop="datePublished">2020-06-12</time>
@@ -280,7 +280,7 @@
   <a
     class="article-title"
     href="/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/"
-    >Channel 死锁场景总结</a
+    >Golang-Channel死锁场景总结</a
   >
 </h1>
 
@@ -299,6 +299,7 @@
   <span class="article-tag">
     <i class="icon icon-tags"></i>&nbsp;
     <a class="article-tag-link" href="/tags/golang-channel/"> golang-channel </a>
+    <a class="article-tag-link" href="/tags/golang/"> golang </a>
   </span>
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/#comments"
@@ -505,7 +506,7 @@ func main(){
   <ul class="post-copyright list-unstyled">
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接: </strong>
-      <a href="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/" title="Channel 死锁场景总结" target="_blank" rel="external">https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</a>
+      <a href="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/" title="Golang-Channel死锁场景总结" target="_blank" rel="external">https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</a>
     </li>
     <li class="post-copyright-license">
       <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
