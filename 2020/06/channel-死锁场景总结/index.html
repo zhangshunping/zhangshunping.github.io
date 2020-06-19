@@ -2,7 +2,8 @@
 <html lang="zh">
   <head>
     <title>
-        面对疾风吧！</title>
+        Channel 死锁场景总结 - 面对疾风吧！
+      </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -19,25 +20,32 @@
     <meta http-equiv="window-target" content="_top" />
     
     
-    
+    <meta name="description" content="golang channel Deadlock总结" />
     <meta name="generator" content="Hugo 0.69.2 with theme pure" />
-    <title>面对疾风吧！</title>
+    <title>Channel 死锁场景总结 - 面对疾风吧！</title>
     
-    <link rel="alternate" type="application/rss+xml" href="https://zhangshunping.github.io/series/index.xml" title="面对疾风吧！" />
     
     <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="Series" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zhangshunping.github.io/series/" />
+    <meta property="og:title" content="Channel 死锁场景总结" />
+<meta property="og:description" content="golang channel Deadlock总结" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/" />
+<meta property="article:published_time" content="2020-06-12T14:00:23+08:00" />
+<meta property="article:modified_time" content="2020-06-12T14:00:23+08:00" />
+<meta itemprop="name" content="Channel 死锁场景总结">
+<meta itemprop="description" content="golang channel Deadlock总结">
+<meta itemprop="datePublished" content="2020-06-12T14:00:23&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-12T14:00:23&#43;08:00" />
+<meta itemprop="wordCount" content="819">
 
-<meta itemprop="name" content="Series">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Series"/>
-<meta name="twitter:description" content=""/>
+
+
+<meta itemprop="keywords" content="golang-channel," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Channel 死锁场景总结"/>
+<meta name="twitter:description" content="golang channel Deadlock总结"/>
 
     <!--[if lte IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -255,48 +263,307 @@
 
     
     
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
 
-<main class="main" role="main">
-    <article class="content article article-archives article-type-list" itemscope="">
-        <header class="article-header">
-            <h1 itemprop="title">Series</h1>
-            <p class="text-muted">共 6 篇文章</p>
-        </header>
-        <div class="article-body">
-                        <section class="panel panel-default b-no">
-                            <div class="panel-heading" role="tab">
-                                <h3 class="panel-title">
-                                    <a data-toggle="collapse" href="#collapse2020" aria-expanded="true">
-                                        <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-                                        &nbsp;2020
-                                    </a>
-                                </h3>
-                            </div>
-                            <div id="collapse2020" class="panel-collapse collapse in" role="tabpanel"
-                                aria-labelledby="heading2020">
-                                <div class="panel-body">
-                                    <div class="collection"><a href="https://zhangshunping.github.io/2020/06/project-healthy/" class="collection-item" itemprop="url" target="_blank">
-    <time datetime="2020-06-15 18:27:19 &#43;0800 CST" itemprop="datePublished" style="margin-right: 5px;">2020-06-15
-    </time>Healthy
-</a><a href="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/" class="collection-item" itemprop="url" target="_blank">
-    <time datetime="2020-06-12 14:00:23 &#43;0800 CST" itemprop="datePublished" style="margin-right: 5px;">2020-06-12
-    </time>Channel 死锁场景总结
-</a><a href="https://zhangshunping.github.io/2020/05/iptables-1/" class="collection-item" itemprop="url" target="_blank">
-    <time datetime="2020-05-15 10:05:02 &#43;0800 CST" itemprop="datePublished" style="margin-right: 5px;">2020-05-15
-    </time>Iptables(一)
-</a><a href="https://zhangshunping.github.io/2020/05/iptables-2/" class="collection-item" itemprop="url" target="_blank">
-    <time datetime="2020-05-15 10:05:02 &#43;0800 CST" itemprop="datePublished" style="margin-right: 5px;">2020-05-15
-    </time>Iptables(二)
-</a><a href="https://zhangshunping.github.io/2020/05/golang-channel/" class="collection-item" itemprop="url" target="_blank">
-    <time datetime="2020-05-12 14:00:23 &#43;0800 CST" itemprop="datePublished" style="margin-right: 5px;">2020-05-12
-    </time>Golang-Channel
-</a><a href="https://zhangshunping.github.io/2020/05/rsync/" class="collection-item" itemprop="url" target="_blank">
-    <time datetime="2020-05-12 14:00:23 &#43;0800 CST" itemprop="datePublished" style="margin-right: 5px;">2020-05-12
-    </time>Rsync
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/"
+    >Channel 死锁场景总结</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/" class="article-date">
+  <time datetime="2020-06-12 14:00:23 &#43;0800 CST" itemprop="datePublished">2020-06-12</time>
 </a>
-        </div></div></div></section>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E8%AF%AD%E8%A8%80-golang/"> 语言-golang </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/golang-channel/"> golang-channel </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 819字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>[TOC]</p>
+<hr>
+<h4 id="channeldeadlock死锁的本质">channel，Deadlock死锁的本质</h4>
+<pre><code>**主协程程阻塞，系统一直等待，导致系统死锁** 
+</code></pre>
+<h4 id="场景一-主协程中使用channel">场景一： 主协程中使用channel</h4>
+<pre><code class="language-go">// 1.1 无缓冲channel，读
+		ch1 := make(chan string)
+		&lt;- ch1
+		fmt.Println(&quot;ok&quot;)
+
+
+// 1.2 无缓冲channel，写
+		
+func main(){
+		ch1 := make(chan string)
+		ch1 &lt;- &quot;ok&quot;
+		fmt.Println(&quot;ok&quot;)
+	}
+
+##说明： 是因为在同一个主协程中，无缓冲的channel 读和写都是阻塞的，导致系统等待超时，导致deadlock
+
+
+
+// 2.1 有缓冲读写
+
+func main(){
+		ch1 := make(chan string,1)
+		ch1 &lt;- &quot;ok&quot;
+		ch1 &lt;- &quot;ok2&quot;
+		fmt.Println(&quot;ok&quot;)
+	}
+
+## 说明： ch1为戴缓冲区1的channel ，写一个ok的时候，主协程不阻塞，写第二个ok2的时候，此时ch1可以看作无缓冲channel，及出现主协程阻塞，导致系统等待，从而deadlock
+
+
+///修复
+
+//2.1 go 程中使用channel取值
+func main(){
+
+	ch1 := make(chan string)
+	go func(){
+		fmt.Println(&quot;ok&quot;,&lt;- ch1)
+	}()
+	ch1&lt;-&quot;ok&quot;
+	time.Sleep(time.Second*1)
+}
+
+//2.2 go程使用channel 赋值
+func main(){
+
+	ch1 := make(chan string)
+	go func(){
+		ch1&lt;-&quot;ok&quot;
+	}()
+	fmt.Println(&quot;get from go channle&quot;,&lt;-ch1)
+}
+
+//2.3 注意,如果2.2这样写又会死锁，因为&lt;-ch1在阻塞，导致主协程系统等待
+
+func main(){
+	ch1 := make(chan string)
+	go func(){
+		ch1&lt;-&quot;ok&quot;
+	}()
+	fmt.Println(&quot;get from go channle&quot;,&lt;-ch1)
+	fmt.Println(&quot;get2 from go channle&quot;,&lt;-ch1)
+}
+//2.4  针对2.3的情况,go程close(ch1)，这样主协程及不会出现等待的情况
+func main(){
+
+	ch1 := make(chan string)
+	go func(){
+		ch1&lt;-&quot;ok&quot;
+		close(ch1)
+	}()
+	fmt.Println(&quot;get from go channle&quot;,&lt;-ch1)
+	fmt.Println(&quot;get2 from go channle&quot;,&lt;-ch1)
+}
+
+
+</code></pre>
+<h4 id="场景二channel遍历导致的deadlock">场景二：channel遍历导致的deadlock</h4>
+<pre><code class="language-go">//3.1 range遍历
+func main(){
+
+		chs := make(chan string, 2)
+		chs &lt;- &quot;first&quot;
+		chs &lt;- &quot;second&quot;
+
+		for ch := range chs {
+			fmt.Println(ch)
+		}
+	
+
+}
+
+// 3.2 range遍历修复deadlock
+func main(){
+
+		chs := make(chan string, 2)
+		chs &lt;- &quot;first&quot;
+		chs &lt;- &quot;second&quot;
+
+		for i:=0;i&lt;=len(chs);i++{
+			fmt.Println(&lt;-chs)
+		}
+
+}
+
+//3.3 修复range遍历deadlocak
+func main(){
+
+		chs := make(chan string, 2)
+		chs &lt;- &quot;first&quot;
+		chs &lt;- &quot;second&quot;
+        close(chs)
+
+		for ch := range chs {
+			fmt.Println(ch)
+		}
+	
+}
+</code></pre>
+<h4 id="场景三生产者消费者模型deadlock">场景三：生产者消费者模型Deadlock</h4>
+<pre><code class="language-go">//4.1 deadlock
+func main(){
+	ch1:=make(chan interface{})
+	quit:=make(chan bool)
+	// producer
+	go func(){
+		for i:=0;i&lt;=10;i++{
+			ch1&lt;-i
+		}
+	}()
+
+	// comsumer
+	go func(){
+		for{
+			fmt.Println(&quot;生产者生产为&quot;,&lt;-ch1)
+
+		}
+			quit&lt;-true
+	}()
+
+	&lt;-quit
+
+}
+
+//说明：是因为quit&lt;-true一直被&lt;-ch1阻塞了，导致了主协程的quit一直阻塞
+
+
+
+//4.2改进
+
+func main(){
+
+	ch1:=make(chan int)
+	quit:=make(chan bool)
+	// producer
+	go func(){
+		for i:=0;i&lt;=10;i++{
+			ch1&lt;-i
+		}
+	}()
+
+	// comsumer
+
+	go func(){
+		for{
+			select {
+				case num:=&lt;-ch1:
+					fmt.Println(&quot;从管道获取的value是&quot;,num)
+				case &lt;-time.After(3*time.Second):
+					goto loop
+			}
+		}
+	loop:
+		fmt.Println(&quot;loop&quot; )
+		quit&lt;-true
+	}()
+
+
+	&lt;-quit
+}
+
+
+
+</code></pre>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/" title="Channel 死锁场景总结" target="_blank" rel="external">https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://zhangshunping.github.io/2020/05/iptables-1/" title="Iptables(一)"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://zhangshunping.github.io/2020/06/project-healthy/"
+                    title="Healthy"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
         </div>
-    </article>
+    </div>
+</nav>
+
 </main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
 <ul class="social-links">
     <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
@@ -371,6 +638,7 @@
         hasInnerContainers: true,
     });
 </script>
+
 
   </body>
 </html>
