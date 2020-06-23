@@ -39,7 +39,7 @@
 <meta itemprop="description" content="golang几种常见闭包">
 <meta itemprop="datePublished" content="2020-06-23T15:56:01&#43;08:00" />
 <meta itemprop="dateModified" content="2020-06-23T15:56:01&#43;08:00" />
-<meta itemprop="wordCount" content="997">
+<meta itemprop="wordCount" content="1011">
 
 
 
@@ -288,7 +288,7 @@
         
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85/" class="">
+<a href="https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85/" class="article-date">
   <time datetime="2020-06-23 15:56:01 &#43;0800 CST" itemprop="datePublished">2020-06-23</time>
 </a>
 </span>
@@ -303,8 +303,8 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/06/golang-%E9%97%AD%E5%8C%85/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 997字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1011字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
@@ -408,12 +408,12 @@ func main(){
 }
 
 
-//输出结果为：
-0x11056058 0
-0x1105605c 1
-0x11056070 2
 
 </code></pre>
+<p>输出结果为：
+0x11056058 0
+0x1105605c 1
+0x11056070 2</p>
 <p><strong>说明</strong>： 每次 <code>append</code> 操作仅将匿名函数放入到列表中，但并未执行，并且引用的变量都是 <code>i</code>，随着 <code>i</code> 的改变匿名函数中的 <code>i</code> 也在改变，所以当执行这些函数时，他们读取的都是<strong>环境变量</strong> <code>i</code> 最后一次的值。解决的方法就是每次复制变量 <code>i</code> 然后传到匿名函数中(及为局部变量），让闭包的<strong>环境变量</strong>不相同。因此我们就可以用闭包来修改环境变量如下：</p>
 <pre><code class="language-go">
 var a int =10
@@ -486,13 +486,9 @@ func main() {
 
 
 </code></pre>
-<p>输出结果为：</p>
-<pre><code class="language-go">defer2 1
+<p>输出结果为：defer2 1
 defer1 2
-test return 0
-
-
-</code></pre>
+test return 0</p>
 <h5 id="第六个示列">第六个示列</h5>
 <p>带命名的返回值</p>
 <pre><code class="language-go">
@@ -521,16 +517,11 @@ func main() {
 
 </code></pre>
 <p>输出结果为：</p>
-<pre><code class="language-go">$ go run main.go
+<p>$ go run main.go
 defer2 1
 defer1 2
-test return 2
-
-//return
-
-
-</code></pre>
-<p><strong>说明</strong>：
+test return 2</p>
+<p><strong>defer，return 说明</strong>：
 return 是一个并非原子操作，分别为赋值和返回值两步操作。<code>return i </code>可以看作<code> j:=i  返回j</code></p>
 <p>不带命名的返回值：
 return 最先执行，此时i=0,j:=i，返回的值为j；defer2后入栈，先出i=i+1，defer1先进，后出i=1+1</p>
