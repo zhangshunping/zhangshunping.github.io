@@ -2,7 +2,8 @@
 <html lang="zh">
   <head>
     <title>
-        面对疾风吧！</title>
+        Golang闭包 - 面对疾风吧！
+      </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -19,25 +20,32 @@
     <meta http-equiv="window-target" content="_top" />
     
     
-    
+    <meta name="description" content="golang几种常见闭包" />
     <meta name="generator" content="Hugo 0.69.2 with theme pure" />
-    <title>面对疾风吧！</title>
+    <title>Golang闭包 - 面对疾风吧！</title>
     
-    <link rel="alternate" type="application/rss+xml" href="https://zhangshunping.github.io/categories/linux/index.xml" title="面对疾风吧！" />
     
     <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="Linux" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zhangshunping.github.io/categories/linux/" />
-<meta property="og:updated_time" content="2020-05-12T14:00:23+08:00" />
-<meta itemprop="name" content="Linux">
-<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Linux"/>
-<meta name="twitter:description" content=""/>
+    <meta property="og:title" content="Golang闭包" />
+<meta property="og:description" content="golang几种常见闭包" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85/" />
+<meta property="article:published_time" content="2020-06-23T15:56:01+08:00" />
+<meta property="article:modified_time" content="2020-06-23T15:56:01+08:00" />
+<meta itemprop="name" content="Golang闭包">
+<meta itemprop="description" content="golang几种常见闭包">
+<meta itemprop="datePublished" content="2020-06-23T15:56:01&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-23T15:56:01&#43;08:00" />
+<meta itemprop="wordCount" content="1002">
+
+
+
+<meta itemprop="keywords" content="golang," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Golang闭包"/>
+<meta name="twitter:description" content="golang几种常见闭包"/>
 
     <!--[if lte IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -255,45 +263,347 @@
 
     
     
-<main class="main" role="main">
-    <article class="article article-categories article-type-list" itemscope="">
-        <header class="article-header">
-            <h1 itemprop="name" class="hidden-xs">Linux</h1>
-            <p class="text-muted hidden-xs">共 4 个分类</p>
-            <nav role="navigation" id="nav-main" class="okayNav">
-                <ul>
-                    <li><a href="/categories/">All</a></li>
-                    <li><a href="https://zhangshunping.github.io/categories/linux/">Linux</a></li>
-                    <li><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">个人开源项目</a></li>
-                    <li><a href="https://zhangshunping.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络，安全</a></li>
-                    <li><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/">语言-golang</a></li>
-                </ul>
-            </nav>
-        </header>
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2020/06/golang-%E9%97%AD%E5%8C%85/"
+    >Golang闭包</a
+  >
+</h1>
+
+      <div class="article-meta">
         
-        <div class="article-body">
-            <div class="panel panel-default b-no">
-                <div class="panel-heading" role="tab">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapseedc9f0a5a5d57797bf68e37364743831" aria-expanded="true">
-                            <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>Linux
-                        </a>
-                        <small class="text-muted">(Total1 articles)</small>
-                    </h4>
-                </div>
-                <div id="collapseedc9f0a5a5d57797bf68e37364743831" class="panel-collapse collapse in" role="tabpanel"
-                    aria-labelledby="headingedc9f0a5a5d57797bf68e37364743831">
-                    <div class="panel-body">
-                        <div class="collection"><a href="https://zhangshunping.github.io/2020/05/rsync/" class="collection-item" itemprop="url" target="_blank">
-    <time datetime="2020-05-12 14:00:23 &#43;0800 CST" itemprop="datePublished" style="margin-right: 5px;">2020-05-12
-    </time>Rsync
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85/" class="article-date">
+  <time datetime="2020-06-23 15:56:01 &#43;0800 CST" itemprop="datePublished">2020-06-23</time>
 </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E8%AF%AD%E8%A8%80-golang/"> 语言-golang </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/golang/"> golang </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/06/golang-%E9%97%AD%E5%8C%85/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1002字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>[toc]</p>
+<h4 id="定义">定义</h4>
+<ul>
+<li>
+<p>所谓闭包指的是内部函数引用外部函数变量或者自由变量返回一个函数，我们称作为闭包</p>
+<pre><code class="language-go">func outer(x int )func(int) int{
+   // golang一个函数体内只能用用一个函数体,因此使用匿名函数
+    return func(y int) int{      
+      return x+y
+  }
+}
+func main() {
+      f:=outer(1)
+      fmt.Println(f(100))
+}
+</code></pre>
+</li>
+</ul>
+<h4 id="闭包场景一-for-range使用闭包">闭包场景一， for-range使用闭包</h4>
+<h5 id="第一个示列">第一个示列：</h5>
+<pre><code class="language-go">func main() {
+		a:=[]string{&quot;a&quot;,&quot;b&quot;,&quot;C&quot;}
+		for _,i:=range(a){
+			go func(){
+				fmt.Println(i)
+			}()
+		}
+	time.Sleep(1*time.Second)
+}
+</code></pre>
+<p>输出结果居然不是：a,b,c 而是c，c，c</p>
+<p><em>变化一下</em>：</p>
+<h5 id="第二个示列">第二个示列</h5>
+<pre><code class="language-go">
+func main() {
+		a:=[]string{&quot;a&quot;,&quot;b&quot;,&quot;C&quot;}
+		for _,i:=range(a){
+			go func(i string){
+				fmt.Println(i)
+			}(i)
+		}
+	time.Sleep(1*time.Second)
+}
+</code></pre>
+<p>输出结果跟预期的一样。</p>
+<p><strong>说明</strong>： 第一个示列，主进程跑的过快，go程里打印的i是值引用，因此打印的结果为i的最后一个值。而第二个示列中，直接传i值，因此打出的结果符合预期，当然我们可以针对示列一做如下修改,输出结果依然符合预期</p>
+<pre><code class="language-go">func main() {
+
+		a:=[]string{&quot;a&quot;,&quot;b&quot;,&quot;C&quot;}
+		for _,i:=range(a){
+			go func(){
+				fmt.Println(i)
+			}()
+			time.Sleep(1*time.Second)
+		}
+	time.Sleep(4*time.Second)
+}
+</code></pre>
+<h4 id="闭包场景二函数列表闭包">闭包场景二，函数列表闭包</h4>
+<h5 id="第三个示列">第三个示列</h5>
+<pre><code class="language-go">
+func funcslic() []func(){
+	s:=[]func(){}
+	for i:=0; i&lt;3;i++{
+		s=append(s, func() {
+			fmt.Println(&amp;i,i)
+		})
+	}
+	return s
+
+}
+
+func main(){
+	Fs:=funcslic()
+	for _,k:=range(Fs){
+		k()
+	}
+}
+</code></pre>
+<p>输出结果为：0x11056058 3
+0x11056058 3
+0x11056058 3</p>
+<p><em>变化一下</em>：</p>
+<h5 id="示列四">示列四</h5>
+<pre><code class="language-go">
+func funcslic() []func(){
+
+	s:=[]func(){}
+	for i:=0; i&lt;3;i++{
+		x:=i    
+		s=append(s, func() {
+			fmt.Println(&amp;x,x)
+		})
+	}
+	return s
+
+}
+
+func main(){
+	Fs:=funcslic()
+	for _,k:=range(Fs){
+		k()
+	}
+}
+
+
+//输出结果为：
+0x11056058 0
+0x1105605c 1
+0x11056070 2
+
+</code></pre>
+<p><strong>说明</strong>： 每次 <code>append</code> 操作仅将匿名函数放入到列表中，但并未执行，并且引用的变量都是 <code>i</code>，随着 <code>i</code> 的改变匿名函数中的 <code>i</code> 也在改变，所以当执行这些函数时，他们读取的都是<strong>环境变量</strong> <code>i</code> 最后一次的值。解决的方法就是每次复制变量 <code>i</code> 然后传到匿名函数中(及为局部变量），让闭包的<strong>环境变量</strong>不相同。因此我们就可以用闭包来修改环境变量如下：</p>
+<pre><code class="language-go">
+var a int =10
+
+func main(){
+
+	go func(){
+		a=a+2
+	}()
+	fmt.Println(a)
+}
+
+//怎么样，是不是觉得这段代码，经常使用。
+
+</code></pre>
+<h4 id="闭包场景三延迟调用defer">闭包场景三，延迟调用defer</h4>
+<pre><code class="language-go">package main
+
+import &quot;fmt&quot;
+
+func main(){
+	var x,y int=1,2
+
+	defer func(i int){
+		fmt.Println(&quot;defer&quot;,i,y)
+	}(x)                        
+
+	x=100
+	y=100
+	fmt.Println(&quot;main&quot;,x,y)
+}
+
+
+
+
+
+//输出结果
+$ go run main.go
+main 100 100
+defer 1 100
+
+</code></pre>
+<h4 id="闭包场景四return-defer">闭包场景四，return, defer</h4>
+<h5 id="不带命名的返回值">不带命名的返回值</h5>
+<pre><code class="language-go">
+package main
+
+import &quot;fmt&quot;
+
+var i int
+func test() (int) {
+	defer func(){
+		i++
+		fmt.Println(&quot;defer1&quot;,i)
+	}()
+	defer func(){
+		i++
+		fmt.Println(&quot;defer2&quot;,i)
+	}()
+	return i
+
+}
+func main() {
+	fmt.Println(&quot;test return&quot;,test())
+}
+
+
+
+
+</code></pre>
+<p>输出结果为：</p>
+<pre><code class="language-go">defer2 1
+defer1 2
+test return 0
+
+
+</code></pre>
+<p><em>变化一下</em></p>
+<h5 id="带命名的返回值">带命名的返回值</h5>
+<pre><code class="language-go">
+
+package main
+
+import &quot;fmt&quot;
+
+
+func test() (i int) {
+	defer func(){
+		i++
+		fmt.Println(&quot;defer1&quot;,i)
+	}()
+	defer func(){
+		i++
+		fmt.Println(&quot;defer2&quot;,i)
+	}()
+	return i
+
+}
+func main() {
+	fmt.Println(&quot;test return&quot;,test())
+}
+
+
+</code></pre>
+<p>输出结果为：</p>
+<pre><code class="language-go">$ go run main.go
+defer2 1
+defer1 2
+test return 2
+
+//return
+
+**说明**：
+return 是一个并非原子操作，分别为赋值和返回值两步操作。`return i `可以看作` j:=i  返回j`
+不带命名的返回值：
+return 最先执行，此时i=0,j:=i，返回的值为j；defer2后入栈，先出i=i+1，defer1先进，后出i=1+1
+
+带命名的返回值
+
+return 最先执行，此时i=0,j:=i，返回的是j；defer2后入栈，先出i=i+1，defer1先进，后出i=1+1 ，逻辑跟上面一样，但是命名的返回值是i，而不是j，所以结果是2
+</code></pre>
+<p>​</p>
+<p><strong>总结</strong>： 闭包紧盯着外部变量; defer语句，优先入栈。</p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85/" title="Golang闭包" target="_blank" rel="external">https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://zhangshunping.github.io/2020/06/project-healthy/" title="Healthy"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
         </div>
-    </article>
+    </div>
+</nav>
+
 </main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
 <ul class="social-links">
     <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
@@ -368,6 +678,7 @@
         hasInnerContainers: true,
     });
 </script>
+
 
   </body>
 </html>

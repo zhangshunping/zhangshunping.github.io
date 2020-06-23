@@ -5,10 +5,19 @@
     <link>https://zhangshunping.github.io/</link>
     <description>Recent content on 面对疾风吧！</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 15 Jun 2020 18:27:19 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 23 Jun 2020 15:56:01 +0800</lastBuildDate>
     
         <atom:link href="https://zhangshunping.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Golang闭包</title>
+      <link>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85/</link>
+      <pubDate>Tue, 23 Jun 2020 15:56:01 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85/</guid>
+      <description>[toc] 定义 所谓闭包指的是内部函数引用外部函数变量或者自由变量返回一个函数，我们称作为闭包 func outer(x int )func(int) int{ // golang一个函数体内只能用用一个函数体,</description>
+    </item>
     
     <item>
       <title>Healthy</title>
