@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>Golang-Context</title>
+      <link>https://zhangshunping.github.io/2020/06/golang-context/</link>
+      <pubDate>Sat, 27 Jun 2020 15:38:57 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/golang-context/</guid>
+      <description>[TOC] Context诞生背景 由于在Golang severs中，每个request都是在单个goroutine中完成，并且在单个goroutine</description>
+    </item>
+    
+    <item>
       <title>Golang-闭包场景总结</title>
       <link>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85/</link>
       <pubDate>Tue, 23 Jun 2020 15:56:01 +0800</pubDate>
