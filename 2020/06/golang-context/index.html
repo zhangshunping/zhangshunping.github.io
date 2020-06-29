@@ -39,7 +39,7 @@
 <meta itemprop="description" content="golang中context包的使用">
 <meta itemprop="datePublished" content="2020-06-27T15:38:57&#43;08:00" />
 <meta itemprop="dateModified" content="2020-06-27T15:38:57&#43;08:00" />
-<meta itemprop="wordCount" content="734">
+<meta itemprop="wordCount" content="800">
 
 
 
@@ -299,7 +299,7 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/06/golang-context/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 734字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 800字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
       </div>
     </div>
@@ -335,25 +335,28 @@ ctx,cancle:=context.WithTimeout(context.Background(),time.Second*10)
   
 //返回是一个ctx Context，和一个cancel 函数体
   
-//ctx有三种方式
+//ctx有三种方式 
   
 </code></pre>
 </li>
 <li>
-<p>context.withValue（）使用</p>
+<p>context.withValue（）使用 trace_code的场景</p>
 <pre><code class="language-go">  
 var (
   wg sync.WaitGroup
 )
+// 按官方标准建立自己定义type
 type ContextTc struct {
   Traceid string
 }
-func main(){
   
+func main(){
   traceid :=ContextTc{Traceid: &quot;Trace_code&quot;}
-  ctx,cancle:=context.WithTimeout(context.Background(),time.Second*10)
+// ctx 上下文初始化
+    ctx,cancle:=context.WithTimeout(context.Background(),time.Second*10)
   ctx=context.WithValue(ctx,traceid.Traceid,&quot;1&quot;)
-  defer cancle()
+  
+    defer cancle()
   wg.Add(1)
   go worker(ctx,traceid.Traceid)
   wg.Wait()
@@ -362,6 +365,7 @@ func main(){
 func worker(ctx context.Context,traceid string){
   
   select {
+        //超市或者cacncle()时，等待ctx.Done()
       case &lt;-ctx.Done():
           fmt.Println(&quot;context stop and exit&quot;)
           return
