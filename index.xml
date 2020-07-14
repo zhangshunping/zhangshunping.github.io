@@ -5,10 +5,19 @@
     <link>https://zhangshunping.github.io/</link>
     <description>Recent content on 面对疾风吧！</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sat, 27 Jun 2020 15:38:57 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2020 10:54:39 +0800</lastBuildDate>
     
         <atom:link href="https://zhangshunping.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gin框架常见用法</title>
+      <link>https://zhangshunping.github.io/2020/07/gin_1/</link>
+      <pubDate>Tue, 14 Jul 2020 10:54:39 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/gin_1/</guid>
+      <description>[TOC] json渲染 func main() { r := gin.Default() // 1、map渲染，gin.H{} r.GET(&amp;quot;/map_json&amp;quot;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;quot;message&amp;quot;: &amp;quot;map_json&amp;quot;, }) }) //2、 结构体渲染， r.GET(&amp;quot;/other_json&amp;quot;, func(c *gin.Context) { c.JSON(http.StatusOK,Other_json{Messag: &amp;quot;otherJson&amp;quot;}) }) r.Run() // listen and serve on 0.0.0.0:8080 (for windows &amp;quot;localhost:8080&amp;quot;) } type Other_json struct{</description>
+    </item>
     
     <item>
       <title>Golang-Context</title>
