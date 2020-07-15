@@ -2,7 +2,7 @@
 <html lang="zh">
   <head>
     <title>
-        Golang-Context - 面对疾风吧！
+        Gin_Router套路 - 面对疾风吧！
       </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,32 +20,32 @@
     <meta http-equiv="window-target" content="_top" />
     
     
-    <meta name="description" content="golang中context包的使用" />
+    <meta name="description" content="A smalll description" />
     <meta name="generator" content="Hugo 0.69.2 with theme pure" />
-    <title>Golang-Context - 面对疾风吧！</title>
+    <title>Gin_Router套路 - 面对疾风吧！</title>
     
     
     <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="Golang-Context" />
-<meta property="og:description" content="golang中context包的使用" />
+    <meta property="og:title" content="Gin_Router套路" />
+<meta property="og:description" content="A smalll description" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhangshunping.github.io/2020/06/golang-context/" />
-<meta property="article:published_time" content="2020-06-27T15:38:57+08:00" />
-<meta property="article:modified_time" content="2020-06-27T15:38:57+08:00" />
-<meta itemprop="name" content="Golang-Context">
-<meta itemprop="description" content="golang中context包的使用">
-<meta itemprop="datePublished" content="2020-06-27T15:38:57&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-27T15:38:57&#43;08:00" />
-<meta itemprop="wordCount" content="800">
+<meta property="og:url" content="https://zhangshunping.github.io/2020/07/gin_router/" />
+<meta property="article:published_time" content="2020-07-15T10:54:39+08:00" />
+<meta property="article:modified_time" content="2020-07-15T10:54:39+08:00" />
+<meta itemprop="name" content="Gin_Router套路">
+<meta itemprop="description" content="A smalll description">
+<meta itemprop="datePublished" content="2020-07-15T10:54:39&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-15T10:54:39&#43;08:00" />
+<meta itemprop="wordCount" content="531">
 
 
 
-<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Golang-Context"/>
-<meta name="twitter:description" content="golang中context包的使用"/>
+<meta itemprop="keywords" content="golang,Gin," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Gin_Router套路"/>
+<meta name="twitter:description" content="A smalll description"/>
 
     <!--[if lte IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -281,8 +281,8 @@
       <h1 itemprop="name">
   <a
     class="article-title"
-    href="/2020/06/golang-context/"
-    >Golang-Context</a
+    href="/2020/07/gin_router/"
+    >Gin_Router套路</a
   >
 </h1>
 
@@ -290,92 +290,143 @@
         
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://zhangshunping.github.io/2020/06/golang-context/" class="article-date">
-  <time datetime="2020-06-27 15:38:57 &#43;0800 CST" itemprop="datePublished">2020-06-27</time>
+<a href="https://zhangshunping.github.io/2020/07/gin_router/" class="article-date">
+  <time datetime="2020-07-15 10:54:39 &#43;0800 CST" itemprop="datePublished">2020-07-15</time>
 </a>
 </span>
 <span class="article-category">
   <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/%E8%AF%AD%E8%A8%80-golang/"> 语言-golang </a>
-</span>
+  <a class="article-category-link" href="/categories/gin/"> Gin </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/golang/"> golang </a>
+    <a class="article-tag-link" href="/tags/gin/"> Gin </a>
+  </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/06/golang-context/#comments"
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/07/gin_router/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 800字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 531字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <p>[TOC]</p>
-<h4 id="context诞生背景">Context诞生背景</h4>
-<p>由于在Golang severs中，每个request都是在单个goroutine中完成，并且在单个goroutine（不妨称之为A）中也会有请求其他服务（启动另一个goroutine（称之为B）去完成）的场景，这就会涉及多个Goroutine之间的调用。如果某一时刻请求其他服务被取消或者超时，则作为深陷其中的当前goroutine B需要立即退出，然后系统才可回收B所占用的资源。
-即一个request中通常包含多个goroutine，这些goroutine之间通常会有交互。</p>
-<p><img src="golang-context.assets/image-20200628185013642.png" alt="image-20200628185013642"></p>
-<p>那么，如何有效管理这些goroutine成为一个问题（主要是退出通知和元数据传递问题），Google的解决方法是<strong>Context机制，相互调用的goroutine之间通过传递context变量保持关联，这样在不用暴露各goroutine内部实现细节的前提下，有效地控制各goroutine的运行</strong>。</p>
-<p><img src="golang-context.assets/image-20200628185024467.png" alt="image-20200628185024467"></p>
-<p>如此一来，通过传递Context就可以追踪goroutine调用树，并在这些调用树之间传递通知和元数据。
-虽然goroutine之间是平行的，没有继承关系，但是Context设计成是包含父子关系的，这样可以更好的描述goroutine调用之间的树型关系。</p>
-<h4 id="context使用方式">context使用方式</h4>
+      <h4 id="我的gin-项目结构">我的Gin 项目结构</h4>
+<pre><code class="language-go">├── Config                                        //处理配置文件代码
+│   └── cofig1.go
+├── Controller                                    //控制层
+│   ├── controllerHanlder.go
+│   ├── DbHandler.go
+│   └── StaticHandler
+│       ├── HelloWorld.go
+│       ├── Info.go
+│       └── PageNotFound.go
+├── go.mod
+├── go.sum
+├── main.go
+├── Middlerwar									//中间件
+│   └── m1.go
+├── README.md
+├── README.mdls
+├── Router									   // 路由
+│   ├── apiRouter.go
+│   ├── SysRouter.go
+│   └── init_router.go
+├── Service									  // 业务逻辑
+│   └── service1.go
+├── Utils								    	 // 工具
+├── Model									 // 数据库
+</code></pre>
+<h4 id="定义router套路">定义Router套路</h4>
+<ul>
+<li>router目录</li>
+</ul>
+<pre><code class="language-go">
+├── Router									   // 路由
+│   ├── apiRouter.go
+│   ├── SysRouter.go
+│   └── init_router.go
+</code></pre>
 <ul>
 <li>
-<p>Context是一个接口</p>
-<pre><code class="language-go">type Context interface {
-  Deadline() (deadline time.Time, ok bool) // 超时
-  Done() &lt;-chan struct{}                   // 退出channel
-  Err() error                              // err报错
-  Value(key interface{}) interface{}       // context上下文value传递
-  
-}
-  
-</code></pre>
-</li>
-<li>
-<p>context.go包自带的常用三种初始化方式</p>
-<pre><code class="language-go">ctx,cancel:=context.WithCancel(context.Background())
-ctx,cancel:=context.WithDeadline(context.Background(),time.Now().Add(time.Second*10))
-ctx,cancle:=context.WithTimeout(context.Background(),time.Second*10)
-  
-//返回是一个ctx Context，和一个cancel 函数体
-  
-//ctx有三种方式 
-  
-</code></pre>
-</li>
-<li>
-<p>context.withValue（）使用 trace_code的场景</p>
-<pre><code class="language-go">  
-var (
-  wg sync.WaitGroup
+<p>init_router.go为init初始化目录</p>
+<pre><code class="language-go">import (
+  &quot;Edu-DevopsWeb/Controller/StaticHandler&quot;
+  &quot;github.com/gin-gonic/gin&quot;
 )
-// 按官方标准建立自己定义type
-type ContextTc struct {
-  Traceid string
+  
+  
+func InitDefaultRouter(m ...gin.HandlerFunc){
+  
+  
+  r:=gin.Default()
+//1.是否使用https
+  //if config2.ApplicationConfig.IsHttps {
+  //	r.Use(handler.TlsHandler())
+  //}
+  
+//2.是否使用中间件
+  // middleware.InitMiddleware(r)
+  // the jwt middleware
+  //authMiddleware, err := middleware.AuthInit()
+  //tools.HasError(err, &quot;JWT Init Error&quot;, 500)
+  
+ //3、注册系统路由
+      
+    InitSysRouter(r, authMiddleware)
+  //InitSysRouter(r,authMiddlerware)
+  
+//4. 注册业务路由
+  //	InitExamplesRouter(r, authMiddleware)
+  
+  
+  // Not Router 提示
+  r.NoRoute(StaticHandler.NotFound)
+  r.Run(&quot;:80&quot;)
 }
   
-func main(){
-  traceid :=ContextTc{Traceid: &quot;Trace_code&quot;}
-// ctx 上下文初始化
-    ctx,cancle:=context.WithTimeout(context.Background(),time.Second*10)
-  ctx=context.WithValue(ctx,traceid.Traceid,&quot;1&quot;)
   
-    defer cancle()
-  wg.Add(1)
-  go worker(ctx,traceid.Traceid)
-  wg.Wait()
+</code></pre>
+</li>
+<li>
+<p>分别定义 base路由和业务路由. 业务路由里又可以定义版本路由，认证路由，不需要认证的路由，这样的话，在以后的CURD过程中，就可以把需要版本控制，权限控制等路由添加到自定的方法中去。</p>
+<pre><code class="language-go">// 1.顶一个InitSysRouter 初始化业务路由，基本路由，需要check得路由等等
+func InitSysRouter( r *gin.Engine){
+  g:=r.Group(&quot;&quot;)
+  // init base router
+  InitBaseRouter(g)
+  // init 业务router(example)
+  V1(g)
+  // 无需认证
+  
 }
   
-func worker(ctx context.Context,traceid string){
+// 2. 定义基本路由
+func InitBaseRouter(g *gin.RouterGroup) {
+  g.GET(&quot;/&quot;,StaticHandler.HelloWorld)
+  g.GET(&quot;/info&quot;,StaticHandler.InfoHandlerFunc)
+}
   
-  select {
-        //超市或者cacncle()时，等待ctx.Done()
-      case &lt;-ctx.Done():
-          fmt.Println(&quot;context stop and exit&quot;)
-          return
-      default:
-          log.Printf(&quot;Trace_code %s: working&quot;,ctx.Value(traceid))
+  
+//3. 定义业务版本管理,
+func V1(g *gin.RouterGroup,authMiddleware ...gin.HandlerFunc){
+  g=g.Group(&quot;/v1&quot;)
+// 注册业务
+  {
+      InitDbrouter(g,)
   }
-  defer wg.Done()
+  
 }
+  
+  
+//4.定义业务路由方法
+func InitDbrouter(g *gin.RouterGroup, handlerFunc ...gin.HandlerFunc) {
+  
+  g.GET(&quot;/db/&quot;,Controller.DbGetHanderFunc)
+}
+  
+  
+  
   
 </code></pre>
 </li>
@@ -387,7 +438,7 @@ func worker(ctx context.Context,traceid string){
   <ul class="post-copyright list-unstyled">
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接: </strong>
-      <a href="https://zhangshunping.github.io/2020/06/golang-context/" title="Golang-Context" target="_blank" rel="external">https://zhangshunping.github.io/2020/06/golang-context/</a>
+      <a href="https://zhangshunping.github.io/2020/07/gin_router/" title="Gin_Router套路" target="_blank" rel="external">https://zhangshunping.github.io/2020/07/gin_router/</a>
     </li>
     <li class="post-copyright-license">
       <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
@@ -419,14 +470,9 @@ func worker(ctx context.Context,traceid string){
     <div class="bar-inner">
         <ul class="pager pull-left">
             <li class="prev">
-                <a href="https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85/" title="Golang-闭包场景总结"><i
+                <a href="https://zhangshunping.github.io/2020/07/kubectl-addons/" title="Kubectl Addons"><i
                         class="icon icon-angle-left"
                         aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
-            </li>
-            <li class="next">
-                <a href="https://zhangshunping.github.io/2020/07/gin_%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/"
-                    title="Gin框架常见用法"><span>上一篇&nbsp;&nbsp;</span><i
-                        class="icon icon-angle-right" aria-hidden="true"></i></a>
             </li>
             
             <li class="toggle-toc">
