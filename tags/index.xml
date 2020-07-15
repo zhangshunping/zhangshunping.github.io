@@ -5,10 +5,19 @@
     <link>https://zhangshunping.github.io/tags/</link>
     <description>Recent content in Tags on 面对疾风吧！</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 14 Jul 2020 10:54:39 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 15 Jul 2020 09:45:12 +0800</lastBuildDate>
     
         <atom:link href="https://zhangshunping.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kubectl Addons</title>
+      <link>https://zhangshunping.github.io/2020/07/kubectl-addons/</link>
+      <pubDate>Wed, 15 Jul 2020 09:45:12 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/kubectl-addons/</guid>
+      <description>[TOC] 背景 日常工作发现用kubectl 管理k8s集群虽然方便，但是针对某一些资源的CURD不是很好。 Kubect-addons 实对kubectl 命令的一个补充。使用到的</description>
+    </item>
     
     <item>
       <title>Gin框架常见用法</title>

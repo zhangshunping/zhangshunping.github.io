@@ -2,8 +2,7 @@
 <html lang="zh">
   <head>
     <title>
-        Iptables(一) - 面对疾风吧！
-      </title>
+        面对疾风吧！</title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -20,32 +19,25 @@
     <meta http-equiv="window-target" content="_top" />
     
     
-    <meta name="description" content="A smalll description" />
-    <meta name="generator" content="Hugo 0.69.2 with theme pure" />
-    <title>Iptables(一) - 面对疾风吧！</title>
     
+    <meta name="generator" content="Hugo 0.69.2 with theme pure" />
+    <title>面对疾风吧！</title>
+    
+    <link rel="alternate" type="application/rss+xml" href="https://zhangshunping.github.io/categories/k8s/index.xml" title="面对疾风吧！" />
     
     <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="Iptables(一)" />
-<meta property="og:description" content="A smalll description" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhangshunping.github.io/2020/05/iptables-1/" />
-<meta property="article:published_time" content="2020-05-15T10:05:02+08:00" />
-<meta property="article:modified_time" content="2020-05-15T10:05:02+08:00" />
-<meta itemprop="name" content="Iptables(一)">
-<meta itemprop="description" content="A smalll description">
-<meta itemprop="datePublished" content="2020-05-15T10:05:02&#43;08:00" />
-<meta itemprop="dateModified" content="2020-05-15T10:05:02&#43;08:00" />
-<meta itemprop="wordCount" content="1377">
-
-
-
-<meta itemprop="keywords" content="iptables,防火墙," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Iptables(一)"/>
-<meta name="twitter:description" content="A smalll description"/>
+    <meta property="og:title" content="k8s" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://zhangshunping.github.io/categories/k8s/" />
+<meta property="og:updated_time" content="2020-07-15T09:45:12+08:00" />
+<meta itemprop="name" content="k8s">
+<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="k8s"/>
+<meta name="twitter:description" content=""/>
 
     <!--[if lte IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -265,277 +257,47 @@
 
     
     
-<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
-  <div class="slimContent">
-    <h4 class="toc-title">文章目录</h4>
-    <nav id="toc" class="js-toc toc">
-
-    </nav>
-  </div>
-</aside>
-<main class="main" role="main"><div class="content">
-  <article id="-" class="article article-type-" itemscope
-    itemtype="http://schema.org/BlogPosting">
-    
-    <div class="article-header">
-      <h1 itemprop="name">
-  <a
-    class="article-title"
-    href="/2020/05/iptables-1/"
-    >Iptables(一)</a
-  >
-</h1>
-
-      <div class="article-meta">
+<main class="main" role="main">
+    <article class="article article-categories article-type-list" itemscope="">
+        <header class="article-header">
+            <h1 itemprop="name" class="hidden-xs">k8s</h1>
+            <p class="text-muted hidden-xs">共 6 个分类</p>
+            <nav role="navigation" id="nav-main" class="okayNav">
+                <ul>
+                    <li><a href="/categories/">All</a></li>
+                    <li><a href="https://zhangshunping.github.io/categories/gin/">Gin</a></li>
+                    <li><a href="https://zhangshunping.github.io/categories/k8s/">k8s</a></li>
+                    <li><a href="https://zhangshunping.github.io/categories/linux/">Linux</a></li>
+                    <li><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/">个人开源项目</a></li>
+                    <li><a href="https://zhangshunping.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络，安全</a></li>
+                    <li><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/">语言-golang</a></li>
+                </ul>
+            </nav>
+        </header>
         
-<span class="article-date">
-  <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://zhangshunping.github.io/2020/05/iptables-1/" class="article-date">
-  <time datetime="2020-05-15 10:05:02 &#43;0800 CST" itemprop="datePublished">2020-05-15</time>
+        <div class="article-body">
+            <div class="panel panel-default b-no">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapsebfd47ab5b430c23c83ea0d7b87b6e244" aria-expanded="true">
+                            <i class="icon icon-folder text-active"></i><i class="icon icon-folder-open text"></i>k8s
+                        </a>
+                        <small class="text-muted">(Total1 articles)</small>
+                    </h4>
+                </div>
+                <div id="collapsebfd47ab5b430c23c83ea0d7b87b6e244" class="panel-collapse collapse in" role="tabpanel"
+                    aria-labelledby="headingbfd47ab5b430c23c83ea0d7b87b6e244">
+                    <div class="panel-body">
+                        <div class="collection"><a href="https://zhangshunping.github.io/2020/07/kubectl-addons/" class="collection-item" itemprop="url" target="_blank">
+    <time datetime="2020-07-15 09:45:12 &#43;0800 CST" itemprop="datePublished" style="margin-right: 5px;">2020-07-15
+    </time>Kubectl Addons
 </a>
-</span>
-<span class="article-category">
-  <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"> 网络，安全 </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/iptables/"> iptables </a>
-    <a class="article-tag-link" href="/tags/%E9%98%B2%E7%81%AB%E5%A2%99/"> 防火墙 </a>
-  </span>
-
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/05/iptables-1/#comments"
-            class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1377字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
-      </div>
-    </div>
-    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <h4 id="四表五链">四表五链</h4>
-<h5 id="四表-五链">四表 五链</h5>
-<ul>
-<li>
-<p>filter&mdash; 过滤数据包</p>
-</li>
-<li>
-<p>nat &mdash; 用于网络地址转换（IP、端口）</p>
-</li>
-<li>
-<p>raw &mdash; 决定数据包是否被状态跟踪机制处理</p>
-</li>
-<li>
-<p>mangle &mdash;修改数据包的服务类型、TTL、并且可以配置路由实现QOS</p>
-</li>
-<li>
-<p>五链PREROUTING ,INPUT ,OUTPUT ,FORWARD,POSTROUTING</p>
-</li>
-</ul>
-<h5 id="命令增删改查">命令（增删改查）</h5>
-<h6 id="iptables-查询------l">iptables 查询    <code> -L</code></h6>
-<ul>
-<li>
-<p><code>iptables -t 表名 -vnL 链名</code> 不指定表名，及为filter表。</p>
-</li>
-<li>
-<p><code>iptables -vnL --line-number</code>  v显示详细说明，n不需要dns解析，&ndash;line-number显示num。</p>
-<pre><code class="language-shell">[root@local-master ~]# iptables -vnL --line-number
-Chain INPUT (policy ACCEPT 1453 packets, 109K bytes)
-num   pkts bytes target     prot opt in     out     source               destination  
-  
-Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
-num   pkts bytes target     prot opt in     out     source               destination  
-  
-Chain OUTPUT (policy ACCEPT 2108 packets, 146K bytes)
-num   pkts bytes target     prot opt in     out     source               destination  
-  
-</code></pre>
-<pre><code class="language-pkts:">//字典解释
-pkts：表示匹配的报文个数
-bytes:表示报文包的大小
-traget:表示规则对应的动作
-prot：表示协议
-in： 从哪个接口(网卡)流入
-out：从哪个接口（网卡）流出
-source：表示对应的源头地址，可以是ip也可以是网段
-destination：表示对应的目标地址，可以是ip也可以是网段
-</code></pre>
-</li>
-</ul>
-<h6 id="iptables-管理">iptables 管理</h6>
-<ul>
-<li>
-<p>增 <code>-I</code> 或者<code>-A</code></p>
-<p><code>iptables -t 表名 -I 链名 -s  -d -j </code> 在首行增加</p>
-<p><code>iptables -t 表名 -I  链名  2 -s  -d -j </code> 增加第二行</p>
-<p><code>iptables -t 表名 -A 链名 -s  -d -j </code> 在尾行增加</p>
-<p><code>iptables -t filter -I INPUT -s 192.168.2.35 -j ACCEPT</code></p>
-</li>
-<li>
-<p>删  <code>-D</code></p>
-<p><code>iptables -t 表名 -D 链名 第几行</code></p>
-<p><code>iptables -D INPUT 2</code></p>
-</li>
-<li>
-<p>改 <code>-R</code></p>
-<p>用-R，但是不建议使用，<strong>一般使用先删除，再增加的方式</strong>，如果非要用，必须要指定原来的条件</p>
-<p>如果执行</p>
-<p><code>iptables -R INPUT 3 -j REJECT</code> 则会变成这样，把源地址和目的地址都变成0.0.0.0/0 因此要<strong>慎用</strong></p>
-<p>使用 <code>-P</code> 修改链路的默认规则</p>
-<p><code>iptables -P  INPUT ACCEPT </code></p>
-</li>
-<li>
-<p>保存规则</p>
-<p><code>iptables-save &gt;/etc/sysconfig/iptables</code></p>
-<p><code>iptables-restore &lt; /etc/sysconfig/iptables</code></p>
-</li>
-</ul>
-<h5 id="iptables-条件匹配">iptables 条件匹配</h5>
-<ul>
-<li>
-<p>源地址条件匹配</p>
-<p><code>iptables -I INPUT -s 192.168.129.2,192.168.3.13 -j ACCEPT</code>  用<code>，</code>配置多个源地址</p>
-<p><strong>源地址取反操作</strong>   <code>！</code></p>
-<p><code>iptables -I INPUT 2 ! -s 192.168.2.244 -j ACCEPT</code>    这个语句的意思是，如果source ip不是192.168.23.2则往下执行。而不是说非192.168.2.2</p>
-</li>
-<li>
-<p>协议匹配</p>
-<p>-p</p>
-<p><code>iptables -I input -s 192.168.2.244 -p tcp -j REJECT</code>   只限制住tcp，但是icmp不限制</p>
-</li>
-<li>
-<p>网卡匹配：<code>-i -o</code></p>
-<p>-i 只能用在 PREROUTING，INPUT，FORWARD</p>
-<p>-o 只能用在 OUTPUT，POSTROUTING，FORWARD</p>
-<p><code>iptables -I input -s 192.168.2.244 -i eth0 -p  icmp -j REJECT </code>  对 网卡 限制ping</p>
-</li>
-</ul>
-<h5 id="iptables条件匹配扩展">iptables条件匹配扩展</h5>
-<ul>
-<li>tcp模块</li>
-</ul>
-<p>​    -p tcp -m tcp &ndash;dport |&ndash;sport 可以指定连续的端口，也可以指定单个端口，如果不指定-m tcp，则用-p的协议作为模块</p>
-<pre><code class="language-shell">#示列
-iptables -I INPUT -p tcp -m tcp --dport :25 -j ACCEPT
-iptables -I INPUT -p tcp --dport 30:  -j ACCEPT
-iptables -I INPUT -p tcp --dport 2000:4000  -j ACCEPT
-## 源地址不是22端口的接受
-iptables -I INPUT -p tcp -m tcp ! --sport 22 -j ACCEPT 
-
-#结果如下：
- 65  3868 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp spt:!22
-    0     0 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpts:2000:4000
-  522 26100 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpts:30:65535
-  154 11068 ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            tcp dpts:0:25
-
-
-</code></pre>
-<ul>
-<li>
-<p>multiport模块</p>
-<p>常用模块，指定离散的多个ip端口，用<code>,</code>隔开	注意是&ndash;dports和&ndash;sports</p>
-<pre><code>[root@local-master ~]# iptables -I INPUT -p tcp -m multiport --dports 8890,8888 -j DROP
-[root@local-master ~]# iptables -vnL
-Chain INPUT (policy ACCEPT 114 packets, 8028 bytes)
- pkts bytes target     prot opt in     out     source               destination         
-    0     0 DROP       tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            multiport dports 8890,8888
-  
-</code></pre>
-</li>
-<li>
-<p>iprange模块</p>
-<p><code>--src-range</code> 指定连续的源地址范围</p>
-<p><code>--dst-range</code> 指定连续的目的地址范围</p>
-<p><code> iptables -I INPUT -m iprange --src-range 192.168.2.1-192.168.2.244 -j ACCEPT</code></p>
-</li>
-<li>
-<p>string 模块  ，过滤关键字</p>
-</li>
-<li>
-<p>time 模块  ，  指定时间放行</p>
-</li>
-<li>
-<p>connlimt模块，限制ip的链接数量</p>
-</li>
-<li>
-<p>limit模块</p>
-<p><code>--limit-burst</code> 类似“令牌桶”算法，用于指定令牌桶的最大上限</p>
-<p><code>--limit </code>，类似&quot;令牌桶&quot;算法，指定令牌桶的生产新令牌的频率，可用时间为second，minute，hour，day</p>
-<pre><code class="language-shell">###例
-  
-##限制ping的速率 
-// 最大令牌为3个，每一分钟生成30个令牌，相当于每两秒钟生成一个令牌，及每两秒钟放行一个
-iptables -I INPUT -p icmp -m limit --limit-burst 3 --limit 30/minute -j ACCEPT
-//如果iptables 的默认规则为ACCEPT，需要用REJECT做往下匹配限制
-iptables -A INPUT -p icmp -j REJECT
-</code></pre>
-</li>
-</ul>
-
-    </div>
-    <div class="article-footer">
-<blockquote class="mt-2x">
-  <ul class="post-copyright list-unstyled">
-    <li class="post-copyright-link hidden-xs">
-      <strong>本文链接: </strong>
-      <a href="https://zhangshunping.github.io/2020/05/iptables-1/" title="Iptables(一)" target="_blank" rel="external">https://zhangshunping.github.io/2020/05/iptables-1/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
-    </li>
-  </ul>
-</blockquote>
-
-<div class="panel panel-default panel-badger">
-  <div class="panel-body">
-    <figure class="media">
-      <div class="media-left">
-        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
-          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
-        </a>
-      </div>
-      <div class="media-body">
-        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
-        <div>Good Good Study, Day Day Up~</div>
-      </div>
-    </figure>
-  </div>
-</div>
-    </div>
-  </article>
-<section id="comments">
-</section>
-
-</div><nav class="bar bar-footer clearfix" data-stick-bottom>
-    <div class="bar-inner">
-        <ul class="pager pull-left">
-            <li class="prev">
-                <a href="https://zhangshunping.github.io/2020/05/iptables-2/" title="Iptables(二)"><i
-                        class="icon icon-angle-left"
-                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
-            </li>
-            <li class="next">
-                <a href="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/"
-                    title="Golang-Channel死锁场景总结"><span>上一篇&nbsp;&nbsp;</span><i
-                        class="icon icon-angle-right" aria-hidden="true"></i></a>
-            </li>
-            
-            <li class="toggle-toc">
-                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
-                    title="文章目录" role="button">
-                    <span>[&nbsp;</span><span>文章目录</span>
-                    <i class="text-collapsed icon icon-anchor"></i>
-                    <i class="text-in icon icon-close"></i>
-                    <span>]</span>
-                </a>
-            </li>
-        </ul>
-        <div class="bar-right">
-            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
-                data-mobile-sites="weibo,qq,qzone"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</nav>
-
+    </article>
 </main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
 <ul class="social-links">
     <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
@@ -610,7 +372,6 @@ iptables -A INPUT -p icmp -j REJECT
         hasInnerContainers: true,
     });
 </script>
-
 
   </body>
 </html>
