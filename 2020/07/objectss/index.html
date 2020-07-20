@@ -2,7 +2,7 @@
 <html lang="zh">
   <head>
     <title>
-        Healthy - 背对疾风吧！
+        objectss - 背对疾风吧！
       </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,32 +20,32 @@
     <meta http-equiv="window-target" content="_top" />
     
     
-    <meta name="description" content="个人开源小工具" />
+    <meta name="description" content="golang实现云存储迁移任务" />
     <meta name="generator" content="Hugo 0.69.2 with theme pure" />
-    <title>Healthy - 背对疾风吧！</title>
+    <title>objectss - 背对疾风吧！</title>
     
     
     <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="Healthy" />
-<meta property="og:description" content="个人开源小工具" />
+    <meta property="og:title" content="objectss" />
+<meta property="og:description" content="golang实现云存储迁移任务" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhangshunping.github.io/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/" />
-<meta property="article:published_time" content="2020-06-15T18:27:19+08:00" />
-<meta property="article:modified_time" content="2020-06-15T18:27:19+08:00" />
-<meta itemprop="name" content="Healthy">
-<meta itemprop="description" content="个人开源小工具">
-<meta itemprop="datePublished" content="2020-06-15T18:27:19&#43;08:00" />
-<meta itemprop="dateModified" content="2020-06-15T18:27:19&#43;08:00" />
-<meta itemprop="wordCount" content="475">
+<meta property="og:url" content="https://zhangshunping.github.io/2020/07/objectss/" />
+<meta property="article:published_time" content="2020-07-17T09:40:12+08:00" />
+<meta property="article:modified_time" content="2020-07-17T09:40:12+08:00" />
+<meta itemprop="name" content="objectss">
+<meta itemprop="description" content="golang实现云存储迁移任务">
+<meta itemprop="datePublished" content="2020-07-17T09:40:12&#43;08:00" />
+<meta itemprop="dateModified" content="2020-07-17T09:40:12&#43;08:00" />
+<meta itemprop="wordCount" content="448">
 
 
 
 <meta itemprop="keywords" content="Golang," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Healthy"/>
-<meta name="twitter:description" content="个人开源小工具"/>
+<meta name="twitter:title" content="objectss"/>
+<meta name="twitter:description" content="golang实现云存储迁移任务"/>
 
     <!--[if lte IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -285,8 +285,8 @@
       <h1 itemprop="name">
   <a
     class="article-title"
-    href="/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/"
-    >Healthy</a
+    href="/2020/07/objectss/"
+    >objectss</a
   >
 </h1>
 
@@ -294,8 +294,8 @@
         
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://zhangshunping.github.io/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/" class="article-date">
-  <time datetime="2020-06-15 18:27:19 &#43;0800 CST" itemprop="datePublished">2020-06-15</time>
+<a href="https://zhangshunping.github.io/2020/07/objectss/" class="article-date">
+  <time datetime="2020-07-17 09:40:12 &#43;0800 CST" itemprop="datePublished">2020-07-17</time>
 </a>
 </span>
 <span class="article-category">
@@ -307,65 +307,70 @@
     <a class="article-tag-link" href="/tags/golang/"> Golang </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/#comments"
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/07/objectss/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 475字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 448字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
       <p>[TOC]</p>
-<h4 id="需求背景">需求背景</h4>
-<p>​		公司的2B业务落地后，应用服务因为一些突发状况出现不在线情况。</p>
+<h1 id="objectss">objectss</h1>
+<hr>
+<p><a href="https://github.com/zhangshunping/objectss">objectss</a> 是为大数据大并发迁移到对象存储上而设计开源小项目。</p>
+<h3 id="purpose">Purpose</h3>
+<ul>
+<li>背景： 公司战略问题，需要从阿里云迁移到华为云；使用的git服务器，有10T的存储容量，希望高并发的执行迁移任务，同时将一些不经常使用的git仓库存储在<strong>云对象存储</strong>上，等到要用时候去上面拉取。</li>
+<li>选择：使用golang高并发的执行迁移任务,对接云存储的结构，进行数据传输。</li>
+</ul>
+<h3 id="model">Model</h3>
+<h4 id="基于生产者多个消费者模型">基于生产者多个消费者模型</h4>
 <ul>
 <li>
-<p>一些小型客户关注的是SAAS业务，不太关心运维体系，也没有充裕的资源建立一套运维系统。</p>
+<p>生产者</p>
+<ul>
+<li>通过查询sql中记录的gitpath路径，放入到带缓冲区的管道中</li>
+</ul>
 </li>
 <li>
-<p>开源组件建立本地版运维体系，较为烦躁。</p>
-</li>
-<li>
-<p>希望能够建立一套健康检测系统，在服务出现问题是，能够到连接到指定的机器上执行HOOK命令；同时根据用户实际情况，建立通知系统。</p>
-<p>由于最近半年在golang方面的东西，因此用golang语言写了一个Healthy健康检测服务，取名为<a href="https://gitee.com/zhangshunping123/Healthy.git">Healthy</a></p>
+<p>消费者</p>
+<ul>
+<li>根据参数-s 指定的int值(默认10) 启用的消费者go程执行 obs/oss 迁移任务</li>
+<li>如果迁移成功，则修改数据中的flag oss=1证明已经迁移到cloud 对象存储上了，如果迁移命令失败
+则oss 仍然为0</li>
+</ul>
 </li>
 </ul>
-<h4 id="介绍">介绍</h4>
-<p>Healthy是一个通过golang语言写的服务健康检测服务，再发现连续报错之后会通过ssh协议链接指定的主机上执行Hook指令。同时根据用户自定义的Email开关，实现邮件通知（故障报警，恢复通知，报警冷却）。</p>
-<h4 id="软件架构">软件架构</h4>
-<pre><code>- Appservice 服务注册，检测，执行Hook
-- Sshconnect ssh模块
-- Email 报警邮件
-</code></pre>
-<h5 id="hook操作函数">Hook操作函数：</h5>
-<pre><code>- 执行cmd命令 
-- 执行通知事件
-</code></pre>
-<h4 id="安装教程">安装教程</h4>
-<pre><code>git clone https://gitee.com/zhangshunping123/Healthy.git
-go build -o healthy -i main.go
-chmod +x healthy 
-mv healthy /usr/bin/
-</code></pre>
-<h4 id="使用说明">使用说明</h4>
-<pre><code>mkdir -p ~/.health/
-cp config.json ~/.health/
+<h3 id="help">Help</h3>
+<pre><code class="language-go">
+$ go run main.go -h
+upload files to cloud oss
 
-$ ./main.exe -h
-Usage of C:\Users\39295\Desktop\Healthy\main.exe:
-  -c string
-        Configfile for service health detection (default &quot;~/.health/config.json&quot;)
-  -e int
-        Number of consecutive health test failures (default 10)
-  -h    help
-  -i int
-        Health check interval (default 2)
+Usage:
+  objectss [command]
+
+Available Commands:
+  help        Help about any command
+  obs         huawei cloud obs
+  oss         aliyun object oss
+
+Flags:
+  -c, --ChannelCap int            channle cap (-c 10) (default 10)
+  -l, --ObjectStorgeLink string   oss/obs link (-o oss://educoder.tmp ) (default &quot;oss://educoder.tmp&quot;)
+      --config string             config file (default is $HOME/.objectss.yaml)
+  -s, --consusmerNum int          Run the number of comsumer goroutines (-s 100) (default 100)
+  -h, --help                      help for objectss
+  -n, --sqlLimits int             sql limit nums (-n 1000)  (default 1000)
+      --sqlcon string             connect sql (default is $HOME/.objectss.yaml)  (default &quot;root:123456789@tcp(127.0
+.0.1:3306)/gitlab&quot;)
+  -d, --sqldays int               select data from mysql 15 days ago (-d -15)  (default -15)
+  -t, --toggle                    Help message for toggle
+
+Use &quot;objectss [command] --help&quot; for more information about a command.
+
 </code></pre>
-<h4 id="需要补充">需要补充</h4>
-<ul>
-<li>hook interface化</li>
-<li>多种 通知方式接入</li>
-<li>视图友好</li>
-</ul>
+<h3 id="需补充">需补充</h3>
+<p>oss和obs存储迁移的 命令嵌入</p>
 
     </div>
     <div class="article-footer">
@@ -373,7 +378,7 @@ Usage of C:\Users\39295\Desktop\Healthy\main.exe:
   <ul class="post-copyright list-unstyled">
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接: </strong>
-      <a href="https://zhangshunping.github.io/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/" title="Healthy" target="_blank" rel="external">https://zhangshunping.github.io/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/</a>
+      <a href="https://zhangshunping.github.io/2020/07/objectss/" title="objectss" target="_blank" rel="external">https://zhangshunping.github.io/2020/07/objectss/</a>
     </li>
     <li class="post-copyright-license">
       <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
@@ -405,13 +410,13 @@ Usage of C:\Users\39295\Desktop\Healthy\main.exe:
     <div class="bar-inner">
         <ul class="pager pull-left">
             <li class="prev">
-                <a href="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/" title="Golang-Channel死锁场景总结"><i
+                <a href="https://zhangshunping.github.io/2020/07/gin_router/" title="Gin_Router套路"><i
                         class="icon icon-angle-left"
                         aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
             </li>
             <li class="next">
-                <a href="https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/"
-                    title="Golang-闭包场景总结"><span>上一篇&nbsp;&nbsp;</span><i
+                <a href="https://zhangshunping.github.io/2020/07/export-execl/"
+                    title="Export-execl"><span>上一篇&nbsp;&nbsp;</span><i
                         class="icon icon-angle-right" aria-hidden="true"></i></a>
             </li>
             

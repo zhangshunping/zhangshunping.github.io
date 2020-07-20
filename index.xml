@@ -20,6 +20,15 @@
     </item>
     
     <item>
+      <title>objectss</title>
+      <link>https://zhangshunping.github.io/2020/07/objectss/</link>
+      <pubDate>Fri, 17 Jul 2020 09:40:12 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/objectss/</guid>
+      <description>[TOC] objectss objectss 是为大数据大并发迁移到对象存储上而设计开源小项目。 Purpose 背景： 公司战略问题，需要从阿里云迁移到华为云；使用的git服务器，有10T的存储容</description>
+    </item>
+    
+    <item>
       <title>Gin_Router套路</title>
       <link>https://zhangshunping.github.io/2020/07/gin_router/</link>
       <pubDate>Wed, 15 Jul 2020 10:54:39 +0800</pubDate>
