@@ -91,6 +91,15 @@
     </item>
     
     <item>
+      <title>awk工具使用总结</title>
+      <link>https://zhangshunping.github.io/2020/05/awk/</link>
+      <pubDate>Fri, 15 May 2020 10:05:02 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/awk/</guid>
+      <description>[ToC] 目的 在实际的生产中能够熟练的使用awk ，sed ，grep等文本操作工具，对故障的快速定位，日志分析等有很大帮助，于是根据自己的实际的生产经</description>
+    </item>
+    
+    <item>
       <title>Iptables(一)</title>
       <link>https://zhangshunping.github.io/2020/05/iptables-1/</link>
       <pubDate>Fri, 15 May 2020 10:05:02 +0800</pubDate>
@@ -124,6 +133,15 @@
       
       <guid>https://zhangshunping.github.io/2020/05/rsync/</guid>
       <description>rysnc 常用选项 rsync常用选项 -a 包含-rtplgoD -r 同步目录时要加上，类似cp时的-r选项 -v 同步时显示一些信息，让我们知道同步的过程 -l 小写l</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/istio-1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/istio-1/</guid>
+      <description>[TOC] Istio版本 &amp;gt;=1.5 安装 ## kubernetes上安装istioctl ##1. istio安装 profile为demo的istio 集群 istioctl manifest apply --set profile=demo ##2. 修改i</description>
     </item>
     
   </channel>

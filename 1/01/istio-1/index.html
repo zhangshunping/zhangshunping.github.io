@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+         - 背对疾风吧！
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="[TOC] Istio版本 &amp;gt;=1.5 安装 ## kubernetes上安装istioctl ##1. istio安装 profile为demo的istio 集群 istioctl manifest apply --set profile=demo ##2. 修改i" />
+    <meta name="generator" content="Hugo 0.69.2 with theme pure" />
+    <title> - 背对疾风吧！</title>
+    
+    
+    <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="" />
+<meta property="og:description" content="[TOC] Istio版本 &gt;=1.5 安装 ## kubernetes上安装istioctl ##1. istio安装 profile为demo的istio 集群 istioctl manifest apply --set profile=demo ##2. 修改i" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/1/01/istio-1/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="[TOC] Istio版本 &gt;=1.5 安装 ## kubernetes上安装istioctl ##1. istio安装 profile为demo的istio 集群 istioctl manifest apply --set profile=demo ##2. 修改i">
+
+<meta itemprop="wordCount" content="1196">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="[TOC] Istio版本 &gt;=1.5 安装 ## kubernetes上安装istioctl ##1. istio安装 profile为demo的istio 集群 istioctl manifest apply --set profile=demo ##2. 修改i"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/zhangshunping" target="_blank">
+            <img class="img-circle img-rotate" src="https://zhangshunping.github.io/touxiang.ico" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">张顺平</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">个人头像</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>Weclome to my Blog!! </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/gin/" class="category-list-link">gin</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="category-list-link">个人开源小工具</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/" class="category-list-link">语言-golang</a><span class="category-list-count">4</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/awk/" class="tag-list-link">awk</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/gin/" class="tag-list-link">gin</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang/" class="tag-list-link">golang</a><span
+                    class="tag-list-count">8</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang-channel/" class="tag-list-link">golang-channel</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/iptables/" class="tag-list-link">iptables</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/rync/" class="tag-list-link">rync</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/export-execl/" class="title">Export-execl</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-20 09:45:12 &#43;0800 CST" itemprop="datePublished">2020-07-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/objectss/" class="title">objectss</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-17 09:40:12 &#43;0800 CST" itemprop="datePublished">2020-07-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/gin_router/" class="title">Gin_Router套路</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-15 10:54:39 &#43;0800 CST" itemprop="datePublished">2020-07-15</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/kubectl-addons/" class="title">Kubectl Addons</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-15 09:45:12 &#43;0800 CST" itemprop="datePublished">2020-07-15</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/gin_%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/" class="title">Gin框架常见用法</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-14 10:54:39 &#43;0800 CST" itemprop="datePublished">2020-07-14</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/1/01/istio-1/"
+    ></a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/1/01/istio-1/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1196字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>[TOC]</p>
+<h3 id="istio版本-15">Istio版本 &gt;=1.5</h3>
+<h4 id="安装">安装</h4>
+<pre><code class="language-shell">## kubernetes上安装istioctl
+
+##1. istio安装 profile为demo的istio 集群
+istioctl manifest apply --set profile=demo
+##2. 修改ingeress 如果没有loadbalance 则修改为 nodeport
+kubectl patch svc istio-ingressgateway -nistio-system  -p '{&quot;spec&quot;:{&quot;type&quot;:&quot;NodePort&quot;}}'
+##3. kubectl get all -nistio-system
+##4. 卸载istio
+istioctl manifest generate --set profile=demo | kubectl delete -f -
+</code></pre>
+<h3 id="istioctl-使用">Istioctl 使用</h3>
+<h4 id="profile">profile</h4>
+<pre><code class="language-shell">istioctl profile list
+istioctl profile dump default &gt;default.yaml 
+## 一般对端口修改的时候可以使用这样的方式dump下来,修改完之后执行
+## istioctl manifest apply -f defaul.yaml 
+</code></pre>
+<h4 id="inject">Inject</h4>
+<p>解释：Inject Envoy sidecar into Kubernetes pod resources（针对service ，secrete,configmap 资源不起作用）。</p>
+<ul>
+<li>主动注入envoy sidecar</li>
+</ul>
+<pre><code class="language-shell">istioctl kube-inject -f deploynginx.yaml |kubectl apply -f - -n default
+</code></pre>
+<ul>
+<li>自动注入</li>
+</ul>
+<pre><code class="language-shell">## 给命名空间打入标签 istio-injection=enable, 则在此命令空间下的资源，都会被自动注入sidecar。
+istioctl label ns  jixu istio-injection=enabled
+</code></pre>
+<ul>
+<li>
+<p>istio-proxy 运行原理</p>
+<p><img src="istio-1.assets/image-20200727160952313.png" alt="image-20200727160952313"></p>
+</li>
+</ul>
+<p>​</p>
+<p>如图：   nginx Pod中会同时启动三个容器分别是：</p>
+<ul>
+<li>
+<p>initContainer</p>
+<ul>
+<li>执行 istio-iptables脚本创建istio的四个链路，创建完之后退出</li>
+</ul>
+</li>
+<li>
+<p>Istio-Proxy(istio-pilot,envoy)</p>
+<pre><code class="language-shell">[root@k8s-slave01 ~]# kubectl exec -it  nginx-64759d697c-mgxqb -c istio-proxy -- ps -ef
+UID        PID  PPID  C STIME TTY          TIME CMD
+istio-p+     1     0  0 08:12 ?        00:00:00 /usr/local/bin/pilot-agent proxy
+istio-p+    19     1  0 08:12 ?        00:00:01 /usr/local/bin/envoy -c etc/isti
+istio-p+    51     0  0 08:15 pts/0    00:00:00 ps -ef
+     
+</code></pre>
+<ul>
+<li>运行istio&ndash;agent,根据pilot-discovery 同步数据（pilot-discovery是运行在k8s istio-system下的istiod服务端，它watch kube-apiserver的变化，当用户对k8s资源进行操作时，istiod会同步 api-server的资源，istio-proxy中的istio-agent容器sync istio-disvoery的配置规则，istio-agent将配置文件策略和行为告诉envoy，从而实现对流量控制和行为管理）</li>
+<li>envoy 是一个轻量级的代理服务。</li>
+</ul>
+</li>
+<li>
+<p>nginx Container</p>
+<ul>
+<li>web业务容器</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意小技巧</strong>：initContainer和istio-proxy用的时同一个镜像，而initContainer执行完istio-iptables脚本之后，就退出，Iistio-agent一直运行是因为,</p>
+<p>镜像中的entypoint是</p>
+<pre><code> &quot;Entrypoint&quot;: [
+                &quot;/usr/local/bin/pilot-agent&quot;
+               
+</code></pre>
+<p>initContainers 中使用的command</p>
+<pre><code class="language-shell">    enableServiceLinks: true
+    initContainers:
+    - Commnads:
+      - istio-iptables
+</code></pre>
+<p>k8s 中的command覆盖dockerfile中entryPoint， 不过istio 1.65不再使用这种方式，initContainer直接是args，可能对命令做了封装。</p>
+<h3 id="istio-traffic-management">Istio Traffic Management</h3>
+<p>流量管理简单点就是：使用<strong>策略</strong>控制流量的<strong>流向</strong>和<strong>大小</strong>。</p>
+<p>同时，业务代码只需要关注业务，超时和重连等机制直接交给istio流量管理即可。</p>
+<p><strong>Istio Architecture：（istio 1.5之后）</strong></p>
+<p><img src="istio-1.assets/image-20200727170934967.png" alt="image-20200727170934967"></p>
+<ul>
+<li>数据面流量：业务之间调用的流量</li>
+<li>控制面流量：istio各组件之间配置和控制网格行为的流量</li>
+</ul>
+<h4 id="istio-virtual-service">Istio virtual service</h4>
+<ul>
+<li>
+<p>概念： virtual service 是一个抽象概念，简单点可以认为是一个virtual service 是一个类似nginx.conf中location 这样的片段文件</p>
+</li>
+<li>
+<p>配置：</p>
+<ul>
+<li>hosts filed：  可配置为 短域名（servicename),长域名(servicename.namesapce.default.local.cluster) 和ingress controller</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/1/01/istio-1/" title="" target="_blank" rel="external">https://zhangshunping.github.io/1/01/istio-1/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="next">
+                <a href="https://zhangshunping.github.io/2020/05/rsync/"
+                    title="Rsync"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://zhangshunping.github.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://zhangshunping.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://zhangshunping.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/zhangshunping.github.io',
+            CONTENT_URL: 'https:\/\/zhangshunping.github.io\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://zhangshunping.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

@@ -150,6 +150,20 @@
   </url>
   
   <url>
+    <loc>https://zhangshunping.github.io/tags/awk/</loc>
+    <lastmod>2020-05-15T10:05:02+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhangshunping.github.io/2020/05/awk/</loc>
+    <lastmod>2020-05-15T10:05:02+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhangshunping.github.io/tags/iptables/</loc>
     <lastmod>2020-05-15T10:05:02+08:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -171,14 +185,14 @@
   </url>
   
   <url>
-    <loc>https://zhangshunping.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/</loc>
+    <loc>https://zhangshunping.github.io/tags/linux/</loc>
     <lastmod>2020-05-15T10:05:02+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://zhangshunping.github.io/tags/%E9%98%B2%E7%81%AB%E5%A2%99/</loc>
+    <loc>https://zhangshunping.github.io/categories/linux/</loc>
     <lastmod>2020-05-15T10:05:02+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -186,20 +200,6 @@
   
   <url>
     <loc>https://zhangshunping.github.io/2020/05/golang-channel/</loc>
-    <lastmod>2020-05-12T14:00:23+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhangshunping.github.io/tags/linux/</loc>
-    <lastmod>2020-05-12T14:00:23+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhangshunping.github.io/categories/linux/</loc>
     <lastmod>2020-05-12T14:00:23+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -215,6 +215,12 @@
   <url>
     <loc>https://zhangshunping.github.io/tags/rync/</loc>
     <lastmod>2020-05-12T14:00:23+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhangshunping.github.io/1/01/istio-1/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

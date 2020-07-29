@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        awk工具使用总结 - 背对疾风吧！
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="A smalll description" />
+    <meta name="generator" content="Hugo 0.69.2 with theme pure" />
+    <title>awk工具使用总结 - 背对疾风吧！</title>
+    
+    
+    <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="awk工具使用总结" />
+<meta property="og:description" content="A smalll description" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/2020/05/awk/" />
+<meta property="article:published_time" content="2020-05-15T10:05:02+08:00" />
+<meta property="article:modified_time" content="2020-05-15T10:05:02+08:00" />
+<meta itemprop="name" content="awk工具使用总结">
+<meta itemprop="description" content="A smalll description">
+<meta itemprop="datePublished" content="2020-05-15T10:05:02&#43;08:00" />
+<meta itemprop="dateModified" content="2020-05-15T10:05:02&#43;08:00" />
+<meta itemprop="wordCount" content="2351">
+
+
+
+<meta itemprop="keywords" content="awk,linux," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="awk工具使用总结"/>
+<meta name="twitter:description" content="A smalll description"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/zhangshunping" target="_blank">
+            <img class="img-circle img-rotate" src="https://zhangshunping.github.io/touxiang.ico" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">张顺平</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">个人头像</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>Weclome to my Blog!! </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/gin/" class="category-list-link">gin</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="category-list-link">个人开源小工具</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/" class="category-list-link">语言-golang</a><span class="category-list-count">4</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/awk/" class="tag-list-link">awk</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/gin/" class="tag-list-link">gin</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang/" class="tag-list-link">golang</a><span
+                    class="tag-list-count">8</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang-channel/" class="tag-list-link">golang-channel</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/iptables/" class="tag-list-link">iptables</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/rync/" class="tag-list-link">rync</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/export-execl/" class="title">Export-execl</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-20 09:45:12 &#43;0800 CST" itemprop="datePublished">2020-07-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/objectss/" class="title">objectss</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-17 09:40:12 &#43;0800 CST" itemprop="datePublished">2020-07-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/gin_router/" class="title">Gin_Router套路</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-15 10:54:39 &#43;0800 CST" itemprop="datePublished">2020-07-15</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/kubectl-addons/" class="title">Kubectl Addons</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-15 09:45:12 &#43;0800 CST" itemprop="datePublished">2020-07-15</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/gin_%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/" class="title">Gin框架常见用法</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-14 10:54:39 &#43;0800 CST" itemprop="datePublished">2020-07-14</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2020/05/awk/"
+    >awk工具使用总结</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://zhangshunping.github.io/2020/05/awk/" class="article-date">
+  <time datetime="2020-05-15 10:05:02 &#43;0800 CST" itemprop="datePublished">2020-05-15</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/linux/"> linux </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/awk/"> awk </a>
+    <a class="article-tag-link" href="/tags/linux/"> linux </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/05/awk/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2351字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>[ToC]</p>
+<h3 id="目的">目的</h3>
+<p>在实际的生产中能够熟练的使用awk ，sed ，grep等文本操作工具，对故障的快速定位，日志分析等有很大帮助，于是根据自己的实际的生产经验，总结一下awk的用法。</p>
+<h3 id="awk-基本结构">awk 基本结构</h3>
+<pre><code class="language-shell">awk 'BEGIN{ print &quot;start&quot; } pattern{ commands } END{ print &quot;end&quot; }' file
+</code></pre>
+<p>一个awk脚本通常由：BEGIN语句块、能够使用模式匹配的通用语句块、END语句块3部分组成，这三个部分是可选的。任意一个部分都可以不出现在脚本中，脚本通常是被<strong>单引号</strong>或<strong>双引号</strong>中，例如：</p>
+<pre><code class="language-shell">awk 'BEGIN{ i=0 } { i++ } END{ print i }' filename
+##上面的方法跟cat filename|wc -l 的效果一样
+
+</code></pre>
+<h3 id="awk-常见内置变量">awk 常见内置变量</h3>
+<pre><code>$n 当前记录的第n个字段，比如n为1表示第一个字段，n为2表示第二个字段。 
+$0 这个变量包含执行过程中当前行的文本内容。
+[A] FILENAME 当前输入文件的名。
+[A] FS 字段分隔符（默认是任何空格）。
+[A] NF 表示字段数，在执行过程中对应于当前的字段数。
+[A] NR 表示记录数，在执行过程中对应于当前的行号。
+[A] OFMT 数字的输出格式（默认值是%.6g）。
+[A] OFS 输出字段分隔符（默认值是一个空格）。
+[A] ORS 输出记录分隔符（默认值是一个换行符）。
+[A] RS 记录分隔符（默认是一个换行符）。
+</code></pre>
+<h5 id="nr和fnr">NR和FNR</h5>
+<ul>
+<li>
+<p>NR：表示awk开始执行程序后所读取的数据行数。</p>
+<p>FNR：awk当前读取的记录数，其变量值小于等于NR（比如当读取第二个文件时，FNR是从0开始重新计数，而NR不会）。</p>
+</li>
+</ul>
+<p><img src="Awk.assets/image-20200729152611679.png" alt="image-20200729152611679"></p>
+<ul>
+<li>
+<p>NR==FNR：用于在读取两个或两个以上的文件时，判断是不是在读取第一个文件</p>
+<pre><code class="language-shell">  
+[root@k8s-master01 tmp]# cat a
+张三|000001
+李四|000002
+[root@k8s-master01 tmp]# cat b
+000001|10
+000001|20
+000002|30
+000002|15
+[root@k8s-master01 tmp]# awk -F '|' 'NR==FNR{a[$2]=$0;next}{print a[$1]&quot;|&quot;$2,$0}' a b
+张三|000001|10 000001|10
+张三|000001|20 000001|20
+李四|000002|30 000002|30
+李四|000002|15 000002|15
+</code></pre>
+</li>
+<li>
+<p>打印指定行数</p>
+<pre><code class="language-shell">[root@k8s-master01 tmp]# awk '{if(NR==3)print NR&quot;:&quot;$0}' a.txt 
+3:hello mysql redis ceph 
+[root@k8s-master01 tmp]# awk 'NR==3 {print NR&quot;:&quot;$0}' a.txt
+3:hello mysql redis ceph 
+</code></pre>
+</li>
+</ul>
+<h5 id="nf">NF</h5>
+<ul>
+<li>
+<p>NF和$NF</p>
+<p>NF表示字段数，在执行过程中对应于当前的字段数。$NF表示最后一列，$(NF_1)表示倒数第二列</p>
+<pre><code class="language-shell">[root@k8s-master01 tmp]# cat a|awk -F \| '{print $0}'
+张三|000001
+李四|000002
+[root@k8s-master01 tmp]# cat a|awk -F \| '{print $NF}'
+000001
+000002
+[root@k8s-master01 tmp]# cat a|awk -F \| '{print $(NF-1)}'
+张三
+李四
+  
+   
+[root@k8s-master01 tmp]# cat a
+张三|000001
+李四|000002
+李四|000002|000004
+[root@k8s-master01 tmp]# awk -F \| '{printf &quot;文件夹%s,第%s行的列个数是%s \n&quot;, FILENAME,NR,NF}' a
+文件夹a,第1行的列个数是2 
+文件夹a,第2行的列个数是2 
+文件夹a,第3行的列个数是3 
+  
+</code></pre>
+</li>
+</ul>
+<h5 id="-v--传递外部变量">-v  传递外部变量</h5>
+<pre><code class="language-shell">[root@k8s-master01 tmp]# awk -v asd=&quot;asdasd&quot; -F \| '{printf &quot;文件夹%s,第%s行的列个数是%s, %s\n&quot;, FILENAME,NR,NF,asd }'  a
+文件夹a,第1行的列个数是2, asdasd
+文件夹a,第2行的列个数是2, asdasd
+文件夹a,第3行的列个数是3, asdasd
+
+</code></pre>
+<h3 id="awk运算与判断">awk运算与判断</h3>
+<h4 id="算术运算符">算术运算符</h4>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">+ -</td>
+<td align="left">加，减</td>
+</tr>
+<tr>
+<td align="left">* / &amp;</td>
+<td align="left">乘，除与求余</td>
+</tr>
+<tr>
+<td align="left">+ - !</td>
+<td align="left">一元加，减和逻辑非</td>
+</tr>
+<tr>
+<td align="left">^ ***</td>
+<td align="left">求幂</td>
+</tr>
+<tr>
+<td align="left">++ &ndash;</td>
+<td align="left">增加或减少，作为前缀或后缀</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-shell">[root@k8s-master01 tmp]# awk 'BEGIN{a=0}{print a++,++a}'  
+
+0 2
+
+2 4
+
+4 6
+
+</code></pre>
+<h4 id="逻辑运算符">逻辑运算符</h4>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">||</td>
+<td align="left">逻辑或</td>
+</tr>
+<tr>
+<td align="left">&amp;&amp;</td>
+<td align="left">逻辑与</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-shell">[root@k8s-master01 tmp]# awk 'BEGIN{a=10;b=1;if (a&gt;5 &amp;&amp; a&lt;10) ;print a}'  
+10
+[root@k8s-master01 tmp]# awk 'BEGIN{a=10;b=1;(a&gt;5 &amp;&amp; a&lt;10) ;print a}'  
+10
+</code></pre>
+<h4 id="正则运算符">正则运算符</h4>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">~ ~!</td>
+<td align="left">匹配正则表达式和不匹配正则表达式</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-shell">[root@k8s-master01 tmp]# awk 'BEGIN{a=&quot;abferbsdasd&quot; ; if (a ~ /^ab/){print a}}'  
+abferbsdasd
+[root@k8s-master01 tmp]# awk 'BEGIN{a=&quot;sdferbsdasd&quot; ; if (a ~ /^ab/){print a}}'  
+</code></pre>
+<h4 id="其它运算符">其它运算符</h4>
+<table>
+<thead>
+<tr>
+<th align="left">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">$</td>
+<td align="left">字段引用</td>
+</tr>
+<tr>
+<td align="left">空格</td>
+<td align="left">字符串连接符</td>
+</tr>
+<tr>
+<td align="left">?:</td>
+<td align="left">C条件表达式</td>
+</tr>
+<tr>
+<td align="left">in</td>
+<td align="left">数组中是否存在某键值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="awk高级输入输出">awk高级输入输出</h3>
+<h4 id="next-用法">next 用法</h4>
+<p>awk中<code>next</code>语句使用：在循环逐行匹配，如果遇到next，就会跳过当前行，直接忽略下面语句。而进行下一行匹配。next语句一般用于多行合并,next是跳出，类似于continue，不执行后面表达式。</p>
+<ul>
+<li>
+<p>打印偶数行</p>
+<pre><code class="language-shell">## 第一种方法
+[root@k8s-master01 tmp]# awk '{if (NR%2==0){printf &quot;这是第%s行，打印最后一列是%s \n&quot;, NR,$NF}}'\n a.txt 
+这是第2行，打印最后一列是cloudNative 
+这是第4行，打印最后一列是kafak 
+这是第6行，打印最后一列是c 
+这是第8行，打印最后一列是Django 
+## 第二种方法用next
+[root@k8s-master01 tmp]# awk '{if (NR%2==1){next}else{printf &quot;这是第%s行，打印最后一列是%s \n&quot;, NR,$NF}}'\n a.txt 
+这是第2行，打印最后一列是cloudNative 
+这是第4行，打印最后一列是kafak 
+这是第6行，打印最后一列是c 
+这是第8行，打印最后一列是Django 
+  
+</code></pre>
+</li>
+</ul>
+<h4 id="数组应用">数组应用</h4>
+<p>数组是awk的灵魂，处理文本中最不能少的就是它的数组处理。因为数组索引（下标）可以是数字和字符串在awk中数组叫做关联数组(associative arrays)。awk 中的数组不必提前声明，也不必声明大小。数组元素用0或空字符串来初始化，这根据上下文而定。</p>
+<pre><code class="language-shell">
+## 统计netstat 状态链接数
+[root@k8s-master01 tmp]# netstat -n|awk '/^tcp/ {++S[$NF]} END{for( a in S) print a , S[a]}'
+ESTABLISHED 250
+TIME_WAIT 896
+
+### /^tcp/ 匹配TCp开头的
+## ++S[$NF] 相当于 s[$NF]=S[$NF]+1 及 0+1，计数tcp状态
+## END 最后输出
+</code></pre>
+<h4 id="时间函数">时间函数</h4>
+<table>
+<thead>
+<tr>
+<th align="left">格式</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">函数名</td>
+<td align="left">说明</td>
+</tr>
+<tr>
+<td align="left">mktime( YYYY MM <a href="http://man.linuxde.net/dd">dd</a> HH MM <a href="http://man.linuxde.net/ss">ss</a>[ DST])</td>
+<td align="left">生成时间格式</td>
+</tr>
+<tr>
+<td align="left">strftime([format [, timestamp]])</td>
+<td align="left">格式化时间输出，将时间戳转为时间字符串 具体格式，见下表.</td>
+</tr>
+<tr>
+<td align="left">systime()</td>
+<td align="left">得到时间戳,返回从1970年1月1日开始到当前时间(不计闰年)的整秒数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>建指定时间(mktime使用）</strong></p>
+<pre><code>awk 'BEGIN{tstamp=mktime(&quot;2001 01 01 12 12 12&quot;);print strftime(&quot;%c&quot;,tstamp);}'
+2001年01月01日 星期一 12时12分12秒
+awk 'BEGIN{tstamp1=mktime(&quot;2001 01 01 12 12 12&quot;);tstamp2=mktime(&quot;2001 02 01 0 0 0&quot;);print tstamp2-tstamp1;}'
+2634468
+</code></pre>
+<p>求2个时间段中间时间差，介绍了strftime使用方法</p>
+<pre><code>awk 'BEGIN{tstamp1=mktime(&quot;2001 01 01 12 12 12&quot;);tstamp2=systime();print tstamp2-tstamp1;}' 
+308201392
+</code></pre>
+<h4 id="常见实列">常见实列</h4>
+<h5 id="查看tcp链接状况统计">查看tcp链接状况统计</h5>
+<pre><code class="language-shell">netstat -n|awk '/^tcp/ {++S[$NF]} END{for (i in S) print i,S[i]}'
+</code></pre>
+<h5 id="日志分析nginx">日志分析(nginx)</h5>
+<p>Nginx内容如下：</p>
+<pre><code class="language-shell">
+172.16.95.6 - - [27/Jul/2020:00:00:02 +0800] &quot;GET /api/users/system_update.json HTTP/1.0&quot; 200 23 &quot;https://www.educoder.net/classrooms&quot; &quot;Mozilla/5.0 (Linux; U; Android 8.0.0; zh-cn; CMR-W09 Build/HUAWEICMR-W09) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/66.0.3359.126 MQQBrowser/10.4 Mobile Safari/537.36&quot;
+
+</code></pre>
+<ul>
+<li>
+<p><strong>统计日志中访问最多的10个IP</strong></p>
+<pre><code class="language-shell">[root@k8s-master01 ~]# awk '{++S[$1]} END{for (i in S) print i,S[i]}' access.log |sort -k 2 -nr|head -10
+94.102.50.96 14
+172.16.95.6 7
+100.122.65.87 6
+100.122.64.243 6
+100.122.63.246 6
+71.6.167.142 5
+100.122.64.206 5
+  
+  
+</code></pre>
+</li>
+<li>
+<p><strong>统计日志中访问大于4次的IP</strong></p>
+<pre><code class="language-shell">[root@k8s-master01 ~]#  awk '{++S[$1]} END{for (i in S) print i,S[i]}' access.log |sort -k 2 -nr|head -10
+94.102.50.96 14
+172.16.95.6 7
+100.122.65.87 6
+100.122.64.243 6
+100.122.63.246 6
+71.6.167.142 5
+100.122.64.206 5
+100.122.64.156 5
+100.122.63.233 5
+222.240.101.70 4
+</code></pre>
+</li>
+<li>
+<p><strong>统计某个时间区间内访问最多的10个IP</strong></p>
+<pre><code class="language-shell">[root@k8s-master01 ~]# awk '$4 &gt;&quot;[27/Jul/2020:00:00:00&quot; &amp;&amp; $4 &lt;&quot;[27/Jul/2020:00:00:03&quot; {++S[$1]} END{for (i in S) print i, S[i]} ' access.log |sort -k 2 -rn|head -10
+172.16.95.6 6
+172.16.95.29 2
+  
+</code></pre>
+</li>
+<li>
+<p><strong>统计访问的uri 个数排名</strong></p>
+<pre><code class="language-shell">  
+[root@k8s-master01 ~]# awk '{a[$7]++} END{for (i in a) print a[i],i}' access.log |sort -k 1 -nr |head -10
+447 /
+5 /forums/categories/5
+4 /scripts/setup.php
+4 /MyAdmin/scripts/setup.php
+4 400
+3 /robots.txt
+3 /pma/scripts/setup.php
+2 /phpMyAdmin/scripts/setup.php
+2 http://www.baidu.com/cache/global/img/gs.gif
+2 http://clientapi.ipip.net/echo.php?info=1234567890
+  
+</code></pre>
+</li>
+<li>
+<p><strong>统计每个URL访问内容的总大小（$body_bytes_sent）</strong></p>
+<pre><code class="language-shell">[root@k8s-master01 ~]# awk '{++S[$7];size[$7]+=$10}END{for(i in S) print size[i],i}' access.log |sort -k 1 -nr|head -10
+67646 /images/avatars/LaboratorySetting/1tab?t=1581490135
+37406 /
+2855 /forums/categories/5
+2201 /api/attachments/920111
+740 /favicon.ico
+676 /scripts/setup.php
+676 /MyAdmin/scripts/setup.php
+612 http://www.baidu.com/
+571 http://www.qq.com/404/search_children.js
+507 /pma/scripts/setup.php
+  
+</code></pre>
+</li>
+<li>
+<p><strong>统计访问状态码为404的IP及出现次数</strong></p>
+<pre><code class="language-shell">[root@k8s-master01 ~]# grep 400 access.log |awk '{++S[$1]} END{for (i in S) print S[i],i,&quot;Status:400&quot;}' |sort -k 1 -nr
+2 120.132.3.65 Status:400
+1 59.36.132.222 Status:400
+1 213.227.141.152 Status:400
+1 185.53.88.54 Status:400
+1 110.249.212.46 Status:400
+  
+</code></pre>
+</li>
+</ul>
+<h5 id="文件内容对比差异处理">文件内容对比差异处理</h5>
+<ul>
+<li>
+<p>对比文件内容，对比文件差异</p>
+<pre><code class="language-shell"> ## 方法一
+ awk 'FNR==NR{a[$0];next} !($0 in a)' a b
+ ##方法二
+ grep -vf a b
+</code></pre>
+</li>
+</ul>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/2020/05/awk/" title="awk工具使用总结" target="_blank" rel="external">https://zhangshunping.github.io/2020/05/awk/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://zhangshunping.github.io/2020/05/iptables-1/" title="Iptables(一)"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/"
+                    title="Golang-Channel死锁场景总结"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://zhangshunping.github.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://zhangshunping.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://zhangshunping.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/zhangshunping.github.io',
+            CONTENT_URL: 'https:\/\/zhangshunping.github.io\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://zhangshunping.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>
