@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        开源小工具- Dynamic Scheduler - 背对疾风吧！
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="根据Prometheus metrcis 平衡调度" />
+    <meta name="generator" content="Hugo 0.69.2 with theme pure" />
+    <title>开源小工具- Dynamic Scheduler - 背对疾风吧！</title>
+    
+    
+    <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="开源小工具- Dynamic Scheduler" />
+<meta property="og:description" content="根据Prometheus metrcis 平衡调度" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/2020/09/dynamic-scheduler/" />
+<meta property="article:published_time" content="2020-09-16T11:59:59+08:00" />
+<meta property="article:modified_time" content="2020-09-16T11:59:59+08:00" />
+<meta itemprop="name" content="开源小工具- Dynamic Scheduler">
+<meta itemprop="description" content="根据Prometheus metrcis 平衡调度">
+<meta itemprop="datePublished" content="2020-09-16T11:59:59&#43;08:00" />
+<meta itemprop="dateModified" content="2020-09-16T11:59:59&#43;08:00" />
+<meta itemprop="wordCount" content="1903">
+
+
+
+<meta itemprop="keywords" content="Golang,kubernetes," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="开源小工具- Dynamic Scheduler"/>
+<meta name="twitter:description" content="根据Prometheus metrcis 平衡调度"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/zhangshunping" target="_blank">
+            <img class="img-circle img-rotate" src="https://zhangshunping.github.io/touxiang.ico" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">张顺平</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">个人头像</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>Weclome to my Blog!! </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/gin/" class="category-list-link">gin</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="category-list-link">个人开源小工具</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="category-list-link">云原生</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/" class="category-list-link">监控</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/" class="category-list-link">语言-golang</a><span class="category-list-count">4</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/awk/" class="tag-list-link">awk</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/gin/" class="tag-list-link">gin</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang/" class="tag-list-link">golang</a><span
+                    class="tag-list-count">9</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang-channel/" class="tag-list-link">golang-channel</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/iptables/" class="tag-list-link">iptables</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes/" class="tag-list-link">kubernetes</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/prometheus/" class="tag-list-link">prometheus</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/rync/" class="tag-list-link">rync</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/%E7%9B%91%E6%8E%A7/" class="tag-list-link">监控</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/09/dynamic-scheduler/" class="title">开源小工具- Dynamic Scheduler</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-09-16 11:59:59 &#43;0800 CST" itemprop="datePublished">2020-09-16</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/08/prometheus1/" class="title">Prometheus（一）</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-08-16 11:59:59 &#43;0800 CST" itemprop="datePublished">2020-08-16</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/export-execl/" class="title">开源小工具- Export-execl</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-20 09:45:12 &#43;0800 CST" itemprop="datePublished">2020-07-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/objectss/" class="title">开源小工具-objectss</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-17 09:40:12 &#43;0800 CST" itemprop="datePublished">2020-07-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/gin_router/" class="title">Gin_Router套路</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-15 10:54:39 &#43;0800 CST" itemprop="datePublished">2020-07-15</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2020/09/dynamic-scheduler/"
+    >开源小工具- Dynamic Scheduler</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://zhangshunping.github.io/2020/09/dynamic-scheduler/" class="article-date">
+  <time datetime="2020-09-16 11:59:59 &#43;0800 CST" itemprop="datePublished">2020-09-16</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/"> 个人开源小工具 </a>
+  <a class="article-category-link" href="/categories/k8s/"> k8s </a>
+  <a class="article-category-link" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"> 云原生 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/golang/"> Golang </a>
+    <a class="article-tag-link" href="/tags/kubernetes/"> kubernetes </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/09/dynamic-scheduler/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1903字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>[toc]</p>
+<h1 id="dynamic-scheduler">dynamic-Scheduler</h1>
+<h3 id="背景">背景</h3>
+<p>kubernetes调度策略默认根据node节点的request值（cpu和mem）进行调度，<a href="https://github.com/zhangshunping/dynamicScheduler">dynamic-Scheduler</a>希望能够解决实际情况过程中遇到如下痛点</p>
+<ul>
+<li>
+<p>request设置太小，导致node节点上被分配太多的pod，面对流量高峰时，当前节点的资源使用率过高，导致一些pod 出现oom或者无法执行业务的情况。</p>
+</li>
+<li>
+<p>request接近于limits,导致node节点上分配的pod数量有限，不能够最大容量的分配pod，而本身设置limits值的原因大多是基于高峰资源，而实际业务大多数情况并未处于高峰状态，所以会造成资源浪费。</p>
+</li>
+<li>
+<p>个性化原因：</p>
+<ul>
+<li>
+<p>我们的业务模型创建的pod是自主性pod，虽然社区针对这样的问题有一些好用的开源的平衡组件<a href="https://github.com/kubernetes-sigs/descheduler">descheduler</a>，但不满足实际的问题，我们需要的是一个在调度的时候就可以根据资源消耗情况选择调度的组件，而descheduler是通过controller的方式对正在集群内的pod进行平衡，不满足我们目前的需求。</p>
+</li>
+<li>
+<p>kubelet内存驱逐条件（memory.available）,是通过计算cgroups下资源换算得来的，我们的业务是频繁的创建pod环境，然后销毁，可能会有一些pod跑业务的gc出现问题，导致内存无法释放，而此时free -h看到的内存可使用率仍然ok，但实际上/sys/fs/cgroups/memory下的memory.usage_in_bytes的值已经接近整个内存总量了。根据公式</p>
+<pre><code class="language-shell">memory.available := node.status.capacity[memory]-node.stats.memory.workingSet
+</code></pre>
+<p>此时memory.available已经低于节点驱逐的available值，就会出现pod被驱逐。因此对于cgroups下memory.available的值也需要做一定的监控和调度策略，kubectl top 命令计算好像不太准确，因此使用pushGateWay的方式，收集节点的memory.available值到prometheus。<a href="https://kubernetes.io/docs/tasks/administer-cluster/memory-available.sh">根据kubelet计算memory.available脚本</a>进行push。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="解决思路">解决思路</h3>
+<p>通过监控获取到各个k8s节点的使用率（cpu，mem等），当超过阈值后，给对应节点打上status=presure，根据k8s软亲和性策略，让pod尽量不调度到打上的presure标签的节点。</p>
+<ul>
+<li>
+<p>prometheus监控k8s集群的node资源使用率（因为是云原生背景，所以要自动发现弹性节点node，并对弹性节点进行监控）。需注意</p>
+<ul>
+<li>prometheus.yaml文件中采集node资源时，需要用如下的动态relabel机制，因为，client_golang采集Prometheus的metrics的数据为string，在dynamic-scheduler中使用<em>ConvertResultDataType</em>函数将string转换成[]string格式,这里的values为instance的值。</li>
+<li>需要安装pushgateway，然后crontab的方式运行push.sh脚本，进行memory.available的采集</li>
+</ul>
+<pre><code>    - job_name: '测试环境k8s资源节点监控'
+      kubernetes_sd_configs:
+      - role: node
+      relabel_configs:
+      - source_labels: [__meta_kubernetes_node_address_InternalIP]
+        regex: '(.*)'
+        replacement: '${1}:9100'
+        target_label: __address__
+      - job_name: 'pushgateway'
+        honor_labels: true
+        static_configs:
+        - targets: ['172.16.95.4:49091']
+</code></pre>
+</li>
+<li>
+<p>判断prometheus的返回得node使用率的metrics是否超过阈值，从而给k8s node节点打标签status=presure,根据k8s default的调度策略的软亲和preferredDuringSchedulingIgnoredDuringExecution策略，调度的时候尽量不调度到被打上标签status=presure的节点及当前资源紧张的节点。</p>
+<pre><code class="language-shell">template:
+    metadata:
+      labels:
+        run: nginx
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: status
+                    operator: NotIn
+                    values:
+                      - presure
+              weight: 20
+</code></pre>
+</li>
+<li>
+<p>考虑到apiserver的压力问题，使用client—go 原生informer机制，减少对apiserver的压力。</p>
+</li>
+<li>
+<p>promethues和dynamic-Scheduler 挂了情况，也不能影响到实际业务，因为使用的软亲和的方式，所以最终一定会有node被调度</p>
+</li>
+</ul>
+<h3 id="使用方式">使用方式</h3>
+<pre><code class="language-shell">./dynamic-sheduler --help
+  -cmem float
+        kubelet驱逐memory.availabele的阈值 (-cmem 2040) (default 2040)
+  -cpu float
+        节点过去一分钟使用率阈值 (-cpu 10) (default 60)
+  -kubeconfig string
+        链接k8s kubeconfig的绝对路径 (default &quot;C:\\Users\\39295\\go\\src\\config&quot;)
+  -mem float
+        节点内存使用率阈值 (-mem 10) (default 80)
+  -prom string
+        prometheus链接地址(-prom http://121.40.XX.XX:49090) (default &quot;http://121.40.XX.XX:49090&quot;)
+  -promjob string
+        promtheus采集的node节点job名称(-promjob 测试环境k8s资源节点监控) (default &quot;测试环境k8s资源节点监控&quot;)
+  -s int
+        每次抓取prometheus metrics间隔（-s 10) (default 10)
+  -webaddr string
+        启动服务端口地址(-webaddr :9000) (default &quot;:9000&quot;)
+exit status 2
+</code></pre>
+<ul>
+<li>健康检测</li>
+</ul>
+<pre><code>curl ip:port/status
+</code></pre>
+<p><img src="" alt="image20200911120601595"></p>
+<ul>
+<li>查询多少个节点打上了type=presure标签（返回json)</li>
+</ul>
+<pre><code class="language-shell">curl ip:port/nodes
+</code></pre>
+<p><img src="" alt="image20200911120548684"></p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/2020/09/dynamic-scheduler/" title="开源小工具- Dynamic Scheduler" target="_blank" rel="external">https://zhangshunping.github.io/2020/09/dynamic-scheduler/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://zhangshunping.github.io/2020/08/prometheus1/" title="Prometheus（一）"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://zhangshunping.github.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://zhangshunping.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://zhangshunping.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/zhangshunping.github.io',
+            CONTENT_URL: 'https:\/\/zhangshunping.github.io\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://zhangshunping.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

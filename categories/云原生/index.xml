@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>云原生 on 背对疾风吧！</title>
+    <link>https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/</link>
+    <description>Recent content in 云原生 on 背对疾风吧！</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 16 Sep 2020 11:59:59 +0800</lastBuildDate>
+    
+        <atom:link href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>开源小工具- Dynamic Scheduler</title>
+      <link>https://zhangshunping.github.io/2020/09/dynamic-scheduler/</link>
+      <pubDate>Wed, 16 Sep 2020 11:59:59 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/09/dynamic-scheduler/</guid>
+      <description>[toc] dynamic-Scheduler 背景 kubernetes调度策略默认根据node节点的request值（cpu和mem）进行调度，dynamic-Scheduler希望</description>
+    </item>
+    
+    <item>
+      <title>Prometheus（一）</title>
+      <link>https://zhangshunping.github.io/2020/08/prometheus1/</link>
+      <pubDate>Sun, 16 Aug 2020 11:59:59 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/08/prometheus1/</guid>
+      <description>[toc] 监控的目的 在《SRE: Google运维解密》一书中指出，监控系统需要能够有效的支持白盒监控和黑盒监控。通过白盒能够了解其内部的实际运行状态</description>
+    </item>
+    
+    <item>
+      <title>开源小工具- Export-execl</title>
+      <link>https://zhangshunping.github.io/2020/07/export-execl/</link>
+      <pubDate>Mon, 20 Jul 2020 09:45:12 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/export-execl/</guid>
+      <description>[TOC] Export_execl Purpose Export_execl is my a little tool that Perform export execl tasks and send it as attachment to the designated person’s mailbox according to the needs。Only suport export execl from mysql. How to use it Develop Language python2 , Golang &amp;gt;= 1.14 step1 . Compile goEmail by go mod cd sendEmailByGo go</description>
+    </item>
+    
+    <item>
+      <title>开源小工具-objectss</title>
+      <link>https://zhangshunping.github.io/2020/07/objectss/</link>
+      <pubDate>Fri, 17 Jul 2020 09:40:12 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/objectss/</guid>
+      <description>[TOC] objectss objectss 是为大数据大并发迁移到对象存储上而设计开源小项目。 Purpose 背景： 公司战略问题，需要从阿里云迁移到华为云；使用的git服务器，有10T的存储容</description>
+    </item>
+    
+    <item>
+      <title>Gin_Router套路</title>
+      <link>https://zhangshunping.github.io/2020/07/gin_router/</link>
+      <pubDate>Wed, 15 Jul 2020 10:54:39 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/gin_router/</guid>
+      <description>我的Gin 项目结构 ├── Config //处理配置文件代码 │ └── cofig1.go ├── Controller //控制层 │ ├── controllerHanlder.go │ ├── DbHandler.go │ └── StaticHandler │ ├── HelloWorld.go │ ├── Info.go │ └── PageNotFound.go ├──</description>
+    </item>
+    
+    <item>
+      <title>开源小工具- Kubectl Addons</title>
+      <link>https://zhangshunping.github.io/2020/07/kubectl-addons/</link>
+      <pubDate>Wed, 15 Jul 2020 09:45:12 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/kubectl-addons/</guid>
+      <description>[TOC] 背景 日常工作发现用kubectl 管理k8s集群虽然方便，但是针对某一些资源的CURD不是很好。 Kubect-addons 实对kubectl 命令的一个补充。使用到的</description>
+    </item>
+    
+    <item>
+      <title>Gin框架常见用法</title>
+      <link>https://zhangshunping.github.io/2020/07/gin_%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Tue, 14 Jul 2020 10:54:39 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/gin_%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/</guid>
+      <description>[TOC] json渲染 func main() { r := gin.Default() // 1、map渲染，gin.H{} r.GET(&amp;quot;/map_json&amp;quot;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;quot;message&amp;quot;: &amp;quot;map_json&amp;quot;, }) }) //2、 结构体渲染， r.GET(&amp;quot;/other_json&amp;quot;, func(c *gin.Context) { c.JSON(http.StatusOK,Other_json{Messag: &amp;quot;otherJson&amp;quot;}) }) r.Run() // listen and serve on 0.0.0.0:8080 (for windows &amp;quot;localhost:8080&amp;quot;) } type Other_json struct{</description>
+    </item>
+    
+    <item>
+      <title>Golang-Context</title>
+      <link>https://zhangshunping.github.io/2020/06/golang-context/</link>
+      <pubDate>Sat, 27 Jun 2020 15:38:57 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/golang-context/</guid>
+      <description>[TOC] Context诞生背景 由于在Golang severs中，每个request都是在单个goroutine中完成，并且在单个goroutine</description>
+    </item>
+    
+    <item>
+      <title>Golang-闭包场景总结</title>
+      <link>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Tue, 23 Jun 2020 15:56:01 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</guid>
+      <description>[toc] 定义 所谓闭包指的是内部函数引用外部函数变量或者自由变量返回一个函数，我们称作为闭包 func outer(x int )func(int) int{ // golang一个函数体内只能用用一个函数体,</description>
+    </item>
+    
+    <item>
+      <title>Healthy</title>
+      <link>https://zhangshunping.github.io/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/</link>
+      <pubDate>Mon, 15 Jun 2020 18:27:19 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/</guid>
+      <description>[TOC] 需求背景 ​ 公司的2B业务落地后，应用服务因为一些突发状况出现不在线情况。 一些小型客户关注的是SAAS业务，不太关心运维体系，也没有充裕的资</description>
+    </item>
+    
+    <item>
+      <title>Golang-Channel死锁场景总结</title>
+      <link>https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 12 Jun 2020 14:00:23 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</guid>
+      <description>[TOC] channel，Deadlock死锁的本质 **主协程程阻塞，系统一直等待，导致系统死锁** 场景一： 主协程中使用channel // 1.1 无缓冲ch</description>
+    </item>
+    
+    <item>
+      <title>awk工具使用总结</title>
+      <link>https://zhangshunping.github.io/2020/05/awk/</link>
+      <pubDate>Fri, 15 May 2020 10:05:02 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/awk/</guid>
+      <description>[ToC] 目的 在实际的生产中能够熟练的使用awk ，sed ，grep等文本操作工具，对故障的快速定位，日志分析等有很大帮助，于是根据自己的实际的生产经</description>
+    </item>
+    
+    <item>
+      <title>Iptables(一)</title>
+      <link>https://zhangshunping.github.io/2020/05/iptables-1/</link>
+      <pubDate>Fri, 15 May 2020 10:05:02 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/iptables-1/</guid>
+      <description>四表五链 四表 五链 filter&amp;mdash; 过滤数据包 nat &amp;mdash; 用于网络地址转换（IP、端口） raw &amp;mdash; 决定数据包是否被状态跟踪机制处理 mangle &amp;mdash;修改数据包的服务类型、TT</description>
+    </item>
+    
+    <item>
+      <title>Iptables(二)</title>
+      <link>https://zhangshunping.github.io/2020/05/iptables-2/</link>
+      <pubDate>Fri, 15 May 2020 10:05:02 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/iptables-2/</guid>
+      <description>[TOC] state 模块 对于state模块的连接而言，&amp;ldquo;连接&amp;quot;其中的报文可以分为5种状态，报文状态可以为NEW、ESTABLISHED</description>
+    </item>
+    
+    <item>
+      <title>Golang-Channel</title>
+      <link>https://zhangshunping.github.io/2020/05/golang-channel/</link>
+      <pubDate>Tue, 12 May 2020 14:00:23 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/golang-channel/</guid>
+      <description>channle 都是应用于两个go程，一个读，一个写 channel 具有阻塞的作用，类似go程之间对同步资源进行锁机制 具有数据传递的功能 一、无缓冲channel &amp;mda</description>
+    </item>
+    
+    <item>
+      <title>Rsync</title>
+      <link>https://zhangshunping.github.io/2020/05/rsync/</link>
+      <pubDate>Tue, 12 May 2020 14:00:23 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/rsync/</guid>
+      <description>rysnc 常用选项 rsync常用选项 -a 包含-rtplgoD -r 同步目录时要加上，类似cp时的-r选项 -v 同步时显示一些信息，让我们知道同步的过程 -l 小写l</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/curl/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/curl/</guid>
+      <description>curl -o /dev/null -s -w %{time_namelookup}---%{time_connect}---%{time_starttransfer}---%{time_total}---%{speed_download}&amp;quot;\n&amp;quot; 查看链接 [root@pre-host-work02 ~]# curl -o /dev/null -s -w %{time_namelookup}---%{time_connect}---%{time_starttransfer}---%{time_total}---%{speed_download}&amp;quot;\n&amp;quot; https://test-newweb.educoder.net/api/myshixuns/training_task_status.json 0.004---31.731---34.086---34.086---1.000</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/gorm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/gorm/</guid>
+      <description>表定义 type Like struct { ID int `gorm:&amp;quot;primary_key&amp;quot;` Ip string `gorm:&amp;quot;type:varchar(20);not null;index:ip_idx&amp;quot;` Ua string `gorm:&amp;quot;type:varchar(256);not null;&amp;quot;` Title string `gorm:&amp;quot;type:varchar(128);not null;index:title_idx&amp;quot;` Hash uint64 `gorm:&amp;quot;unique_index:hash_idx;&amp;quot;` CreatedAt time.Time } 创建表 if !db.HasTable(&amp;amp;Like{}) { if err := db.Set(&amp;quot;gorm:table_options&amp;quot;, &amp;quot;ENGINE=InnoDB DEFAULT CHARSET=utf8&amp;quot;).CreateTable(&amp;amp;Like{}).Error; err != nil { panic(err) } } 增 like := &amp;amp;Like{ Ip: ip, Ua: ua, Title: title, Hash: murmur3.Sum64([]byte(strings.Join([]string{ip, ua, title}, &amp;quot;-&amp;quot;))) &amp;gt;&amp;gt; 1, CreatedAt: time.Now(), } if err</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/grpc%E4%B8%80/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/grpc%E4%B8%80/</guid>
+      <description>[TOC] Grpc Prototbuf 协议 protobuf是由Google开发的一种数据序列化协议，可以把它想象成是XML或JSON格式，但更小，更快更简洁。而且一次定义，</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/istio-1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/istio-1/</guid>
+      <description>[TOC] Istio版本 &amp;gt;=1.5 安装 ## kubernetes上安装istioctl ##1. istio安装 profile为demo的istio 集群 istioctl manifest apply --set profile=demo ##2. 修改i</description>
+    </item>
+    
+  </channel>
+</rss>

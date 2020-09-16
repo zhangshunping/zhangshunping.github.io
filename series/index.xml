@@ -10,7 +10,25 @@
     
     
     <item>
-      <title>Export-execl</title>
+      <title>开源小工具- Dynamic Scheduler</title>
+      <link>https://zhangshunping.github.io/2020/09/dynamic-scheduler/</link>
+      <pubDate>Wed, 16 Sep 2020 11:59:59 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/09/dynamic-scheduler/</guid>
+      <description>[toc] dynamic-Scheduler 背景 kubernetes调度策略默认根据node节点的request值（cpu和mem）进行调度，dynamic-Scheduler希望</description>
+    </item>
+    
+    <item>
+      <title>Prometheus（一）</title>
+      <link>https://zhangshunping.github.io/2020/08/prometheus1/</link>
+      <pubDate>Sun, 16 Aug 2020 11:59:59 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/08/prometheus1/</guid>
+      <description>[toc] 监控的目的 在《SRE: Google运维解密》一书中指出，监控系统需要能够有效的支持白盒监控和黑盒监控。通过白盒能够了解其内部的实际运行状态</description>
+    </item>
+    
+    <item>
+      <title>开源小工具- Export-execl</title>
       <link>https://zhangshunping.github.io/2020/07/export-execl/</link>
       <pubDate>Mon, 20 Jul 2020 09:45:12 +0800</pubDate>
       
@@ -19,7 +37,7 @@
     </item>
     
     <item>
-      <title>objectss</title>
+      <title>开源小工具-objectss</title>
       <link>https://zhangshunping.github.io/2020/07/objectss/</link>
       <pubDate>Fri, 17 Jul 2020 09:40:12 +0800</pubDate>
       
@@ -37,7 +55,7 @@
     </item>
     
     <item>
-      <title>Kubectl Addons</title>
+      <title>开源小工具- Kubectl Addons</title>
       <link>https://zhangshunping.github.io/2020/07/kubectl-addons/</link>
       <pubDate>Wed, 15 Jul 2020 09:45:12 +0800</pubDate>
       
@@ -133,6 +151,33 @@
       
       <guid>https://zhangshunping.github.io/2020/05/rsync/</guid>
       <description>rysnc 常用选项 rsync常用选项 -a 包含-rtplgoD -r 同步目录时要加上，类似cp时的-r选项 -v 同步时显示一些信息，让我们知道同步的过程 -l 小写l</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/curl/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/curl/</guid>
+      <description>curl -o /dev/null -s -w %{time_namelookup}---%{time_connect}---%{time_starttransfer}---%{time_total}---%{speed_download}&amp;quot;\n&amp;quot; 查看链接 [root@pre-host-work02 ~]# curl -o /dev/null -s -w %{time_namelookup}---%{time_connect}---%{time_starttransfer}---%{time_total}---%{speed_download}&amp;quot;\n&amp;quot; https://test-newweb.educoder.net/api/myshixuns/training_task_status.json 0.004---31.731---34.086---34.086---1.000</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/gorm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/gorm/</guid>
+      <description>表定义 type Like struct { ID int `gorm:&amp;quot;primary_key&amp;quot;` Ip string `gorm:&amp;quot;type:varchar(20);not null;index:ip_idx&amp;quot;` Ua string `gorm:&amp;quot;type:varchar(256);not null;&amp;quot;` Title string `gorm:&amp;quot;type:varchar(128);not null;index:title_idx&amp;quot;` Hash uint64 `gorm:&amp;quot;unique_index:hash_idx;&amp;quot;` CreatedAt time.Time } 创建表 if !db.HasTable(&amp;amp;Like{}) { if err := db.Set(&amp;quot;gorm:table_options&amp;quot;, &amp;quot;ENGINE=InnoDB DEFAULT CHARSET=utf8&amp;quot;).CreateTable(&amp;amp;Like{}).Error; err != nil { panic(err) } } 增 like := &amp;amp;Like{ Ip: ip, Ua: ua, Title: title, Hash: murmur3.Sum64([]byte(strings.Join([]string{ip, ua, title}, &amp;quot;-&amp;quot;))) &amp;gt;&amp;gt; 1, CreatedAt: time.Now(), } if err</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/grpc%E4%B8%80/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/grpc%E4%B8%80/</guid>
+      <description>[TOC] Grpc Prototbuf 协议 protobuf是由Google开发的一种数据序列化协议，可以把它想象成是XML或JSON格式，但更小，更快更简洁。而且一次定义，</description>
     </item>
     
     <item>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+         - 背对疾风吧！
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="title: &amp;quot;Prometheus（一）&amp;quot; date: 2020-08-16T11:59:59&#43;08:00 tags: [监控,prometheus] categories: [云原生] description: &amp;quot;Promethues笔记&amp;" />
+    <meta name="generator" content="Hugo 0.69.2 with theme pure" />
+    <title> - 背对疾风吧！</title>
+    
+    
+    <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="" />
+<meta property="og:description" content="title: &quot;Prometheus（一）&quot; date: 2020-08-16T11:59:59&#43;08:00 tags: [监控,prometheus] categories: [云原生] description: &quot;Promethues笔记&" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/1/01/prometheus%E4%B8%80/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="title: &quot;Prometheus（一）&quot; date: 2020-08-16T11:59:59&#43;08:00 tags: [监控,prometheus] categories: [云原生] description: &quot;Promethues笔记&">
+
+<meta itemprop="wordCount" content="3081">
+
+
+
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="title: &quot;Prometheus（一）&quot; date: 2020-08-16T11:59:59&#43;08:00 tags: [监控,prometheus] categories: [云原生] description: &quot;Promethues笔记&"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/zhangshunping" target="_blank">
+            <img class="img-circle img-rotate" src="https://zhangshunping.github.io/touxiang.ico" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">张顺平</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">个人头像</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>Weclome to my Blog!! </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/gin/" class="category-list-link">gin</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="category-list-link">个人开源小工具</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="category-list-link">云原生</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/" class="category-list-link">监控</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/" class="category-list-link">语言-golang</a><span class="category-list-count">4</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/awk/" class="tag-list-link">awk</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/gin/" class="tag-list-link">gin</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang/" class="tag-list-link">golang</a><span
+                    class="tag-list-count">9</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang-channel/" class="tag-list-link">golang-channel</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/iptables/" class="tag-list-link">iptables</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes/" class="tag-list-link">kubernetes</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/prometheus/" class="tag-list-link">prometheus</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/rync/" class="tag-list-link">rync</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/%E7%9B%91%E6%8E%A7/" class="tag-list-link">监控</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/09/dynamic-scheduler/" class="title">开源小工具- Dynamic Scheduler</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-09-16 11:59:59 &#43;0800 CST" itemprop="datePublished">2020-09-16</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/08/prometheus1/" class="title">Prometheus（一）</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-08-16 11:59:59 &#43;0800 CST" itemprop="datePublished">2020-08-16</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/export-execl/" class="title">开源小工具- Export-execl</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-20 09:45:12 &#43;0800 CST" itemprop="datePublished">2020-07-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/objectss/" class="title">开源小工具-objectss</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-17 09:40:12 &#43;0800 CST" itemprop="datePublished">2020-07-17</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/gin_router/" class="title">Gin_Router套路</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-15 10:54:39 &#43;0800 CST" itemprop="datePublished">2020-07-15</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/1/01/prometheus%E4%B8%80/"
+    ></a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/1/01/prometheus%E4%B8%80/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3081字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <pre><code>title: &quot;Prometheus（一）&quot;
+date: 2020-08-16T11:59:59+08:00
+tags: [监控,prometheus]
+categories: [云原生]
+description: &quot;Promethues笔记&quot;	
+showDate: true/false    
+math: true       
+</code></pre>
+<p>[toc]</p>
+<hr>
+<h2 id="监控的目的">监控的目的</h2>
+<p>在《SRE: Google运维解密》一书中指出，监控系统需要能够有效的支持白盒监控和黑盒监控。通过白盒能够了解其内部的实际运行状态，通过对监控指标的观察能够预判可能出现的问题，从而对潜在的不确定因素进行优化。而黑盒监控，常见的如HTTP探针，TCP探针等，可以在系统或者服务在发生故障时能够快速通知相关的人员进行处理。通过建立完善的监控体系，从而达到以下目的：</p>
+<ul>
+<li>长期趋势分析：通过对监控样本数据的持续收集和统计，对监控指标进行长期趋势分析。例如，通过对磁盘空间增长率的判断，我们可以提前预测在未来什么时间节点上需要对资源进行扩容。</li>
+<li>对照分析：两个版本的系统运行资源使用情况的差异如何？在不同容量情况下系统的并发和负载变化如何？通过监控能够方便的对系统进行跟踪和比较。</li>
+<li>告警：当系统出现或者即将出现故障时，监控系统需要迅速反应并通知管理员，从而能够对问题进行快速的处理或者提前预防问题的发生，避免出现对业务的影响。</li>
+<li>故障分析与定位：当问题发生后，需要对问题进行调查和处理。通过对不同监控监控以及历史数据的分析，能够找到并解决根源问题。</li>
+<li>数据可视化：通过可视化仪表盘能够直接获取系统的运行状态、资源使用情况、以及服务运行状态等直观的信息。</li>
+</ul>
+<hr>
+<h2 id="promql">Promql</h2>
+<h3 id="什么是时间序列">什么是时间序列</h3>
+<p>通过Node Exporter暴露的HTTP服务，Prometheus可以采集到当前主机所有监控指标的样本数据。例如：</p>
+<pre><code># HELP node_cpu Seconds the cpus spent in each mode.
+# TYPE node_cpu counter
+node_cpu{cpu=&quot;cpu0&quot;,mode=&quot;idle&quot;} 362812.7890625
+# HELP node_load1 1m load average.
+# TYPE node_load1 gauge
+node_load1 3.0703125
+</code></pre>
+<p>其中非#开头的每一行表示当前Node Exporter采集到的一个监控样本：node_cpu和node_load1表明了当前指标的名称、大括号中的标签则反映了当前样本的一些特征和维度、浮点数则是该监控样本的具体值。</p>
+<h4 id="样本">样本</h4>
+<p>Prometheus将所有的样本数据以时间序列(time-series)的方式存放在内存里，并定时保存到硬盘上。</p>
+<p>time-series是按照时间戳和值的序列顺序存放的，我们称之为向量(vector). 每条time-series通过指标名称(metrics name)和一组标签集(labelset)命名。如下所示，可以将time-series理解为一个以时间为Y轴的数字矩阵：</p>
+<pre><code>  ^
+  │   . . . . . . . . . . . . . . . . .   . .   node_cpu{cpu=&quot;cpu0&quot;,mode=&quot;idle&quot;}
+  │     . . . . . . . . . . . . . . . . . . .   node_cpu{cpu=&quot;cpu0&quot;,mode=&quot;system&quot;}
+  │     . . . . . . . . . .   . . . . . . . .   node_load1{}
+  │     . . . . . . . . . . . . . . . .   . .  
+  v
+    &lt;------------------ 时间 ----------------&gt;
+</code></pre>
+<p>在time-series中的每一个点称为一个样本（sample），样本由以下三部分组成：</p>
+<ul>
+<li>指标(metric)：metric name和描述当前样本特征的labelsets;</li>
+<li>时间戳(timestamp)：一个精确到毫秒的时间戳;</li>
+<li>样本值(value)： 一个float64的浮点型数据表示当前样本的值。</li>
+</ul>
+<pre><code>&lt;--------------- metric ---------------------&gt;&lt;-timestamp -&gt;&lt;-value-&gt;
+http_request_total{status=&quot;200&quot;, method=&quot;GET&quot;}@1434417560938 =&gt; 94355
+http_request_total{status=&quot;200&quot;, method=&quot;GET&quot;}@1434417561287 =&gt; 94334
+
+http_request_total{status=&quot;404&quot;, method=&quot;GET&quot;}@1434417560938 =&gt; 38473
+http_request_total{status=&quot;404&quot;, method=&quot;GET&quot;}@1434417561287 =&gt; 38544
+
+http_request_total{status=&quot;200&quot;, method=&quot;POST&quot;}@1434417560938 =&gt; 4748
+http_request_total{status=&quot;200&quot;, method=&quot;POST&quot;}@1434417561287 =&gt; 4785
+</code></pre>
+<h4 id="指标metric">指标(Metric)</h4>
+<p>在形式上，所有的指标(Metric)都通过如下格式标示：</p>
+<pre><code>&lt;metric name&gt;{&lt;label name&gt;=&lt;label value&gt;, ...}
+</code></pre>
+<p>指标的名称(metric name)可以反映被监控样本的含义（比如，<code>http_request_total</code> - 表示当前系统接收到的HTTP请求总量）。指标名称只能由ASCII字符、数字、下划线以及冒号组成并必须符合正则表达式<code>[a-zA-Z_:][a-zA-Z0-9_:]*</code>。</p>
+<p>标签(label)反映了当前样本的特征维度，通过这些维度Prometheus可以对样本数据进行过滤，聚合等。标签的名称只能由ASCII字符、数字以及下划线组成并满足正则表达式<code>[a-zA-Z_][a-zA-Z0-9_]*</code>。</p>
+<p>其中以<code>__</code>作为前缀的标签，是系统保留的关键字，只能在系统内部使用。标签的值则可以包含任何Unicode编码的字符。在Prometheus的底层实现中指标名称实际上是以<code>__name__=</code>的形式保存在数据库中的，因此以下两种方式均表示的同一条time-series：</p>
+<pre><code>api_http_requests_total{method=&quot;POST&quot;, handler=&quot;/messages&quot;}
+</code></pre>
+<p>等同于：</p>
+<pre><code>{__name__=&quot;api_http_requests_total&quot;，method=&quot;POST&quot;, handler=&quot;/messages&quot;}
+</code></pre>
+<p>在Prometheus源码中也可以找到指标(Metric)对应的数据结构，如下所示：</p>
+<pre><code>type Metric LabelSet
+
+type LabelSet map[LabelName]LabelValue
+
+type LabelName string
+
+type LabelValue string
+</code></pre>
+<h3 id="数据类型">数据类型</h3>
+<h4 id="counter只增不减的计数器">Counter:只增不减的计数器</h4>
+<ul>
+<li>一般在定义Counter类型指标的名称时推荐使用_total作为后缀,如http_requests_total，node_cpu都是Counter类型的监控指标</li>
+</ul>
+<h4 id="gauge-可增可减的仪表盘">Gauge: 可增可减的仪表盘</h4>
+<ul>
+<li>Gauge类型的指标侧重于反应系统的当前状态。因此这类指标的样本数据可增可减。常见指标如：node_memory_MemFree（主机当前空闲的内容大小）、node_memory_MemAvailable（可用内存大小）都是Gauge类型的监控指标。通过Gauge指标，用户可以直接查看系统的当前状态<code>node_memory_MemFree</code></li>
+</ul>
+<h4 id="summary--histogram">Summary &amp;&amp; Histogram</h4>
+<ul>
+<li>
+<p>适用于一般使用于解决长尾问题</p>
+</li>
+<li>
+<p>Histogram 统计数据的分部情况。比如最小值，最大值，中间值，中位数，75百分位，90百分位，95/98/99/99.9百分位的值（percentlies）</p>
+<p>这是一种特殊的 metrics 数据类型，代表的是一种 <strong>近似的百分比估算值</strong></p>
+</li>
+<li>
+<p>Summary和Histogram十分相似，常用于跟踪事件发生的规模，例如：请求耗时、响应大小。同样提供 count 和 sum 全部值的功能。例如：count=7次，sum=7次的值求值。 它提供一个quantiles的功能，可以按%比划分跟踪的结果。例如：<!-- raw HTML omitted -->quantile取值0.95，表示取采样值里面的95%数据。<!-- raw HTML omitted --></p>
+</li>
+<li>
+<p><!-- raw HTML omitted -->**同时对于Histogram的指标，我们还可以通过histogram_quantile()函数计算出其值的分位数。不同在于Histogram通过histogram_quantile函数是在服务器端计算的分位数。 而Sumamry的分位数则是直接在客户端计算完成。因此对于分位数的计算而言，Summary在通过PromQL进行查询时有更好的性能表现，而Histogram则会消耗更多的资源。反之对于客户端而言Histogram消耗的资源更少。在选择这两种方式时用户应该按照自己的实际场景进行选择。**<!-- raw HTML omitted --></p>
+</li>
+</ul>
+<h3 id="promql查询">Promql查询</h3>
+<h4 id="查询时间序列">查询时间序列</h4>
+<ul>
+<li>精确匹配：==   !=      正则匹配  =~   !~</li>
+</ul>
+<p><code>http_requests_total{environment=~&quot;staging|testing|development&quot;,method!=&quot;GET&quot;}</code></p>
+<h4 id="范围查询">范围查询</h4>
+<p>我们通过``http_requests_total`查询，返回值中<strong>只会包含该时间序列中的最新的一个样本值</strong>，这样的返回结果我们称为**__瞬时向量__**,而相应的这样的表达式称之为__瞬时向量表达式__.</p>
+<p>如果想去查询一段时间内的样本数据时，我们则需要__区间向量表达式__<code>http_requests_total{}[5m]</code>,区间向量单位：</p>
+<ul>
+<li>s - 秒</li>
+<li>m - 分钟</li>
+<li>h - 小时</li>
+<li>d - 天</li>
+<li>w - 周</li>
+<li>y - 年</li>
+</ul>
+<h4 id="时间位移查询">时间位移查询</h4>
+<p>关键字 <strong>offset</strong></p>
+<pre><code>http_request_total{} offset 5m        //5分钟前的瞬时向量
+http_request_total{}[1d] offset 1d    //昨天一天内的区间向量
+</code></pre>
+<h4 id="聚合操作">聚合操作</h4>
+<p>Prometheus还提供了下列内置的聚合操作符，这些操作符作用域<strong>瞬时向量</strong>。可以将瞬时表达式返回的样本数据进行聚合，形成一个新的时间序列。</p>
+<pre><code>&lt;aggr-op&gt;([parameter,] &lt;vector expression&gt;) [without|by (&lt;label list&gt;)]
+</code></pre>
+<ul>
+<li><code>sum</code> (求和)</li>
+<li><code>min</code> (最小值)</li>
+<li><code>max</code> (最大值)</li>
+<li><code>avg</code> (平均值)</li>
+<li><code>stddev</code> (标准差)</li>
+<li><code>stdvar</code> (标准方差)</li>
+<li><code>count</code> (计数)</li>
+<li><code>count_values</code> (对value进行计数)</li>
+<li><code>bottomk</code> (后n条时序)</li>
+<li><code>topk</code> (前n条时序)</li>
+<li><code>quantile</code> (分位数)</li>
+</ul>
+<p>例子：</p>
+<pre><code class="language-shell">##计算k8s节点cpu资源
+
+avg (irate(node_cpu_seconds_total[15m]) )by (instance)
+
+##第一步：
+
+irate(node_cpu_secondes_total[15m] )获取瞬时向量
+
+### 第二步：by instance 及把所有instance相同的metric 放在一起取平均值
+
+avg (irate(node_cpu_seconds_total[15m]) )by (instance)
+
+
+</code></pre>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/1/01/prometheus%E4%B8%80/" title="" target="_blank" rel="external">https://zhangshunping.github.io/1/01/prometheus%E4%B8%80/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://zhangshunping.github.io/1/01/vue%E4%B8%80/" title=""><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://zhangshunping.github.io/1/01/kubelet/"
+                    title=""><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://zhangshunping.github.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://zhangshunping.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://zhangshunping.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/zhangshunping.github.io',
+            CONTENT_URL: 'https:\/\/zhangshunping.github.io\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://zhangshunping.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

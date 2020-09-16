@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>awk on 背对疾风吧！</title>
+    <link>https://zhangshunping.github.io/tags/awk/</link>
+    <description>Recent content in awk on 背对疾风吧！</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 15 May 2020 10:05:02 +0800</lastBuildDate>
+    
+        <atom:link href="https://zhangshunping.github.io/tags/awk/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/kubelet/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/kubelet/</guid>
+      <description>下载 kubernetes windows 保持软连接 git -c core.symlinks=true clone https://github.com/kubernetes/kubernetes -b release-1.16</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/prometheus%E4%B8%80/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/prometheus%E4%B8%80/</guid>
+      <description>title: &amp;quot;Prometheus（一）&amp;quot; date: 2020-08-16T11:59:59+08:00 tags: [监控,prometheus] categories: [云原生] description: &amp;quot;Promethues笔记&amp;</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/vue%E4%B8%80/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/vue%E4%B8%80/</guid>
+      <description>vue指令 v-on 指令 : 为元素绑定事件 &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; &amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;vue-on&amp;quot; @click=&amp;quot;doIt&amp;quot;&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt;s new Vue({ el: &#39;#app&#39;, methods: { doIt:function () { alert(&amp;quot;do it &amp;quot;) } } }) &amp;lt;/script&amp;gt; v-on 通过改变数据来实现dom &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; &amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;ChangeMes&amp;quot; @click=&amp;quot;ChangeName&amp;quot;&amp;gt; &amp;lt;h1 v-text=&amp;quot;mes&amp;quot;&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; new Vue({ el: &#39;#app&#39;, data: { mes:</description>
+    </item>
+    
+  </channel>
+</rss>
