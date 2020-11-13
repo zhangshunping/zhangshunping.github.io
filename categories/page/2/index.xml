@@ -5,10 +5,19 @@
     <link>https://zhangshunping.github.io/categories/</link>
     <description>Recent content in Categories on 背对疾风吧！</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 16 Sep 2020 11:59:59 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2020 10:26:08 +0800</lastBuildDate>
     
         <atom:link href="https://zhangshunping.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/istio-1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/istio-1/</guid>
+      <description>[TOC] Istio版本 &amp;gt;=1.5 安装 ## kubernetes上安装istioctl ##1. istio安装 profile为demo的istio 集群 istioctl manifest apply --set profile=demo ##2. 修改i</description>
+    </item>
     
     <item>
       <title></title>
@@ -17,6 +26,34 @@
       
       <guid>https://zhangshunping.github.io/1/01/kubelet/</guid>
       <description>下载 kubernetes windows 保持软连接 git -c core.symlinks=true clone https://github.com/kubernetes/kubernetes -b release-1.16</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/altermanager/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/altermanager/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/prometheus-rules/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/prometheus-rules/</guid>
+      <description>[toc] promethues +altermanager 告警流程 如下图所示：通过prometheus定义的AlterRule，prometheus会周期性的对alterRules进行计算，当</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/prometheus-thanos/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/prometheus-thanos/</guid>
+      <description>[toc]
+Thanos </description>
     </item>
     
     <item>

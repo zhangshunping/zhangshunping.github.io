@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Zabbix(一) - 背对疾风吧！
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="zabbix" />
+    <meta name="generator" content="Hugo 0.69.2 with theme pure" />
+    <title>Zabbix(一) - 背对疾风吧！</title>
+    
+    
+    <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Zabbix(一)" />
+<meta property="og:description" content="zabbix" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/2020/11/zabbix-1/" />
+<meta property="article:published_time" content="2020-11-09T10:26:08+08:00" />
+<meta property="article:modified_time" content="2020-11-09T10:26:08+08:00" />
+<meta itemprop="name" content="Zabbix(一)">
+<meta itemprop="description" content="zabbix">
+<meta itemprop="datePublished" content="2020-11-09T10:26:08&#43;08:00" />
+<meta itemprop="dateModified" content="2020-11-09T10:26:08&#43;08:00" />
+<meta itemprop="wordCount" content="1692">
+
+
+
+<meta itemprop="keywords" content="zabbix,监控," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Zabbix(一)"/>
+<meta name="twitter:description" content="zabbix"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/zhangshunping" target="_blank">
+            <img class="img-circle img-rotate" src="https://zhangshunping.github.io/touxiang.ico" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">张顺平</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">个人头像</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>Weclome to my Blog!! </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/gin/" class="category-list-link">gin</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="category-list-link">个人开源小工具</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="category-list-link">云原生</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/" class="category-list-link">监控</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/" class="category-list-link">语言-golang</a><span class="category-list-count">4</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/awk/" class="tag-list-link">awk</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/gin/" class="tag-list-link">gin</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang/" class="tag-list-link">golang</a><span
+                    class="tag-list-count">9</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang-channel/" class="tag-list-link">golang-channel</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/iptables/" class="tag-list-link">iptables</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes/" class="tag-list-link">kubernetes</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/prometheus/" class="tag-list-link">prometheus</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/rync/" class="tag-list-link">rync</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/zabbix/" class="tag-list-link">zabbix</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/%E7%9B%91%E6%8E%A7/" class="tag-list-link">监控</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/11/zabbix-1/" class="title">Zabbix(一)</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-11-09 10:26:08 &#43;0800 CST" itemprop="datePublished">2020-11-09</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/09/dynamic-scheduler/" class="title">开源小工具- Dynamic Scheduler</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-09-16 11:59:59 &#43;0800 CST" itemprop="datePublished">2020-09-16</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/08/prometheus1/" class="title">Prometheus（一）</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-08-16 11:59:59 &#43;0800 CST" itemprop="datePublished">2020-08-16</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/export-execl/" class="title">开源小工具- Export-execl</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-20 09:45:12 &#43;0800 CST" itemprop="datePublished">2020-07-20</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/07/objectss/" class="title">开源小工具-objectss</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-07-17 09:40:12 &#43;0800 CST" itemprop="datePublished">2020-07-17</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2020/11/zabbix-1/"
+    >Zabbix(一)</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://zhangshunping.github.io/2020/11/zabbix-1/" class="article-date">
+  <time datetime="2020-11-09 10:26:08 &#43;0800 CST" itemprop="datePublished">2020-11-09</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E7%9B%91%E6%8E%A7/"> 监控 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/zabbix/"> zabbix </a>
+    <a class="article-tag-link" href="/tags/%E7%9B%91%E6%8E%A7/"> 监控 </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/11/zabbix-1/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1692字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>[TOC]</p>
+<h2 id="监控维度">监控维度</h2>
+<p><strong>怎么监控</strong>？</p>
+<ul>
+<li>硬件
+<ul>
+<li>温度</li>
+<li>磁盘，主板等故障</li>
+<li>待机时间</li>
+</ul>
+</li>
+<li>系统
+<ul>
+<li>cpu</li>
+<li>内存</li>
+<li>负载</li>
+<li>磁盘</li>
+<li>内核参数</li>
+<li>网卡流量</li>
+<li>tcp连接数</li>
+<li>进程数</li>
+<li>io</li>
+<li>端口采集</li>
+</ul>
+</li>
+<li>程序
+<ul>
+<li>应用： nginx，mysql等</li>
+<li>业务：收入，人数，活跃ip，净增长数等</li>
+<li>业务流量： uv，pv等流量指标</li>
+<li>日志： 错误日志，程序日志，访问日志</li>
+<li>业务接口： api接口信息，接口相应时间</li>
+</ul>
+</li>
+</ul>
+<h2 id="zabbix介绍">zabbix介绍</h2>
+<h4 id="zabbix监控模式">zabbix监控模式</h4>
+<p>zabbix 跟prometheus 一样，分为主动模式和被动模式</p>
+<ul>
+<li>主动模式：对标prometheus的push的方式，agent端主动向server端推送数据</li>
+<li>被动模式：对标prometheus的node-exporter机制，server端主动采集agent的数据</li>
+</ul>
+<h4 id="zabbix架构">zabbix架构</h4>
+<p><img src="zabbix-1.assets/image-20201109104538340.png" alt="image-20201109104538340"></p>
+<h4 id="docker安装部署zabbix">docker安装部署zabbix</h4>
+<ul>
+<li>安装前配置</li>
+</ul>
+<pre><code class="language-shell">#一、配置CentOS 7
+#关闭selinux      #setenforce 0 临时关闭
+#需要关闭 selinux，一定要关闭这个，开启selinux会引起一连串问题，甚至zabbix的discovery功能也不能正常使用
+sed -i&quot;s/SELINUX=enforcing/SELINUX=disabled/g&quot; /etc/selinux/config
+#确认是否修改成功
+grep SELINUX/etc/selinux/config
+#然后重启系统即可
+#关闭防火墙，#启动firewall，停止firewall，停止firewall
+systemctl startfirewalld.service
+systemctl stopfirewalld.service
+systemctl disablefirewalld.service
+
+
+
+</code></pre>
+<ul>
+<li>快速安装</li>
+</ul>
+<pre><code class="language-shell">docker network create zabbix-net
+
+
+
+#1.安装zabbix-server
+docker pull zabbix/zabbix-appliance:latest # 拉取镜像
+
+docker run --name zabbix-server -t \
+      -p 10051:10051 \
+      -p 80:80 \
+      --net zabbix-net -d zabbix/zabbix-appliance:latest
+
+#2.安装zabbix-agent
+ docker run -dit --name zabbix-agent --net zabbix-net centos:7
+
+</code></pre>
+<h2 id="配置监控">配置监控</h2>
+<h4 id="配置zabbix_agent">配置zabbix_agent</h4>
+<ul>
+<li>配置zabbix_agent.conf 配置</li>
+</ul>
+<pre><code class="language-shell">PidFile=/var/run/zabbix/zabbix_agentd.pid
+LogFile=/var/log/zabbix/zabbix_agentd.log
+LogFileSize=0
+SourceIP=127.0.0.1
+Server=172.16.94.152,172.16.82.83
+ListenPort=10050
+Hostname=172.16.95.1
+Include=/etc/zabbix/zabbix_agentd.d/*.conf
+AllowRoot=1
+// 指定用户，如果非root用户，要考虑用户的权限，一般设置sudo nopass
+User=root
+
+
+// 接受远程命令
+EnableRemoteCommands=1
+//执行远程命令日志
+LogRemoteCommands=1
+
+UnsafeUserParameters=1#是否允许自定义脚本传递特殊字符作为参数,通常不用开 
+
+UserParameter=crondstatus,/usr/local/etc/chkcrond.sh crondstatus
+UserParameter=chkdisk,/usr/local/etc/chkdisk.sh chkdisk
+UserParameter=sys10,/usr/local/etc/sys10.sh sys10
+UserParameter=tcp.status[*],/usr/local/etc/tcp_connection_status.sh $1
+UserParameter=chkthread,/usr/local/etc/chkthread.sh chktread
+UserParameter=chkpro,/usr/local/etc/chkpro.sh chkpro
+UserParameter=pod.status[*],/usr/local/etc/chkpodstatus.sh 
+</code></pre>
+<ul>
+<li>重启zabbix 脚本。restart_zabbix.sh</li>
+</ul>
+<pre><code class="language-shell">#!/bin/bash
+pfurl='/usr/sbin/zabbix_agentd -c /etc/zabbix/zabbix_agentd.conf'
+PID=0
+kill_zabbix_agentd(){
+       ps aux | awk -r '/zabbix_agentd/{print $2}' | xargs -n1 -exec kill {} &amp;&gt; /dev/null
+}
+pfstart(){
+        num=`ps aux | awk -r '/zabbix_agentd/{print $2}' | wc -l`
+        if [ $num != &quot;1&quot; ];then
+                echo &quot;zabbix_agentd is useing&quot;
+        else
+                echo &quot;zabbix_agentd is starting...&quot;
+                $pfurl
+                echo &quot;start done!&quot;
+        fi
+}
+ 
+if [ &quot;$1&quot; == &quot;-s&quot; ];then
+        if [ &quot;$2&quot; == &quot;stop&quot; ];then
+                echo &quot;zabbix_agentd is stopping....&quot;
+                kill_zabbix_agentd
+                echo &quot;stop done!&quot;
+        elif [ &quot;$2&quot; == &quot;start&quot; ];then
+                pfstart
+        elif [ &quot;$2&quot; == &quot;restart&quot; ];then
+                echo &quot;zabbix_agentd is stopping....&quot;
+                kill_zabbix_agentd
+                echo &quot;stop done!&quot;       
+                echo &quot;zabbix_agentd is starting...&quot;
+                $pfurl
+                echo &quot;start done!&quot;
+        fi
+elif [ &quot;$1&quot; == &quot;--help&quot; ];then
+        echo &quot;zabbix_agentd -s [start/stop/restart]&quot;
+else
+        pfstart
+fi
+</code></pre>
+<h2 id="zabbix的监控项">zabbix的监控项</h2>
+<h5 id="写在前面">写在前面</h5>
+<p>​	 常见的监控项说明</p>
+<p>​	https://blog.csdn.net/u011731378/article/details/80154393</p>
+<p>​    <a href="https://www.zabbix.com/documentation/2.2/manual/config/items/itemtypes/zabbix_agent">https://www.zabbix.com/documentation/2.2/manual/config/items/itemtypes/zabbix_agent</a></p>
+<h5 id="监控项存储的值">监控项存储的值</h5>
+<ul>
+<li>
+<p>As is：不对数据处理的原始值</p>
+</li>
+<li>
+<p>Delta：（变化）本次采集减去前一次采集的结果，（速率），本次减去前一次采样的值，再除以经过的时长，类似与prometheus的rate</p>
+<p><a href="https://www.zabbix.com/documentation/4.0/zh/manual/config/items/itemtypes/zabbix_agent">常见监控项目 监控写法</a></p>
+</li>
+</ul>
+<h5 id="删除监控项">删除监控项</h5>
+<ul>
+<li>操作步骤 1.清除历史（如有必要）2.删除</li>
+</ul>
+<h2 id="zabbix-中文乱码问题">zabbix 中文乱码问题</h2>
+<p>​	解决链接：	https://blog.csdn.net/Callousmaster/article/details/99972089</p>
+<h2 id="zabbix触发器">zabbix触发器</h2>
+<h2 id="zabbix模板">zabbix模板</h2>
+<p>针对一个主机item，触发器，动作等可以定义到模板里，通过管理主机（主机组）和模板，可以快速方便添加</p>
+<h2 id="zabbix-宏">zabbix 宏</h2>
+<p>全局宏，模板宏，主机宏（类似全局变量，私有变量的概念，反正都是花里胡哨的）</p>
+<p>对应的宏的链接地址：</p>
+<p><a href="https://www.zabbix.com/documentation/4.0/zh/manual/appendix/macros/supported_by_location">https://www.zabbix.com/documentation/4.0/zh/manual/appendix/macros/supported_by_location</a></p>
+<h2 id="自定义监控">自定义监控</h2>
+<p>格式：</p>
+<p><code>UserParameter=key，command</code></p>
+<p>例如：</p>
+<p><code>UserParameter=crondstatus,/usr/local/etc/chkcrond.sh crondstatus</code></p>
+<pre><code class="language-shell">//command 加入位置参数，需要加上这个选项
+UnsafeUserParameters=1
+## key 为crontstats， command 为/use/local/etc/chckcront.sh crontastatus
+UserParameter=crondstatus,/usr/local/etc/chkcrond.sh crondstatus
+##跟上面一样，不过key 值为 pod.status[$1], value为/usr/local/etc/chkpodstatus.sh $1，
+##这里的$1及为pod.status中的*的传参
+UserParameter=pod.status[*],/usr/local/etc/chkpodstatus.sh $1                     
+</code></pre>
+<h4 id="自定义监控内存操作步骤">【自定义监控内存操作步骤】</h4>
+<ul>
+<li>
+<ol>
+<li>自定义采集 脚本，temtest.sh 脚本 ，赋执行权限</li>
+</ol>
+</li>
+</ul>
+<pre><code class="language-shell">#!/bin/bash 
+
+s=$1
+getMem(){
+cat /proc/meminfo |awk '/^'$s'/ {print $2}'
+}
+getMem
+</code></pre>
+<ul>
+<li>
+<ol start="2">
+<li>添加 /etc/zabbix/zabbix_agent.conf配置</li>
+</ol>
+<pre><code class="language-shell">  
+UnsafeUserParameters=1
+Parameter=mem.own[*],/etc/zabbix/testmem.sh $1
+</code></pre>
+</li>
+<li>
+<ol start="3">
+<li>
+<p>重启zabbix-agent  ,在server端执行</p>
+<p><code>zabbix_get -s sourceip -p 10050 -k 'mem.own[MemFree]' </code> 检测是否收集到数据。</p>
+</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>
+<p>zabbix web界面添加监控下如下：</p>
+<p><img src="zabbix-1.assets/image-20201112174124552.png" alt="image-20201112174124552"></p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="zabbix-网络发现">zabbix 网络发现</h2>
+<p>zabbix的自动发现机制：一般情况下，发现机制原理如下吗，server端配置discovery机制，发现同一个ip内的zabbix-agent的端口，给他关联上对应动作，比如关联监控模板，从而一个新机器可以直接上报监控模板的数据到server端。</p>
+<p>网络发现配置步骤：</p>
+<ul>
+<li>1、安装zabbix-agent并设置zabbix_agent.conf的配置</li>
+<li>2、在zabbix server配置自动发现的策略，和对应的动作</li>
+</ul>
+<p><a href="https://zhuanlan.zhihu.com/p/129862925">引用 zabbix网络发现教程</a></p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/2020/11/zabbix-1/" title="Zabbix(一)" target="_blank" rel="external">https://zhangshunping.github.io/2020/11/zabbix-1/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://zhangshunping.github.io/2020/09/dynamic-scheduler/" title="开源小工具- Dynamic Scheduler"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://zhangshunping.github.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2020
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://zhangshunping.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://zhangshunping.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/zhangshunping.github.io',
+            CONTENT_URL: 'https:\/\/zhangshunping.github.io\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://zhangshunping.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

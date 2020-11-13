@@ -5,10 +5,19 @@
     <link>https://zhangshunping.github.io/posts/</link>
     <description>Recent content in Posts on 背对疾风吧！</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 16 Sep 2020 11:59:59 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2020 10:26:08 +0800</lastBuildDate>
     
         <atom:link href="https://zhangshunping.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Zabbix(一)</title>
+      <link>https://zhangshunping.github.io/2020/11/zabbix-1/</link>
+      <pubDate>Mon, 09 Nov 2020 10:26:08 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/11/zabbix-1/</guid>
+      <description>[TOC] 监控维度 怎么监控？ 硬件 温度 磁盘，主板等故障 待机时间 系统 cpu 内存 负载 磁盘 内核参数 网卡流量 tcp连接数 进程数 io 端口采集 程序 应用： nginx，my</description>
+    </item>
     
     <item>
       <title>开源小工具- Dynamic Scheduler</title>
@@ -179,15 +188,6 @@
       
       <guid>https://zhangshunping.github.io/1/01/grpc%E4%B8%80/</guid>
       <description>[TOC] Grpc Prototbuf 协议 protobuf是由Google开发的一种数据序列化协议，可以把它想象成是XML或JSON格式，但更小，更快更简洁。而且一次定义，</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://zhangshunping.github.io/1/01/istio-1/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zhangshunping.github.io/1/01/istio-1/</guid>
-      <description>[TOC] Istio版本 &amp;gt;=1.5 安装 ## kubernetes上安装istioctl ##1. istio安装 profile为demo的istio 集群 istioctl manifest apply --set profile=demo ##2. 修改i</description>
     </item>
     
   </channel>
