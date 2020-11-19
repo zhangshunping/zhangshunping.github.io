@@ -2,7 +2,7 @@
 <html lang="zh">
   <head>
     <title>
-        开源小工具- Export-execl - 背对疾风吧！
+        kubernetes创建pod周期一览 - 背对疾风吧！
       </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,32 +20,32 @@
     <meta http-equiv="window-target" content="_top" />
     
     
-    <meta name="description" content="日常sql导出并发送附件到指定邮箱" />
+    <meta name="description" content="k8s创建pod周期笔记" />
     <meta name="generator" content="Hugo 0.69.2 with theme pure" />
-    <title>开源小工具- Export-execl - 背对疾风吧！</title>
+    <title>kubernetes创建pod周期一览 - 背对疾风吧！</title>
     
     
     <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="开源小工具- Export-execl" />
-<meta property="og:description" content="日常sql导出并发送附件到指定邮箱" />
+    <meta property="og:title" content="kubernetes创建pod周期一览" />
+<meta property="og:description" content="k8s创建pod周期笔记" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhangshunping.github.io/2020/07/export-execl/" />
-<meta property="article:published_time" content="2020-07-20T09:45:12+08:00" />
-<meta property="article:modified_time" content="2020-07-20T09:45:12+08:00" />
-<meta itemprop="name" content="开源小工具- Export-execl">
-<meta itemprop="description" content="日常sql导出并发送附件到指定邮箱">
-<meta itemprop="datePublished" content="2020-07-20T09:45:12&#43;08:00" />
-<meta itemprop="dateModified" content="2020-07-20T09:45:12&#43;08:00" />
-<meta itemprop="wordCount" content="254">
+<meta property="og:url" content="https://zhangshunping.github.io/2020/11/k8s%E5%88%9B%E5%BB%BApod%E5%91%A8%E6%9C%9F/" />
+<meta property="article:published_time" content="2020-11-19T18:06:20+08:00" />
+<meta property="article:modified_time" content="2020-11-19T18:06:20+08:00" />
+<meta itemprop="name" content="kubernetes创建pod周期一览">
+<meta itemprop="description" content="k8s创建pod周期笔记">
+<meta itemprop="datePublished" content="2020-11-19T18:06:20&#43;08:00" />
+<meta itemprop="dateModified" content="2020-11-19T18:06:20&#43;08:00" />
+<meta itemprop="wordCount" content="809">
 
 
 
-<meta itemprop="keywords" content="Golang,Python," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="开源小工具- Export-execl"/>
-<meta name="twitter:description" content="日常sql导出并发送附件到指定邮箱"/>
+<meta itemprop="keywords" content="kubernetes," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="kubernetes创建pod周期一览"/>
+<meta name="twitter:description" content="k8s创建pod周期笔记"/>
 
     <!--[if lte IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -302,8 +302,8 @@
       <h1 itemprop="name">
   <a
     class="article-title"
-    href="/2020/07/export-execl/"
-    >开源小工具- Export-execl</a
+    href="/2020/11/k8s%E5%88%9B%E5%BB%BApod%E5%91%A8%E6%9C%9F/"
+    >kubernetes创建pod周期一览</a
   >
 </h1>
 
@@ -311,73 +311,73 @@
         
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://zhangshunping.github.io/2020/07/export-execl/" class="article-date">
-  <time datetime="2020-07-20 09:45:12 &#43;0800 CST" itemprop="datePublished">2020-07-20</time>
+<a href="https://zhangshunping.github.io/2020/11/k8s%E5%88%9B%E5%BB%BApod%E5%91%A8%E6%9C%9F/" class="article-date">
+  <time datetime="2020-11-19 18:06:20 &#43;0800 CST" itemprop="datePublished">2020-11-19</time>
 </a>
 </span>
 <span class="article-category">
   <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/"> 个人开源小工具 </a>
+  <a class="article-category-link" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"> 云原生 </a>
+  <a class="article-category-link" href="/categories/k8s/"> k8s </a>
 </span>  
   <span class="article-tag">
     <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/golang/"> Golang </a>
-    <a class="article-tag-link" href="/tags/python/"> Python </a>
+    <a class="article-tag-link" href="/tags/kubernetes/"> kubernetes </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/07/export-execl/#comments"
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2020/11/k8s%E5%88%9B%E5%BB%BApod%E5%91%A8%E6%9C%9F/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 254字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 809字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <p>[TOC]</p>
-<hr>
-<h1 id="export_execl">Export_execl</h1>
-<h2 id="purpose">Purpose</h2>
-<p><a href="https://github.com/zhangshunping/Export_execl">Export_execl</a> is my a little tool that Perform export execl tasks and send  it as attachment to the designated person’s mailbox according to the needs。<strong>Only suport export execl from mysql</strong>.</p>
-<h2 id="how-to-use-it">How to use it</h2>
-<h4 id="develop-language">Develop Language</h4>
-<p><code>python2 , Golang &gt;= 1.14</code></p>
-<h4 id="step1--compile-goemail-by-go-mod">step1 . Compile goEmail by go mod</h4>
-<pre><code class="language-shell">    cd sendEmailByGo
-    go mod init sendEmailByGo
-    go build -o goEmail -i main.go
-    cp goEmail /usr/local/bin/
-    // 拷贝eamil stmp服务配置文件
-    mkdir -p /root/.email/
-    cp goEmailExample.json /root/.email/goEmail.json
-</code></pre>
+      <p>[toc]</p>
+<h2 id="kubernetes创建过程">kubernetes创建过程</h2>
+<h4 id="全局周期">全局周期</h4>
+<p>k8s创建pod的组件之间的交互过程，看图说话:</p>
+<p><img src="k8s-%E5%AE%89%E5%85%A8.assets/image-20201119171411945.png" alt="image-20201119171411945"></p>
 <ul>
-<li>goEmial help</li>
-</ul>
-<pre><code>[root@taliyun-k8s-master01 Export_execl]# goEmail -h
-Usage of goEmail:
-  -a string
-    	附件路径名字
-  -b string
-    	邮件内容 (default &quot;弹性伸缩web健康检查失败,健康码是：&quot;)
-  -c string
-    	goEmail.json文件存放路径 (default &quot;/root/.email/&quot;)
-  -h	帮助说明
-  -s string
-    	邮件主题 (default &quot;弹性伸缩web健康检测失败!&quot;)
-[root@taliyun-k8s-master01 Export_execl]# 
-
-</code></pre>
-<h4 id="step2-configuration">step2. Configuration</h4>
-<p>cat config.ini</p>
-<p><img src="Export-execl.assets/image-20200723142551847.png" alt="image-20200723142551847"></p>
-<h2 id="screenshots">Screenshots</h2>
+<li>
+<p>步骤一：用户向apiserver提交创建pod请求，kube-apiserver接受到请求之后会做以下</p>
 <ul>
-<li>When you complete the Step1 and Step2 configuration, and then you can  execute command <code>python  export_execl_from_mysql.py </code> `</li>
+<li>1.1根据提交的数据创建一个pod资源对象</li>
+<li>1.2对比元素据和上下文的namespace是否一致，如果不匹配则创建失败</li>
+<li>1.3ns匹配之后，在注入一些系统数据，如：podname未指定，则将pod的uid作为podname</li>
+<li>1.4 apiserver检验创建的pod对象的必须字段是否为空，如果为空，则创建失败</li>
+<li>上述完成之后，将pod资源持久化到etcd中，异步调用返回结果为restful.reponse,完成结果反馈</li>
 </ul>
-<p><img src="Export-execl.assets/image-20200723142612800.png" alt="image-20200723142612800"></p>
+</li>
+<li>
+<p>步骤二：scheduler 采用informer机制list/watch api-server，发现有新pod资源</p>
 <ul>
-<li>Recived an email that has Execl Attachment.</li>
+<li>
+<p>2.1 判断<code>pod.spec.name=null</code>，如果为true 则证明是未被分配的pod,则会进项调度策略，分为预选策略，节点优选</p>
+</li>
+<li>
+<p>2.2 节点预选：基于一系列预选规则（如 PodFitsResource 和 MatchNode-Selector 等）对每个节点进行检查，将不符合的节点过滤掉从而完成节点预选。</p>
+</li>
+<li>
+<p>2.3 节点优选：对预选出的节点进行优先级排序，以便选出最适合运行 pod 对象的节点。</p>
+</li>
+<li>
+<p>2.4 从优先级结果中挑选出优先级最高的节点来运行 pod 对象，当此类节点多个时则随机选择一个。</p>
+</li>
+<li>
+<p>将bound信息通过apiserver，持久化到etcd服务中去</p>
+</li>
 </ul>
-<p><img src="Export-execl.assets/image-20200723142628978.png" alt="image-20200723142628978"></p>
+</li>
+<li>
+<p>步骤三：kubelet 同样采用informer机制list/watch apiserver</p>
+<ul>
+<li>3.1当新的node（及kubescheduler绑定的node）需要被调度pod，同时这个node的编号跟自己的注册编号一致，则会调用csi接口创建存储，调用runtime（CRI和CNI船舰对应的网络和runtime）。</li>
+<li>3.2 将pod信息更新返回给apiserver，apiserver将信息持久化到etcd中去</li>
+</ul>
+</li>
+</ul>
+<h4 id="kubelet创建pod周期过程">kubelet创建pod周期过程</h4>
+<p><strong>引用</strong> ： <a href="https://www.kubernetes.org.cn/6766.html">图解kubernetes Pod创建流程大揭秘</a></p>
 
     </div>
     <div class="article-footer">
@@ -385,7 +385,7 @@ Usage of goEmail:
   <ul class="post-copyright list-unstyled">
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接: </strong>
-      <a href="https://zhangshunping.github.io/2020/07/export-execl/" title="开源小工具- Export-execl" target="_blank" rel="external">https://zhangshunping.github.io/2020/07/export-execl/</a>
+      <a href="https://zhangshunping.github.io/2020/11/k8s%E5%88%9B%E5%BB%BApod%E5%91%A8%E6%9C%9F/" title="kubernetes创建pod周期一览" target="_blank" rel="external">https://zhangshunping.github.io/2020/11/k8s%E5%88%9B%E5%BB%BApod%E5%91%A8%E6%9C%9F/</a>
     </li>
     <li class="post-copyright-license">
       <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
@@ -417,14 +417,9 @@ Usage of goEmail:
     <div class="bar-inner">
         <ul class="pager pull-left">
             <li class="prev">
-                <a href="https://zhangshunping.github.io/2020/07/objectss/" title="开源小工具-objectss"><i
+                <a href="https://zhangshunping.github.io/2020/11/zabbix-1/" title="Zabbix(一)"><i
                         class="icon icon-angle-left"
                         aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
-            </li>
-            <li class="next">
-                <a href="https://zhangshunping.github.io/2020/08/prometheus1/"
-                    title="Prometheus（一）"><span>上一篇&nbsp;&nbsp;</span><i
-                        class="icon icon-angle-right" aria-hidden="true"></i></a>
             </li>
             
             <li class="toggle-toc">
