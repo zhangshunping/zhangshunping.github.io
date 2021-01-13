@@ -39,7 +39,7 @@
 <meta itemprop="description" content="Operator 一">
 <meta itemprop="datePublished" content="2021-01-01T14:44:09+08:00" />
 <meta itemprop="dateModified" content="2021-01-01T14:44:09+08:00" />
-<meta itemprop="wordCount" content="4329">
+<meta itemprop="wordCount" content="4361">
 
 
 
@@ -332,13 +332,14 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/01/operator-crd/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4329字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4361字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 9分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
       <h1 id="operator">Operator</h1>
-<p>Operator 实际上作为kubernetes自定义扩展资源注册到controller-manager,通过list and watch的方式监听对应资源的变化，然后在周期内的各个环节做相应的协调处理。所谓的处理就是operator实现由状态的应用的核心部分，当然不同应用其处理的方式也不同</p>
+<p>Operator 实际上作为kubernetes自定义扩展资源注册到controller-manager,通过list and watch的方式监听对应资源的变化，然后在周期内的各个环节做相应的协调处理。所谓的处理就是operator实现由状态的应用的核心部分，当然不同应用其处理的方式也不同。</p>
+<p>实现自定一operator一般分为两步：</p>
 <p>1.通过CRD注册对应的资源对象</p>
 <p>2.通过Controller调谐对象的spec和status状态</p>
 <h2 id="一crdcustom-resource-definition">一、CRD（Custom Resource Definition）</h2>
@@ -485,8 +486,8 @@ spec:
 <h2 id="二自定义控制器controller">二、自定义控制器Controller</h2>
 <h4 id="编写自定义控制器分三步">编写自定义控制器分三步</h4>
 <ul>
-<li>第一步： 初始化（按照需求创建一个 类似Kubernetes 的 client（kubeClient））或者其他初始化动作</li>
-<li>第二步：main 函数为 自定义对象（如自定义NetWork对象）创建一个叫作 InformerFactory（即：networkInformerFactory）的工厂，并使用它生成一个 Network 对象的 Informer，传递给控制器</li>
+<li>第一步： 初始化（按照需求创建一个 类似Kubernetes 的 client（kubeClient））或者 其他初始化动作。</li>
+<li>第二步：main 函数为自定义对象（如自定义NetWork对象）创建一个叫作 InformerFactory（即：networkInformerFactory）的工厂，并使用它生成一个 Network 对象的 Informer，传递给控制器Controller。</li>
 <li>第三步：main 函数启动上述的 Informer，然后执行 controller.Run，启动自定义控制器。</li>
 </ul>
 <pre><code class="language-go">
@@ -523,10 +524,10 @@ func main() {
 <p><!-- raw HTML omitted --><strong>首先,控制器中的informer如何工作的呢？</strong><!-- raw HTML omitted -->，控制器需要从kubeapiserver中去获取他关心的对象，这种操作依靠了informer机制，informer中Reflector包使用了一种list/watch的方式，来“list”并“watch” 关心的对象变化。在ListAndWatch工作模式下，关注对象（这里假设为NetWork自定义对象），一旦apiserver端有新的Network创建，更新，删除，Reflector都会收到 &ldquo;事件通知&rdquo;。这时，该 <strong>事件</strong>和<strong>对应的api对象的组合</strong> 被称为增量（Delta），它会被放进一个 Delta FIFO Queue（即：增量先进先出队列）中。</p>
 <p><strong>而另一方面，Informe 会不断地从这个 Delta FIFO Queue 里读取（Pop）增量</strong>。每拿到一个增量，**Informer 就会判断这个增量里的事件类型，然后创建或者更新本地对象的缓存。**这个缓存，在 Kubernetes 里一般被叫作 Store。比如，如果事件类型是 Added（添加对象），那么 Informer 就会通过一个叫作 Indexer 的库把这个增量里的 API 对象保存在本地缓存中，并为它创建索引。相反，如果增量的事件类型是 Deleted（删除对象），那么 Informer 就会从本地缓存中删除这个对象。</p>
 <p>这个同步本地缓存的工作，是 Informer 的第一个职责，也是它最重要的职责。而 Informer 的第二个职责，则是根据这些事件的类型，触发事先注册好的 ResourceEventHandler. 这些 Handler，需要在创建控制器的时候注册给它对应的 Informer，通过对应的事件，将事件<strong>对应的api对象</strong>加入到workqueue中去，需要注意的是，实际入队的并不是 API 对象本身，而是它们的 Key，即：该 API 对象的<!-- raw HTML omitted -->/<!-- raw HTML omitted -->。</p>
-<p>而我们编写的控制循环，及会不断的从workqueue中拿到这些key，然后开始真正的调谐逻辑</p>
+<p>而我们编写的控制循环，会不断的从workqueue中拿到这些key，然后开始真正的调谐逻辑。</p>
 <p><!-- raw HTML omitted -->Informer总结<!-- raw HTML omitted -->：综合上面的讲述，你现在应该就能明白**，所谓 Informer，其实就是一个带有本地缓存和索引机制的、可以注册 EventHandler 的 client。它是自定义控制器跟 APIServer 进行数据同步的重要组件**。他分别做了:</p>
 <ul>
-<li>1.list/watch 获取最新api 对象，然后watch这些最新的对象的变化</li>
+<li>1.list/watch 获取最新api 对象，然后watch这些最新的对象的变化。</li>
 <li>2.通过监听对象变化，infomer可以实时的更新本地缓存，infomer同时注册了三个事件，份别对应 API 对象的“添加”“更新”和“删除”事件。而具体的处理操作，都是将该事件对应的 API 对象加入到工作队列（workqueue）中。</li>
 </ul>
 <p>注意的是：	informer的本地存储，每经过 resyncPeriod 指定的时间，Informer 维护的本地缓存，都会使用最近一次 LIST 返回的结果强制更新一次，从而保证缓存的有效性。在 Kubernetes 中，这个缓存强制更新的操作就叫作：resync。 这个定时 resync 操作，也会触发 Informer 注册的“更新”事件，因此判断对象的新旧，先判断了一下新、旧两个 Network 对象的版本（ResourceVersion）是否发生了变化，然后才开始进行的入队操作。</p>
@@ -562,6 +563,7 @@ func NewController(
 }
 </code></pre>
 <p><!-- raw HTML omitted --><strong>然后，控制器Control Loop 是如何工作的呢？</strong><!-- raw HTML omitted --></p>
+<p>伪代码如下：</p>
 <pre><code class="language-golang">
 func (c *Controller) Run(threadiness int, stopCh &lt;-chan struct{}) error {
  ...
@@ -656,7 +658,7 @@ func (c *Controller) syncHandler(key string) error {
 <p>实际上，在 Kubernetes 的源码中，你会经常看到控制器从各种 Lister 里获取对象，比如：podLister、nodeLister 等等，它们使用的都是 Informer 和缓存机制。</p>
 <h2 id="三思考">三、思考</h2>
 <p>1.CRD在ETCD里面是以JSON格式来存储的，而K8S的API对象是以protobuf格式存储，在资源对象数量多的时候JSON的序列化和反序列化性能会成为瓶颈</p>
-<p>2.controller 中使用workqueue的方式来解耦，因为list/watch的工作跟从controller loop的动作有快有慢，面对这样的场景，使用列队的方式，一帮使用队列的方式，防止阻塞。</p>
+<p>2.controller 中使用workqueue的方式来解耦，因为list/watch的工作跟从controller loop的动作有快有慢，面对这样的场景，使用列队的方式，可以有效的防止阻塞。</p>
 
     </div>
     <div class="article-footer">
