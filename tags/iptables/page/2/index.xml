@@ -12,6 +12,24 @@
     
     <item>
       <title></title>
+      <link>https://zhangshunping.github.io/1/01/curl/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/curl/</guid>
+      <description>curl -o /dev/null -s -w %{time_namelookup}---%{time_connect}---%{time_starttransfer}---%{time_total}---%{speed_download}&amp;quot;\n&amp;quot; 查看链接 [root@pre-host-work02 ~]# curl -o /dev/null -s -w %{time_namelookup}---%{time_connect}---%{time_starttransfer}---%{time_total}---%{speed_download}&amp;quot;\n&amp;quot; https://test-newweb.educoder.net/api/myshixuns/training_task_status.json 0.004---31.731---34.086---34.086---1.000</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/gorm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/gorm/</guid>
+      <description>表定义 type Like struct { ID int `gorm:&amp;quot;primary_key&amp;quot;` Ip string `gorm:&amp;quot;type:varchar(20);not null;index:ip_idx&amp;quot;` Ua string `gorm:&amp;quot;type:varchar(256);not null;&amp;quot;` Title string `gorm:&amp;quot;type:varchar(128);not null;index:title_idx&amp;quot;` Hash uint64 `gorm:&amp;quot;unique_index:hash_idx;&amp;quot;` CreatedAt time.Time } 创建表 if !db.HasTable(&amp;amp;Like{}) { if err := db.Set(&amp;quot;gorm:table_options&amp;quot;, &amp;quot;ENGINE=InnoDB DEFAULT CHARSET=utf8&amp;quot;).CreateTable(&amp;amp;Like{}).Error; err != nil { panic(err) } } 增 like := &amp;amp;Like{ Ip: ip, Ua: ua, Title: title, Hash: murmur3.Sum64([]byte(strings.Join([]string{ip, ua, title}, &amp;quot;-&amp;quot;))) &amp;gt;&amp;gt; 1, CreatedAt: time.Now(), } if err</description>
+    </item>
+    
+    <item>
+      <title></title>
       <link>https://zhangshunping.github.io/1/01/grpc%E4%B8%80/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       

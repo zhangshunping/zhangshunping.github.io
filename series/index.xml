@@ -10,11 +10,29 @@
     
     
     <item>
+      <title>Operator(一)</title>
+      <link>https://zhangshunping.github.io/2021/01/operator-crd/</link>
+      <pubDate>Fri, 01 Jan 2021 14:44:09 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/01/operator-crd/</guid>
+      <description>Operator Operator 实际上作为kubernetes自定义扩展资源注册到controller-manager,通过list and watch的方式监听对应资源的变化</description>
+    </item>
+    
+    <item>
       <title>kubernetes创建pod周期一览</title>
       <link>https://zhangshunping.github.io/2020/11/k8s-period/</link>
       <pubDate>Thu, 19 Nov 2020 18:06:20 +0800</pubDate>
       
       <guid>https://zhangshunping.github.io/2020/11/k8s-period/</guid>
+      <description>[toc] kubernetes创建过程 全局周期 k8s创建pod的组件之间的交互过程，看图说话: 步骤一：用户向apiserver提交创建pod请求，k</description>
+    </item>
+    
+    <item>
+      <title>kubernetes创建pod周期一览</title>
+      <link>https://zhangshunping.github.io/2020/11/k8s%E5%88%9B%E5%BB%BApod%E5%91%A8%E6%9C%9F/</link>
+      <pubDate>Thu, 19 Nov 2020 18:06:20 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/11/k8s%E5%88%9B%E5%BB%BApod%E5%91%A8%E6%9C%9F/</guid>
       <description>[toc] kubernetes创建过程 全局周期 k8s创建pod的组件之间的交互过程，看图说话: 步骤一：用户向apiserver提交创建pod请求，k</description>
     </item>
     
@@ -169,24 +187,6 @@
       
       <guid>https://zhangshunping.github.io/2020/05/rsync/</guid>
       <description>rysnc 常用选项 rsync常用选项 -a 包含-rtplgoD -r 同步目录时要加上，类似cp时的-r选项 -v 同步时显示一些信息，让我们知道同步的过程 -l 小写l</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://zhangshunping.github.io/1/01/curl/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zhangshunping.github.io/1/01/curl/</guid>
-      <description>curl -o /dev/null -s -w %{time_namelookup}---%{time_connect}---%{time_starttransfer}---%{time_total}---%{speed_download}&amp;quot;\n&amp;quot; 查看链接 [root@pre-host-work02 ~]# curl -o /dev/null -s -w %{time_namelookup}---%{time_connect}---%{time_starttransfer}---%{time_total}---%{speed_download}&amp;quot;\n&amp;quot; https://test-newweb.educoder.net/api/myshixuns/training_task_status.json 0.004---31.731---34.086---34.086---1.000</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://zhangshunping.github.io/1/01/gorm/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zhangshunping.github.io/1/01/gorm/</guid>
-      <description>表定义 type Like struct { ID int `gorm:&amp;quot;primary_key&amp;quot;` Ip string `gorm:&amp;quot;type:varchar(20);not null;index:ip_idx&amp;quot;` Ua string `gorm:&amp;quot;type:varchar(256);not null;&amp;quot;` Title string `gorm:&amp;quot;type:varchar(128);not null;index:title_idx&amp;quot;` Hash uint64 `gorm:&amp;quot;unique_index:hash_idx;&amp;quot;` CreatedAt time.Time } 创建表 if !db.HasTable(&amp;amp;Like{}) { if err := db.Set(&amp;quot;gorm:table_options&amp;quot;, &amp;quot;ENGINE=InnoDB DEFAULT CHARSET=utf8&amp;quot;).CreateTable(&amp;amp;Like{}).Error; err != nil { panic(err) } } 增 like := &amp;amp;Like{ Ip: ip, Ua: ua, Title: title, Hash: murmur3.Sum64([]byte(strings.Join([]string{ip, ua, title}, &amp;quot;-&amp;quot;))) &amp;gt;&amp;gt; 1, CreatedAt: time.Now(), } if err</description>
     </item>
     
   </channel>
