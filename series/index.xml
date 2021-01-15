@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>Cobra包</title>
+      <link>https://zhangshunping.github.io/2021/01/cobra/</link>
+      <pubDate>Thu, 14 Jan 2021 19:26:18 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/01/cobra/</guid>
+      <description>Cobra库 cobra 中有个重要的概念，分别是 commands、arguments 和 flags。其中 commands 代表行为，arguments 就是命令行参数(或</description>
+    </item>
+    
+    <item>
       <title>Operator(一)</title>
       <link>https://zhangshunping.github.io/2021/01/operator-1/</link>
       <pubDate>Fri, 01 Jan 2021 14:44:09 +0800</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://zhangshunping.github.io/2020/05/golang-channel/</guid>
       <description>channle 都是应用于两个go程，一个读，一个写 channel 具有阻塞的作用，类似go程之间对同步资源进行锁机制 具有数据传递的功能 一、无缓冲channel &amp;mda</description>
-    </item>
-    
-    <item>
-      <title>Rsync</title>
-      <link>https://zhangshunping.github.io/2020/05/rsync/</link>
-      <pubDate>Tue, 12 May 2020 14:00:23 +0800</pubDate>
-      
-      <guid>https://zhangshunping.github.io/2020/05/rsync/</guid>
-      <description>rysnc 常用选项 rsync常用选项 -a 包含-rtplgoD -r 同步目录时要加上，类似cp时的-r选项 -v 同步时显示一些信息，让我们知道同步的过程 -l 小写l</description>
     </item>
     
   </channel>

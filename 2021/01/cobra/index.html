@@ -2,7 +2,7 @@
 <html lang="zh">
   <head>
     <title>
-        Operator(一) - 背对疾风吧！
+        Cobra包 - 背对疾风吧！
       </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,33 +20,33 @@
     <meta http-equiv="window-target" content="_top" />
     
     
-    <meta name="description" content="Operator 一" />
+    <meta name="description" content="Cobra包使用笔记" />
     <meta name="generator" content="Hugo 0.79.1 with theme pure" />
-    <title>Operator(一) - 背对疾风吧！</title>
+    <title>Cobra包 - 背对疾风吧！</title>
     
     
     <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="Operator(一)" />
-<meta property="og:description" content="Operator 一" />
+    <meta property="og:title" content="Cobra包" />
+<meta property="og:description" content="Cobra包使用笔记" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhangshunping.github.io/2021/01/operator-1/" />
-<meta property="article:published_time" content="2021-01-01T14:44:09+08:00" />
-<meta property="article:modified_time" content="2021-01-01T14:44:09+08:00" />
-<meta itemprop="name" content="Operator(一)">
-<meta itemprop="description" content="Operator 一">
-<meta itemprop="datePublished" content="2021-01-01T14:44:09+08:00" />
-<meta itemprop="dateModified" content="2021-01-01T14:44:09+08:00" />
-<meta itemprop="wordCount" content="4361">
+<meta property="og:url" content="https://zhangshunping.github.io/2021/01/cobra/" />
+<meta property="article:published_time" content="2021-01-14T19:26:18+08:00" />
+<meta property="article:modified_time" content="2021-01-14T19:26:18+08:00" />
+<meta itemprop="name" content="Cobra包">
+<meta itemprop="description" content="Cobra包使用笔记">
+<meta itemprop="datePublished" content="2021-01-14T19:26:18+08:00" />
+<meta itemprop="dateModified" content="2021-01-14T19:26:18+08:00" />
+<meta itemprop="wordCount" content="585">
 
 
 
-<meta itemprop="keywords" content="kubernetes源码," />
+<meta itemprop="keywords" content="golang," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Operator(一)"/>
-<meta name="twitter:description" content="Operator 一"/>
+<meta name="twitter:title" content="Cobra包"/>
+<meta name="twitter:description" content="Cobra包使用笔记"/>
 
     <!--[if lte IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -307,8 +307,8 @@
       <h1 itemprop="name">
   <a
     class="article-title"
-    href="/2021/01/operator-1/"
-    >Operator(一)</a
+    href="/2021/01/cobra/"
+    >Cobra包</a
   >
 </h1>
 
@@ -316,349 +316,161 @@
         
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://zhangshunping.github.io/2021/01/operator-1/" class="article-date">
-  <time datetime="2021-01-01 14:44:09 &#43;0800 CST" itemprop="datePublished">2021-01-01</time>
+<a href="https://zhangshunping.github.io/2021/01/cobra/" class="article-date">
+  <time datetime="2021-01-14 19:26:18 &#43;0800 CST" itemprop="datePublished">2021-01-14</time>
 </a>
 </span>
 <span class="article-category">
   <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"> 云原生 </a>
-  <a class="article-category-link" href="/categories/k8s/"> k8s </a>
+  <a class="article-category-link" href="/categories/%E8%AF%AD%E8%A8%80-golang/"> 语言-golang </a>
 </span>  
   <span class="article-tag">
     <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/kubernetes%E6%BA%90%E7%A0%81/"> kubernetes源码 </a>
+    <a class="article-tag-link" href="/tags/golang/"> golang </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/01/operator-1/#comments"
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/01/cobra/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4361字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 9分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 585字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <h1 id="operator">Operator</h1>
-<p>Operator 实际上作为kubernetes自定义扩展资源注册到controller-manager,通过list and watch的方式监听对应资源的变化，然后在周期内的各个环节做相应的协调处理。所谓的处理就是operator实现由状态的应用的核心部分，当然不同应用其处理的方式也不同。</p>
-<p>实现自定一operator一般分为两步：</p>
-<p>1.通过CRD注册对应的资源对象</p>
-<p>2.通过Controller调谐对象的spec和status状态</p>
-<h2 id="一crdcustom-resource-definition">一、CRD（Custom Resource Definition）</h2>
-<h3 id="什么是crd">什么是CRD</h3>
-<p>​	kubernetes本身提供了很多apiserver接口，当用户对k8s做operator管理则需要自己自定义一些自定义资源，为了方便扩展kubernetes自定义资源，kubernetes提供了两种方式将Custom resources添加到集群。</p>
+      <h2 id="cobra库">Cobra库</h2>
+<p>cobra 中有个重要的概念，分别是 <strong>commands、arguments 和 flags</strong>。其中 commands 代表行为，arguments 就是命令行参数(或者称为位置参数)，flags 代表对行为的改变(也就是我们常说的命令行选项)。执行命令行程序时的一般格式为：</p>
+<pre><code class="language-shell"># server是 commands，port 是 flag
+hugo server --port=1313
+
+# clone 是 commands，URL 是 arguments，brae 是 flag
+git clone URL --bare
+</code></pre>
+<h3 id="使用">使用</h3>
 <ul>
-<li>1.Custom Resource Definitions (CRDs)：更易用、不需要编码。但是缺乏灵活性。</li>
-<li>2.API Aggregation：需要编码，允许通过聚合层的方式提供更加定制化的实现。</li>
+<li>1.安装</li>
 </ul>
-<h3 id="如何定义crd">如何定义CRD</h3>
-<h4 id="1普通crdyaml">1.普通crd.yaml</h4>
-<pre><code class="language-yaml">apiVersion: apiextensions.k8s.io/v1beta1 #使用 apiextensions.k8s.io/v1beta1 API。
-kind: CustomResourceDefinition			
-metadata:
-  name: students.test.com  ## metadata 要和spec.group对应. 且必须是spec.names.plural 和spec.group组合
-spec:
-  group: test.com
-  versions: 
-    - name: v1
-      served: true      # 是否有效的开关.
-      storage: true     # 只有一个版本能被标注为storage
-  scope: Namespaced     # 指定自定义对象可用于某一个项目 (Namespaced) 还是集群中的所有项目 (Cluster)。
-  names:
-    plural: students    # URL中使用的复数名称: /apis/&lt;group&gt;/&lt;version&gt;/&lt;plural&gt;
-    singular: student   # 在CLI(shell界面输入的参数)上用作别名并用于显示的单数名称
-    kind: Student       # camelCase 骆驼命名法
-    # 短名称允许短字符串匹配CLI上的资源，意识就是能通过kubectl 在查看资源的时候使用该资源的简名称来获取。
-    shortNames:
-    - stu
-   
+<pre><code class="language-shell">go get -u github.com/spf13/cobra/cobra
 </code></pre>
-<h4 id="2-validation--定义需要认证的crd">2. validation  定义需要认证的crd</h4>
-<p>test-validation-crd.yml</p>
-<pre><code class="language-shell">apiVersion: apiextensions.k8s.io/v1beta1 #使用 apiextensions.k8s.io/v1beta1 API。
-kind: CustomResourceDefinition			
-metadata:
-  name: students.test.com  ## metadata 要和spec.group对应. 且必须是spec.names.plural 和spec.group组合
-spec:
-  group: test.com
-  versions: 
-    - name: v1
-      served: true      # 是否有效的开关.
-      storage: true     # 只有一个版本能被标注为storage
-  scope: Namespaced     # 指定自定义对象可用于某一个项目 (Namespaced) 还是集群中的所有项目 (Cluster)。
-  names:
-    plural: students    # URL中使用的复数名称: /apis/&lt;group&gt;/&lt;version&gt;/&lt;plural&gt;
-    singular: student   # 在CLI(shell界面输入的参数)上用作别名并用于显示的单数名称
-    kind: Student       # camelCase 骆驼命名法
-    # 短名称允许短字符串匹配CLI上的资源，意识就是能通过kubectl 在查看资源的时候使用该资源的简名称来获取。
-    shortNames:
-    - stu 
-  validation:
-    openAPIV3Schema:
-      description: test
-      properties:
-        spec:
-          properties:
-           age:
-             type: integer
-             minimum: 1
-             maximum: 10
+<ul>
+<li>使用：</li>
+</ul>
+<pre><code class="language-shell">
+#1.初始化，生成程序框架
+cd $GOPATH/src ; mkdir -p project
+cobra init --pkg-name porject
+#2.添加子命令 command
+cobra add image
+cobra add version
+cobra add container
+#3.为command添加flag，选项(flags)用来控制 Command 的具体行为。根据选项的作用范围，可以把选项分为两类：
+#persistent
+#loca
+
+var echoTimes int
+func init() {
+    rootCmd.AddCommand(imageCmd)
+    cmdTimes.Flags().IntVarP(&amp;echoTimes, &quot;times&quot;, &quot;t&quot;, 1, &quot;times to echo the input&quot;)
+    imageCmd.AddCommand(cmdTimes)
+}
 </code></pre>
-<h4 id="3additionalprintercolumns--添加打印列信息">3.additionalPrinterColumns  添加打印列信息</h4>
-<pre><code class="language-yaml">
-apiVersion: apiextensions.k8s.io/v1beta1 #使用 apiextensions.k8s.io/v1beta1 API。
-kind: CustomResourceDefinition
-metadata:
-  name: students.test.com  ## metadata 要和spec.group对应. 且必须是spec.names.plural 和spec.group组合
-spec:
-  group: test.com
-  versions:
-    - name: v1
-      served: true      # 是否有效的开关.
-      storage: true     # 只有一个版本能被标注为storage
-  scope: Namespaced     # 指定自定义对象可用于某一个项目 (Namespaced) 还是集群中的所有项目 (Cluster)。
-  names:
-    plural: students    # URL中使用的复数名称: /apis/&lt;group&gt;/&lt;version&gt;/&lt;plural&gt;
-    singular: student   # 在CLI(shell界面输入的参数)上用作别名并用于显示的单数名称
-    kind: Student       # camelCase 骆驼命名法
-    # 短名称允许短字符串匹配CLI上的资源，意识就是能通过kubectl 在查看资源的时候使用该资源的简名称来获取。
-    shortNames:
-    - stu
-  validation:
-    openAPIV3Schema:
-      description: test
-      properties:
-        spec:
-          properties:
-           age:
-             type: integer
-             minimum: 1
-             maximum: 20
-  additionalPrinterColumns:
-  - name: School
-    type: string
-    JSONPath: .spec.school
-  - name: Age
-    type: date
-    JSONPath: .metadata.creationTimestamp
+<h3 id="以package的方式管理子命令">以package的方式管理子命令</h3>
+<p>cmd/目录结果如下，要让子命令以package的方式易于管理</p>
+<pre><code class="language-shell">[root@zsp cmd]# pwd
+/root/gocode/src/hasha/cmd
+[root@zsp cmd]# tree 
+.
+├── mutong
+│   ├── ml.go
+│   └── root.go
+├── root.go
+└── version.go
+
+1 directory, 4 files
 
 </code></pre>
-<pre><code>[root@zsp workload]# kubectl get stu
-NAME      SCHOOL    AGE
-beijing   清华       3m12s
-</code></pre>
-<p>etcdctl查看注册的 crd资源</p>
-<pre><code>alias k8s-etcdctl=&quot;ETCDCTL_API=3 etcdctl --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/peer.crt --key=/etc/kubernetes/pki/etcd/peer.key &quot;
-k8s-etcdctl  get /registry/apiextensions.k8s.io/customresourcedefinitions/students.test.com  --prefix 
-</code></pre>
-<h3 id="创建cr资源">创建CR资源</h3>
-<p>stu-cr.yaml</p>
-<pre><code class="language-shell">apiVersion: test.com/v1
-kind: Student
-metadata:
-  name: beijing
-spec:
-  name: &quot;张三&quot;
-  school: &quot;清华&quot;
-  age: 19
-</code></pre>
 <ul>
-<li>验证普通crd</li>
+<li>root.go</li>
 </ul>
-<pre><code class="language-shell">[root@zsp workload]# kubectl apply -g stu-cr.yaml
-[root@zsp workload]# kubectl get stu beijing -oyaml
-apiVersion: test.com/v1
-kind: Student
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {&quot;apiVersion&quot;:&quot;test.com/v1&quot;,&quot;kind&quot;:&quot;Student&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;beijing&quot;,&quot;namespace&quot;:&quot;default&quot;},&quot;spec&quot;:{&quot;age&quot;:19,&quot;name&quot;:&quot;张三&quot;,&quot;school&quot;:&quot;清华&quot;}}
-  creationTimestamp: &quot;2021-01-11T07:30:55Z&quot;
-  generation: 2
-  name: beijing
-  namespace: default
-  resourceVersion: &quot;2046925&quot;
-  selfLink: /apis/test.com/v1/namespaces/default/students/beijing
-  uid: a47568b7-305e-406c-84e2-114e61db80f3
-spec:
-  age: 19
-  name: 张三
-  school: 清华
-</code></pre>
-<h2 id="二自定义控制器controller">二、自定义控制器Controller</h2>
-<h4 id="编写自定义控制器分三步">编写自定义控制器分三步</h4>
-<ul>
-<li>第一步： 初始化（按照需求创建一个 类似Kubernetes 的 client（kubeClient））或者 其他初始化动作。</li>
-<li>第二步：main 函数为自定义对象（如自定义NetWork对象）创建一个叫作 InformerFactory（即：networkInformerFactory）的工厂，并使用它生成一个 Network 对象的 Informer，传递给控制器Controller。</li>
-<li>第三步：main 函数启动上述的 Informer，然后执行 controller.Run，启动自定义控制器。</li>
-</ul>
-<pre><code class="language-go">
-func main() {
-  ...
-  
-  cfg, err := clientcmd.BuildConfigFromFlags(masterURL, kubeconfig)
-  ...
-  kubeClient, err := kubernetes.NewForConfig(cfg)
-  ...
-  networkClient, err := clientset.NewForConfig(cfg)
-  ...
-  
-  //2.初始化infomerFactory 工厂
-  networkInformerFactory := informers.NewSharedInformerFactory(networkClient, ...)
-	
-  // 将自定义对象的工厂 注册到控制器中去  
-  controller := NewController(kubeClient, networkClient,
-  networkInformerFactory.Samplecrd().V1().Networks())
-  
-  // 启动informer  
-  go networkInformerFactory.Start(stopCh)
-  // 启动控制器
-  if err = controller.Run(2, stopCh); err != nil {
-    glog.Fatalf(&quot;Error running controller: %s&quot;, err.Error())
-  }
-}
-</code></pre>
-<h4 id="自定控制器流程">自定控制器流程</h4>
-<p>到此，自定义控制器流程完成，是否疑惑，就这么简单？</p>
-<p>别急 接下来，我就为你详细解释一下这个自定义控制器的工作原理，如图：</p>
-<p><img src="https://static001.geekbang.org/resource/image/32/c3/32e545dcd4664a3f36e95af83b571ec3.png" alt="img"></p>
-<p>从左往右看：&mdash;-&gt;</p>
-<p><!-- raw HTML omitted --><strong>首先,控制器中的informer如何工作的呢？</strong><!-- raw HTML omitted -->，控制器需要从kubeapiserver中去获取他关心的对象，这种操作依靠了informer机制，informer中Reflector包使用了一种list/watch的方式，来“list”并“watch” 关心的对象变化。在ListAndWatch工作模式下，关注对象（这里假设为NetWork自定义对象），一旦apiserver端有新的Network创建，更新，删除，Reflector都会收到 &ldquo;事件通知&rdquo;。这时，该 <strong>事件</strong>和<strong>对应的api对象的组合</strong> 被称为增量（Delta），它会被放进一个 Delta FIFO Queue（即：增量先进先出队列）中。</p>
-<p><strong>而另一方面，Informe 会不断地从这个 Delta FIFO Queue 里读取（Pop）增量</strong>。每拿到一个增量，**Informer 就会判断这个增量里的事件类型，然后创建或者更新本地对象的缓存。**这个缓存，在 Kubernetes 里一般被叫作 Store。比如，如果事件类型是 Added（添加对象），那么 Informer 就会通过一个叫作 Indexer 的库把这个增量里的 API 对象保存在本地缓存中，并为它创建索引。相反，如果增量的事件类型是 Deleted（删除对象），那么 Informer 就会从本地缓存中删除这个对象。</p>
-<p>这个同步本地缓存的工作，是 Informer 的第一个职责，也是它最重要的职责。而 Informer 的第二个职责，则是根据这些事件的类型，触发事先注册好的 ResourceEventHandler. 这些 Handler，需要在创建控制器的时候注册给它对应的 Informer，通过对应的事件，将事件<strong>对应的api对象</strong>加入到workqueue中去，需要注意的是，实际入队的并不是 API 对象本身，而是它们的 Key，即：该 API 对象的<!-- raw HTML omitted -->/<!-- raw HTML omitted -->。</p>
-<p>而我们编写的控制循环，会不断的从workqueue中拿到这些key，然后开始真正的调谐逻辑。</p>
-<p><!-- raw HTML omitted -->Informer总结<!-- raw HTML omitted -->：综合上面的讲述，你现在应该就能明白**，所谓 Informer，其实就是一个带有本地缓存和索引机制的、可以注册 EventHandler 的 client。它是自定义控制器跟 APIServer 进行数据同步的重要组件**。他分别做了:</p>
-<ul>
-<li>1.list/watch 获取最新api 对象，然后watch这些最新的对象的变化。</li>
-<li>2.通过监听对象变化，infomer可以实时的更新本地缓存，infomer同时注册了三个事件，份别对应 API 对象的“添加”“更新”和“删除”事件。而具体的处理操作，都是将该事件对应的 API 对象加入到工作队列（workqueue）中。</li>
-</ul>
-<p>注意的是：	informer的本地存储，每经过 resyncPeriod 指定的时间，Informer 维护的本地缓存，都会使用最近一次 LIST 返回的结果强制更新一次，从而保证缓存的有效性。在 Kubernetes 中，这个缓存强制更新的操作就叫作：resync。 这个定时 resync 操作，也会触发 Informer 注册的“更新”事件，因此判断对象的新旧，先判断了一下新、旧两个 Network 对象的版本（ResourceVersion）是否发生了变化，然后才开始进行的入队操作。</p>
 <pre><code class="language-golang">
-func NewController(
-  kubeclientset kubernetes.Interface,
-  networkclientset clientset.Interface,
-  networkInformer informers.NetworkInformer) *Controller {
-  ...
-  controller := &amp;Controller{
-    kubeclientset:    kubeclientset,
-    networkclientset: networkclientset,
-    networksLister:   networkInformer.Lister(),
-    networksSynced:   networkInformer.Informer().HasSynced,
-    //初始化工作队列 
-    workqueue:        workqueue.NewNamedRateLimitingQueue(...,  &quot;Networks&quot;),
-    ...
-  }
-  	//Informer 通知注册事件AddEventHandler
-    networkInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
-    AddFunc: controller.enqueueNetwork,
-    UpdateFunc: func(old, new interface{}) {
-      oldNetwork := old.(*samplecrdv1.Network)
-      newNetwork := new.(*samplecrdv1.Network)
-      //update事件，需要判断ResourceVersion
-      if oldNetwork.ResourceVersion == newNetwork.ResourceVersion {
-        return
-      }
-      controller.enqueueNetwork(new)
-    },
-    DeleteFunc: controller.enqueueNetworkForDelete,
- return controller
-}
-</code></pre>
-<p><!-- raw HTML omitted --><strong>然后，控制器Control Loop 是如何工作的呢？</strong><!-- raw HTML omitted --></p>
-<p>伪代码如下：</p>
-<pre><code class="language-golang">
-func (c *Controller) Run(threadiness int, stopCh &lt;-chan struct{}) error {
- ...
-  if ok := cache.WaitForCacheSync(stopCh, c.networksSynced); !ok {
-    return fmt.Errorf(&quot;failed to wait for caches to sync&quot;)
-  }
-  
-  ...
-  for i := 0; i &lt; threadiness; i++ {
-    go wait.Until(c.runWorker, time.Second, stopCh)
-  }
-  
-  ...
-  return nil
-}
-</code></pre>
-<p>其实很简单</p>
-<ul>
-<li>首先，等待 Informer 完成一次本地缓存的数据同步操作；</li>
-<li>然后，通过goroutine启动“无限循环”任务</li>
-</ul>
-<p>那么“无限循环任务”是如何做的呢？</p>
-<ul>
-<li>
-<p><strong>首先</strong>从WorkQueue中Get一个成员，及一个对象的key。</p>
-</li>
-<li>
-<p>然后拿着这个key，尝试从从Informer<strong>本地缓存</strong>中去拿到这个key对应的对象，获取对象的时候会发生两种可能</p>
-<ul>
-<li>
-<p>1.当这个对象的isNotFound的时候，说明这个对象的key ，之前有&quot;delete&quot;事件发生，本地缓存对应的对象已经被删除了，所以没有办法获取到，而发生“delete”事件时候，WorkQueue中添加了这次“delete”事件的key。</p>
-</li>
-<li>
-<p>2.如果能够获取到对应的 Network 对象，<strong>我就可以执行控制器模式里的对比“期望状态”和“实际状态”的逻辑了 及Reconciler 调谐程序，也就是使用类似operator-sdk这样进行operator开发，大部分代码工作的部分</strong></p>
-</li>
-</ul>
-</li>
-</ul>
-<p>Controller伪代码如下：</p>
-<pre><code class="language-golang">
-func (c *Controller) runWorker() {
-  for c.processNextWorkItem() {
-  }
+
+var RootCmd = &amp;cobra.Command{
+        Use:   &quot;sp&quot;,
+        Short: &quot;a project to manage your little tools&quot; ,
+        Long: ``,
+        // Uncomment the following line if your bare application
+        // has an action associated with it:
+        //      Run: func(cmd *cobra.Command, args []string) { },
 }
 
+// Execute adds all child commands to the root command and sets flags appropriately.
+// This is called by main.main(). It only needs to happen once to the rootCmd.
+func Execute() {
+        if err := RootCmd.Execute(); err != nil {
+                fmt.Println(err)
+                os.Exit(1)
+        }
+}
 
-func (c *Controller) processNextWorkItem() bool {
-  obj, shutdown := c.workqueue.Get()
-  
-  ...
-  
-  err := func(obj interface{}) error {
-    ...
-    if err := c.syncHandler(key); err != nil {
-     return fmt.Errorf(&quot;error syncing '%s': %s&quot;, key, err.Error())
-    }
+func init() {
+
+        RootCmd.AddCommand(mutong.MutongCmd)
+}
+</code></pre>
+<ul>
+<li>
+<p>mutong/root.go</p>
+<pre><code class="language-go">package mutong
     
-    c.workqueue.Forget(obj)
-    ...
-    return nil
-  }(obj)
+import (
+        &quot;github.com/spf13/cobra&quot;
+)
   
-  ...
-  
-  return true
+var echoTime int
+// testCmd represents the test command
+var MutongCmd = &amp;cobra.Command{
+        Use:   &quot;mutong&quot;,
+        Short: &quot;some tools in mutong&quot;,
+        Long: ``,
 }
-
-func (c *Controller) syncHandler(key string) error {
-
-//从infomrer的local store中获取
-  namespace, name, err := cache.SplitMetaNamespaceKey(key)
-  ...
   
-  network, err := c.networksLister.Networks(namespace).Get(name)
-  if err != nil {
-// 如果没有则证明，已经被delete  
-    if errors.IsNotFound(err) {
-      glog.Warningf(&quot;Network does not exist in local cache: %s/%s, will delete it from Neutron ...&quot;,
-      namespace, name)
-     return nil
-  }
-    ...
-    
-    return err
-  }
+func init() {
   
-  glog.Infof(&quot;[Neutron] Try to process network: %#v ...&quot;, network)
-   
-  return nil
 }
+  
 </code></pre>
-<p>实际上，在 Kubernetes 的源码中，你会经常看到控制器从各种 Lister 里获取对象，比如：podLister、nodeLister 等等，它们使用的都是 Informer 和缓存机制。</p>
-<h2 id="三思考">三、思考</h2>
-<p>1.CRD在ETCD里面是以JSON格式来存储的，而K8S的API对象是以protobuf格式存储，在资源对象数量多的时候JSON的序列化和反序列化性能会成为瓶颈</p>
-<p>2.controller 中使用workqueue的方式来解耦，因为list/watch的工作跟从controller loop的动作有快有慢，面对这样的场景，使用列队的方式，可以有效的防止阻塞。</p>
+</li>
+<li>
+<p>mutong/ml.go</p>
+<pre><code class="language-go">package mutong
+    
+import (
+        &quot;fmt&quot;
+        &quot;github.com/spf13/cobra&quot;
+)
+  
+// testCmd represents the test command
+var MlType string
+var MlCmd = &amp;cobra.Command{
+        Use:   &quot;ml&quot;,
+        Short: &quot;some tools about ml project &quot;,
+        Long: `some tools abount ml project from mutong company`,
+        Run: func(cmd *cobra.Command, args []string) {
+                        fmt.Println(&quot;MlCmd called&quot;, echoTime)
+        },
+}
+  
+  
+  
+  
+func init(){
+        //register to present cmd MutongCmd
+        MutongCmd.AddCommand(MlCmd)
+        MlCmd.Flags().StringP(MlType,&quot;t&quot;,&quot;&quot;,&quot;ml actions&quot;)
+}
+                  
+  
+</code></pre>
+</li>
+</ul>
 
     </div>
     <div class="article-footer">
@@ -666,7 +478,7 @@ func (c *Controller) syncHandler(key string) error {
   <ul class="post-copyright list-unstyled">
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接: </strong>
-      <a href="https://zhangshunping.github.io/2021/01/operator-1/" title="Operator(一)" target="_blank" rel="external">https://zhangshunping.github.io/2021/01/operator-1/</a>
+      <a href="https://zhangshunping.github.io/2021/01/cobra/" title="Cobra包" target="_blank" rel="external">https://zhangshunping.github.io/2021/01/cobra/</a>
     </li>
     <li class="post-copyright-license">
       <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
@@ -698,14 +510,9 @@ func (c *Controller) syncHandler(key string) error {
     <div class="bar-inner">
         <ul class="pager pull-left">
             <li class="prev">
-                <a href="https://zhangshunping.github.io/2020/11/k8s-period/" title="kubernetes创建pod周期一览"><i
+                <a href="https://zhangshunping.github.io/2021/01/operator-1/" title="Operator(一)"><i
                         class="icon icon-angle-left"
                         aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
-            </li>
-            <li class="next">
-                <a href="https://zhangshunping.github.io/2021/01/cobra/"
-                    title="Cobra包"><span>上一篇&nbsp;&nbsp;</span><i
-                        class="icon icon-angle-right" aria-hidden="true"></i></a>
             </li>
             
             <li class="toggle-toc">

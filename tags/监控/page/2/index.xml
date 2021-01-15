@@ -11,6 +11,15 @@
     
     
     <item>
+      <title>Rsync</title>
+      <link>https://zhangshunping.github.io/2020/05/rsync/</link>
+      <pubDate>Tue, 12 May 2020 14:00:23 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/rsync/</guid>
+      <description>rysnc 常用选项 rsync常用选项 -a 包含-rtplgoD -r 同步目录时要加上，类似cp时的-r选项 -v 同步时显示一些信息，让我们知道同步的过程 -l 小写l</description>
+    </item>
+    
+    <item>
       <title></title>
       <link>https://zhangshunping.github.io/1/01/curl/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
