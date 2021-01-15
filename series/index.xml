@@ -11,10 +11,10 @@
     
     <item>
       <title>Operator(一)</title>
-      <link>https://zhangshunping.github.io/2021/01/operator-crd/</link>
+      <link>https://zhangshunping.github.io/2021/01/operator-1/</link>
       <pubDate>Fri, 01 Jan 2021 14:44:09 +0800</pubDate>
       
-      <guid>https://zhangshunping.github.io/2021/01/operator-crd/</guid>
+      <guid>https://zhangshunping.github.io/2021/01/operator-1/</guid>
       <description>Operator Operator 实际上作为kubernetes自定义扩展资源注册到controller-manager,通过list and watch的方式监听对应资源的变化</description>
     </item>
     
