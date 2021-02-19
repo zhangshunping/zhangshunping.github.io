@@ -5,10 +5,28 @@
     <link>https://zhangshunping.github.io/posts/</link>
     <description>Recent content in Posts on 背对疾风吧！</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 14 Jan 2021 19:26:18 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 18 Feb 2021 18:06:20 +0800</lastBuildDate>
     
         <atom:link href="https://zhangshunping.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Iptables(二)</title>
+      <link>https://zhangshunping.github.io/2020/05/iptables-2/</link>
+      <pubDate>Fri, 15 May 2020 10:05:02 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/iptables-2/</guid>
+      <description>[TOC] state 模块 对于state模块的连接而言，&amp;ldquo;连接&amp;quot;其中的报文可以分为5种状态，报文状态可以为NEW、ESTABLISHED</description>
+    </item>
+    
+    <item>
+      <title>Golang-Channel</title>
+      <link>https://zhangshunping.github.io/2020/05/golang-channel/</link>
+      <pubDate>Tue, 12 May 2020 14:00:23 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/golang-channel/</guid>
+      <description>channle 都是应用于两个go程，一个读，一个写 channel 具有阻塞的作用，类似go程之间对同步资源进行锁机制 具有数据传递的功能 一、无缓冲channel &amp;mda</description>
+    </item>
     
     <item>
       <title>Rsync</title>
@@ -62,6 +80,33 @@
       
       <guid>https://zhangshunping.github.io/1/01/kubelet/</guid>
       <description>下载 kubernetes windows 保持软连接 git -c core.symlinks=true clone https://github.com/kubernetes/kubernetes -b release-1.16</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/elasticsearch-operator%E8%90%BD%E5%9C%B0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/elasticsearch-operator%E8%90%BD%E5%9C%B0/</guid>
+      <description>官网日志架构 一、ECK方案介绍 官网日志方案目前使用的Elastic Cloud on Kubernetes (ECK) operator 的方案在kubernetes集群内落地日志服务。ECK方案落地文</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/kubernetes-cicd%E8%90%BD%E5%9C%B0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/kubernetes-cicd%E8%90%BD%E5%9C%B0/</guid>
+      <description>k8s官网介绍 一、网站均衡负载入口策略 架构图 架构图说明 k8s对外暴露使用ingress-nginx-controoler网关的方式对外暴露服</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/prometheus-operator-%E8%90%BD%E5%9C%B0/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/prometheus-operator-%E8%90%BD%E5%9C%B0/</guid>
+      <description>账号管理 Elastic Stack日志方案和Prometheus监控系统的用户权限管理，都是通过接入 openladp同步自研MOA管理系统，统一管理账号，</description>
     </item>
     
     <item>

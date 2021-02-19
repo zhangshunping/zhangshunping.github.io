@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+         - 背对疾风吧！
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="官网日志架构 一、ECK方案介绍 官网日志方案目前使用的Elastic Cloud on Kubernetes (ECK) operator 的方案在kubernetes集群内落地日志服务。ECK方案落地文" />
+    <meta name="generator" content="Hugo 0.79.1 with theme pure" />
+    <title> - 背对疾风吧！</title>
+    
+    
+    <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="" />
+<meta property="og:description" content="官网日志架构 一、ECK方案介绍 官网日志方案目前使用的Elastic Cloud on Kubernetes (ECK) operator 的方案在kubernetes集群内落地日志服务。ECK方案落地文" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/1/01/elasticsearch-operator%E8%90%BD%E5%9C%B0/" />
+
+<meta itemprop="name" content="">
+<meta itemprop="description" content="官网日志架构 一、ECK方案介绍 官网日志方案目前使用的Elastic Cloud on Kubernetes (ECK) operator 的方案在kubernetes集群内落地日志服务。ECK方案落地文">
+
+<meta itemprop="wordCount" content="2461">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content=""/>
+<meta name="twitter:description" content="官网日志架构 一、ECK方案介绍 官网日志方案目前使用的Elastic Cloud on Kubernetes (ECK) operator 的方案在kubernetes集群内落地日志服务。ECK方案落地文"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/zhangshunping" target="_blank">
+            <img class="img-circle img-rotate" src="https://zhangshunping.github.io/touxiang.ico" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">张顺平</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">个人头像</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>Weclome to my Blog!! </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/gin/" class="category-list-link">gin</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="category-list-link">个人开源小工具</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="category-list-link">云原生</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/" class="category-list-link">监控</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/" class="category-list-link">语言-golang</a><span class="category-list-count">5</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/awk/" class="tag-list-link">awk</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/gin/" class="tag-list-link">gin</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang/" class="tag-list-link">golang</a><span
+                    class="tag-list-count">10</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang-channel/" class="tag-list-link">golang-channel</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/iptables/" class="tag-list-link">iptables</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes/" class="tag-list-link">kubernetes</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes%E6%BA%90%E7%A0%81/" class="tag-list-link">kubernetes源码</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/prometheus/" class="tag-list-link">prometheus</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/rync/" class="tag-list-link">rync</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/zabbix/" class="tag-list-link">zabbix</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/%E7%9B%91%E6%8E%A7/" class="tag-list-link">监控</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/02/muban2/" class="title">CI/CD kubernetes落地</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-18 18:06:20 &#43;0800 CST" itemprop="datePublished">2021-02-18</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/01/cobra/" class="title">Cobra包</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-14 19:26:18 &#43;0800 CST" itemprop="datePublished">2021-01-14</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/01/client-go%E5%B8%B8%E7%94%A8example/" class="title">Client-go包</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-13 20:10:43 &#43;0800 CST" itemprop="datePublished">2021-01-13</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/01/operator-1/" class="title">Operator(一)</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-01 14:44:09 &#43;0800 CST" itemprop="datePublished">2021-01-01</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/11/k8s-period/" class="title">kubernetes创建pod周期一览</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-11-19 18:06:20 &#43;0800 CST" itemprop="datePublished">2020-11-19</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/1/01/elasticsearch-operator%E8%90%BD%E5%9C%B0/"
+    ></a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/1/01/elasticsearch-operator%E8%90%BD%E5%9C%B0/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2461字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="官网日志架构">官网日志架构</h1>
+<h2 id="一eck方案介绍">一、ECK方案介绍</h2>
+<p>官网日志方案目前使用的<a href="https://github.com/elastic/cloud-on-k8s">Elastic Cloud on Kubernetes (ECK)</a> operator 的方案在kubernetes集群内落地日志服务。<a href="https://www.elastic.co/guide/en/cloud-on-k8s/master/k8s-orchestrating-elastic-stack-applications.html">ECK方案落地文档</a></p>
+<p><strong>ECK方案部署Elastic Statck架构</strong>，在k8s主要注册了四个主要 CRD：<strong>APM、ElasticSearch、Kibana</strong>,<strong>beat</strong></p>
+<blockquote>
+<p>可以通过以下命令查看</p>
+</blockquote>
+<pre><code class="language-shell">[root@master01 1.3.1]# kubectl get crd|grep elastic
+#1.apm
+apmservers.apm.k8s.elastic.co                                   2020-11-13T07:26:30Z
+#2.filebeat
+beats.beat.k8s.elastic.co                                       2020-12-23T08:42:52Z
+#3.elasticsearch
+elasticsearches.elasticsearch.k8s.elastic.co                    2020-11-13T07:26:30Z
+enterprisesearches.enterprisesearch.k8s.elastic.co              2020-12-23T08:42:52Z
+#4.kibana
+kibanas.kibana.k8s.elastic.co                                   2020-11-13T07:26:30Z
+</code></pre>
+<p>ECK Operator拉起一个Controller，通过list/watch自定义的CRD资源做出对应的action，从而实现对ElstaticSearch+kibana+beats+apm等集群的管理.</p>
+<blockquote>
+<p>可以在集群内通过以下命令查看Controller</p>
+</blockquote>
+<pre><code class="language-shell">[root@master01 1.3.1]# kubectl  get StatefulSet -nelastic-system
+NAME                 READY   AGE
+elastic-operator     1/1     95d
+
+</code></pre>
+<h2 id="二官网日志方案">二、官网日志方案</h2>
+<p>官网日志落地方案基于ECK方案上做了个性化，认证方面通过syncladp自研组件同步moa账号，实现账号管理。采用<strong>ECK方案原生的方案落地ElasticSearch集群和Kibana</strong>。采用<strong>自定义Demonset控制器落地Filebeat采集agent</strong>（<strong>没有</strong>使用ECK自带的beat资源）。</p>
+<blockquote>
+<p>日志方案架构图</p>
+</blockquote>
+<pre><code class="language-mermaid">graph LR
+  
+	subgraph ECK Logging方案
+	style es fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+	FileBeat1[FileBeat1] &lt;--采集--&gt; es[ElasticSearch]
+	FileBeat2[FileBeat2] &lt;--采集--&gt; es[ElasticSearch]
+	FileBeat3[FileBeat3] &lt;--采集--&gt; es[(ElasticSearch)]
+    es &lt;--ldap认证--&gt; Openldap
+    es &lt;--web--&gt; kibana(kibana)
+    end
+	subgraph 自研moa鉴权服务
+    Openldap(openldap+syncldap)&lt;--同步ldap信息--&gt; moa(MOA)
+    end
+  
+</code></pre>
+<h3 id="21-filebeat">2.1 Filebeat</h3>
+<p>Filebeat是通过daemonset控制器的方式在每一个k8s节点上以pod的方式运行，主要收集 k8s各个节点上的**/data/applog/nginx-ingress**和**/data/applog/nginx**下的日志文件。</p>
+<p>以收集**/data/applog/nginx-ingress/**日志为列，这里需要注意的是：</p>
+<ul>
+<li>
+<p>业务pod，需要将业务日志（这里大多是nginx的日志log），挂载到宿主机上的**/data/applog/nginx-ingress**下</p>
+</li>
+<li>
+<p>filebeat pod，需要将宿主机的**/data/applog/nginx-ingress**挂在到pod内</p>
+</li>
+<li>
+<p>filebeat跟elasticsearch通信，基于kubernetes 内的servicename通信。</p>
+<pre><code class="language-shell"> output.elasticsearch:
+      hosts: [&quot;website-es-http:9200&quot;]
+      protocol: &quot;https
+</code></pre>
+</li>
+<li>
+<p>目前收集的<strong>Zagme,Ml,Mgame</strong>项目业务的日志</p>
+</li>
+<li>
+<p>index命名规则？</p>
+</li>
+</ul>
+<h3 id="22-eleasticsearch-集群">2.2 EleasticSearch 集群</h3>
+<p>因为目前的日志量不是很大，因此采用的是filebeat采集的数据直接录入到elasticSearch的方式。官网ES集群落地是采用ECK原生的构建CRD资源方式。可以通过mastr01节点上路径<code>/usr/local/src/back/config/eck/1.3.1/Elasticsearch.yaml</code>查看EleasticSearch资源清单详情。</p>
+<h4 id="221-查看elasticsearch-状态">2.2.1 查看ElasticSearch 状态</h4>
+<p>执行以下命令查看ElasticSearch资源</p>
+<pre><code class="language-shell">[root@master01 1.3.1]# kubectl  get elasticsearch -nelastic-system 
+NAME      HEALTH   NODES   VERSION   PHASE   AGE
+website   green    3       7.10.1    Ready   48d
+
+</code></pre>
+<ul>
+<li>Nodes 代表着EleaticSearch的集群大小</li>
+<li>HEALTH代表着集群的健康状态
+<ul>
+<li>green状态：每个索引的primary shard和replica shard都是active状态</li>
+<li>yellow ： 每个索引的primary shard都是active状态，但是部分replica shard不是active状态，处于不可用状态</li>
+<li>red: 不是所有的索引的primary shard都是active状态，部分索引有数据丢失了</li>
+</ul>
+</li>
+</ul>
+<h4 id="221-elasticsearch-配置说明"><strong>2.2.1 ElasticSearch 配置说明</strong></h4>
+<ul>
+<li>ElasticSearch结合LDAP实现权限、用户管控</li>
+</ul>
+<pre><code class="language-yaml">     xpack:
+        security:
+          authc:
+            realms:
+              ldap:
+                ldap1:
+                  order: 0
+                  url: &quot;XXXXX.XXXX.XXXX&quot;   # 配置的openladp+syncladp的地址（svc地址)
+                  timeout:
+                    tcp_connect: &quot;120s&quot;
+                    tcp_read: &quot;120s&quot;
+                    ldap_search: &quot;120s&quot;
+                  bind_dn: &quot;XXX.XXX.XXX&quot; ##ldap管理账户dn
+                  user_search:
+                    base_dn: &quot;ou=People,ou=project-128,dc=XX,dc=net&quot; #在这个目录树里面检索用户信息
+                    filter: &quot;(uid={0})&quot;
+                  group_search:
+                    base_dn: &quot;ou=Group,ou=project-128,dc=XX,dc=net&quot;  # 在这个目录树里面检索组信息
+                  files:
+                    role_mapping: &quot;/usr/share/elasticsearch/config/role_mapping.yml&quot;  # 下面这个是通过文件方式配置的LDAP用户域和Es内置角色的映射关系
+                  unmapped_groups_as_roles: false
+
+</code></pre>
+<ul>
+<li>
+<p>openladp+syncladp服务可以通过以下命令查看</p>
+<pre><code class="language-shell">[root@master01 1.3.1]# kubectl  get pods -nkube-system openldap-manage 
+NAME              READY   STATUS    RESTARTS   AGE
+openldap-manage   2/2     Running   0          72d
+[root@master01 1.3.1]# kubectl  get svc -nkube-system openldap-server
+NAME              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+openldap-server   ClusterIP   172.31.230.127   &lt;none&gt;        389/TCP   84d
+  
+</code></pre>
+</li>
+<li>
+<p>ElasticSearch 存储跟Prometheus集群一样，采用了Openebs的方案做的localpv存储</p>
+<pre><code class="language-yaml">volumeClaimTemplates:
+    - metadata:
+        name: elasticsearch-data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 100Gi
+        storageClassName: openebs-hostpath
+</code></pre>
+</li>
+</ul>
+<h3 id="23-kibana">2.3 Kibana</h3>
+<p>kibana是日志方案的web界面，落地方案也是采用ECK原生的CRD资源进行管理落地。</p>
+<h4 id="231-查看kibana资源">2.3.1 查看Kibana资源</h4>
+<pre><code class="language-shell">[root@master01 1.3.1]# kubectl  get kibana -nelastic-system 
+NAME      HEALTH   NODES   VERSION   AGE
+website   green    1       7.10.1    48d
+</code></pre>
+<h4 id="232-kibana-服务暴露方式">2.3.2 kibana 服务暴露方式</h4>
+<p>kibana服务暴露是通过ingress的方式注册打ingress-nginx网关上进行服务暴露,可以通过如下命令查看</p>
+<pre><code class="language-shell">[root@master01 1.3.1]# kubectl  get ingress -nelastic-system 
+NAME             HOSTS                    ADDRESS                                     PORTS     AGE
+kibana-ingress   kibana.k8s.moonton.net   10.142.87.198,10.142.87.209,10.142.87.216   80, 443   96d
+</code></pre>
+<p>Tips: kibana ingress跟grafana一样，设置了白名单</p>
+<pre><code class="language-yaml">nginx.ingress.kubernetes.io/whitelist-source-range: 180.169.85.114/32,137.59.103.18/32,103.206.188.183/32,101.230.210.194/32,161.202.217.208/32,161.202.217.167/32
+</code></pre>
+<h3 id="24-wathcer报警方式">2.4 Wathcer报警方式</h3>
+<p>日志告警，是通过Xpack 插件提供的告警模块<strong>Watcher</strong>提供的报警规则.<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/watcher-api.html">wathcer官方操作手册</a>，为了配置一个 Watcher，我们必须配置如下的几个配置：</p>
+<pre><code class="language-shell">PUT _watcher/watch/my-justme-watcher
+{
+  &quot;trigger&quot;: {},
+  &quot;input&quot;: {},
+  &quot;condition&quot;: {},
+  &quot;actions&quot;: {}
+}
+</code></pre>
+<h4 id="trigger">trigger</h4>
+<pre><code class="language-json">&quot;trigger&quot;: {
+    &quot;schedule&quot; : {
+      &quot;interval&quot;: &quot;1h&quot;
+    }
+  },
+</code></pre>
+<p>上面表明，我们希望 watcher 每一个小时运行一次。针对我们的情况，我们定义为：</p>
+<pre><code class="language-json">  &quot;trigger&quot;: {
+    &quot;schedule&quot;: {
+      &quot;cron&quot;: &quot;0 0/1 * * * &quot;
+    }
+  },
+</code></pre>
+<p>上面表明，我们希望每一分钟运行一次。</p>
+<h4 id="input">input</h4>
+<pre><code class="language-json">  &quot;input&quot;: {
+    &quot;search&quot;: {
+      &quot;request&quot;: {
+        &quot;indices&quot;: [
+          &quot;filebeat-*&quot;
+        ],
+        &quot;body&quot;: {
+          &quot;query&quot;: {
+            &quot;bool&quot;: {
+              &quot;must&quot;: {
+                &quot;match&quot;: {
+                  &quot;process.name&quot;: &quot;JUSTME&quot;
+                }
+              },
+              &quot;filter&quot;: {
+                &quot;range&quot;: {
+                  &quot;@timestamp&quot;: {
+                    &quot;from&quot;: &quot;{{ctx.trigger.scheduled_time}}||-5m&quot;,
+                    &quot;to&quot;: &quot;{{ctx.trigger.triggered_time}}&quot;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+</code></pre>
+<p>在上面，我们想针对 filebeat-* 的索引来进行搜索。如果 process.name 含有 JUSTME，则表明有一个匹配。同时我们针对在过去5分钟内发生的事件来进行查询。</p>
+<h4 id="condition">condition</h4>
+<p>我们定义如下：</p>
+<pre><code>&quot;condition&quot; : {
+    &quot;compare&quot; : { &quot;ctx.payload.hits.total&quot; : { &quot;gt&quot; : 0 }}
+  },
+</code></pre>
+<p><strong>上面显示如果在查询结果</strong>中，有至少一个的结果，那么就会发送出alert,<code>ctx.payload.hits.total</code>表示查询结果</p>
+<h4 id="actions">actions</h4>
+<p>这个是定义当上面的 condition 被满足时，需要采取的一些行动。这些行动可以在<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/actions.html">地址</a>找到。目前 Watcher 支持的action为: <code>email，``webhook，``index，``logging，``slack 及``pagerduty。</code></p>
+<h4 id="官网报警配置">官网报警配置</h4>
+<p>可以通过kibana查看。</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cimage-20210217163123302.png" alt="image-20210217163123302"></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20210217195309039.png" alt="image-20210217195309039"></p>
+<p>具体规则可以根据<strong>trigger，input，condition，actions</strong>的配置规则查看</p>
+<p>&mdash;-未完待续</p>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/1/01/elasticsearch-operator%E8%90%BD%E5%9C%B0/" title="" target="_blank" rel="external">https://zhangshunping.github.io/1/01/elasticsearch-operator%E8%90%BD%E5%9C%B0/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://zhangshunping.github.io/1/01/kubernetes-cicd%E8%90%BD%E5%9C%B0/" title=""><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://zhangshunping.github.io/1/01/kubelet/"
+                    title=""><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://zhangshunping.github.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2021
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://zhangshunping.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://zhangshunping.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/zhangshunping.github.io',
+            CONTENT_URL: 'https:\/\/zhangshunping.github.io\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://zhangshunping.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

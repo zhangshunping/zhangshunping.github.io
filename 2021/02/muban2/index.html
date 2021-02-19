@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        CI/CD kubernetes落地 - 背对疾风吧！
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="ingress CI/CD kubernetes落地" />
+    <meta name="generator" content="Hugo 0.79.1 with theme pure" />
+    <title>CI/CD kubernetes落地 - 背对疾风吧！</title>
+    
+    
+    <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="CI/CD kubernetes落地" />
+<meta property="og:description" content="ingress CI/CD kubernetes落地" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/2021/02/muban2/" />
+<meta property="article:published_time" content="2021-02-18T18:06:20+08:00" />
+<meta property="article:modified_time" content="2021-02-18T18:06:20+08:00" />
+<meta itemprop="name" content="CI/CD kubernetes落地">
+<meta itemprop="description" content="ingress CI/CD kubernetes落地">
+<meta itemprop="datePublished" content="2021-02-18T18:06:20+08:00" />
+<meta itemprop="dateModified" content="2021-02-18T18:06:20+08:00" />
+<meta itemprop="wordCount" content="2215">
+
+
+
+<meta itemprop="keywords" content="kubernetes," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CI/CD kubernetes落地"/>
+<meta name="twitter:description" content="ingress CI/CD kubernetes落地"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/zhangshunping" target="_blank">
+            <img class="img-circle img-rotate" src="https://zhangshunping.github.io/touxiang.ico" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">张顺平</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">个人头像</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>Weclome to my Blog!! </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/gin/" class="category-list-link">gin</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="category-list-link">个人开源小工具</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="category-list-link">云原生</a><span class="category-list-count">7</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/" class="category-list-link">监控</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/" class="category-list-link">语言-golang</a><span class="category-list-count">5</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/awk/" class="tag-list-link">awk</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/gin/" class="tag-list-link">gin</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang/" class="tag-list-link">golang</a><span
+                    class="tag-list-count">10</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang-channel/" class="tag-list-link">golang-channel</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/iptables/" class="tag-list-link">iptables</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes/" class="tag-list-link">kubernetes</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes%E6%BA%90%E7%A0%81/" class="tag-list-link">kubernetes源码</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/prometheus/" class="tag-list-link">prometheus</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/rync/" class="tag-list-link">rync</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/zabbix/" class="tag-list-link">zabbix</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/%E7%9B%91%E6%8E%A7/" class="tag-list-link">监控</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/02/muban2/" class="title">CI/CD kubernetes落地</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-18 18:06:20 &#43;0800 CST" itemprop="datePublished">2021-02-18</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/01/cobra/" class="title">Cobra包</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-14 19:26:18 &#43;0800 CST" itemprop="datePublished">2021-01-14</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/01/client-go%E5%B8%B8%E7%94%A8example/" class="title">Client-go包</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-13 20:10:43 &#43;0800 CST" itemprop="datePublished">2021-01-13</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/01/operator-1/" class="title">Operator(一)</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-01-01 14:44:09 &#43;0800 CST" itemprop="datePublished">2021-01-01</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2020/11/k8s-period/" class="title">kubernetes创建pod周期一览</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2020-11-19 18:06:20 &#43;0800 CST" itemprop="datePublished">2020-11-19</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2021/02/muban2/"
+    >CI/CD kubernetes落地</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://zhangshunping.github.io/2021/02/muban2/" class="article-date">
+  <time datetime="2021-02-18 18:06:20 &#43;0800 CST" itemprop="datePublished">2021-02-18</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"> 云原生 </a>
+  <a class="article-category-link" href="/categories/k8s/"> k8s </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/kubernetes/"> kubernetes </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/02/muban2/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2215字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="k8s官网介绍">k8s官网介绍</h1>
+<h3 id="一网站均衡负载入口策略">一、<strong>网站均衡负载入口策略</strong></h3>
+<blockquote>
+<p>架构图</p>
+</blockquote>
+<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5Cweb.png" alt="web"></p>
+<blockquote>
+<p>架构图说明</p>
+</blockquote>
+<p>k8s对外暴露使用<strong>ingress-nginx-controoler</strong>网关的方式对外暴露服务。</p>
+<p>用户登录域名，通过<strong>阿里云 DNS服务器</strong>解析，一般<strong>A记录</strong>解析 k8s集群上的<strong>ingress-nginx-controller网关</strong>所在的k8s节点的外网ip，k8s 集群内的<strong>ingress-nginx-controller</strong>以daemonset的方式运行在集群节点上，listen 80和443端口；<strong>CNAME记录</strong>则解析到对应的<strong>CDN服务</strong>。</p>
+<p><strong>ingress-nginx 部署方式如下：</strong></p>
+<pre><code class="language-shell">[root@master01 ingress]# kubectl  get daemonset -ningress-nginx 
+NAME                                 DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE 
+admin-ingress-nginx-controller       3         3         3       3            3         
+ml-api-ingress-nginx-controller      5         5         5       5            5         
+ml-static-ingress-nginx-controller   3         3         3       3            3         
+zgame-ingress-nginx-controller       2         2         2       2            2    
+
+## admin-ingress-nginx-controller      管理员网关（用作日志，监控的服务注册）
+## ml-api-ingress-nginx-controller     ml服务的api网关
+## ml-static-ingress-nginx-controller  ml服务的静态网关
+## zgame-ingress-nginx-controller      zame服务网关
+</code></pre>
+<p>当通过A记录解析，把流量分发到k8s对应的<strong>ingress-controller网关</strong>之后，网关会解析域名，分发到对应的<strong>ingress资源</strong>上去，然后ingress将流量分发到对应的<strong>service上去</strong>，service通过k8s原生的<strong>endpoint资源</strong>将流量转发到<strong>真实的pod服务上去</strong>。</p>
+<blockquote>
+<p><strong>举个栗子：</strong>
+当请求访问 ”api.XXXXXX.com“时候，首先经过阿里云DNS服务解析（阿里云A记录如图），假如A记录解析的IP为：&ldquo;X.x.x.202&rdquo;,这个时候流量就会导入到外网地址为&quot;X.x.x.202&quot;这台k8s节点上.与此同时ingress-nginx-controller是以damoneset的方式运行，通过采用hostnetwork的方式共享宿主机网络命名空间，所以这个时候listen的80的端口正是admin-ingress-nginx-controller控制器产生的pod为&quot;ml-api-ingress-nginx-controller-7tscl&quot;的ingress-controller pod服务，这个时候流量就会导入到这个pod服务内。这个ingress-controller pod会根据上面注册的ingress，将流量通过service代理导入到提供服务的pod。从而实现一次流量转发.如下图：</p>
+</blockquote>
+<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5CDNS.png" alt="image-20210219130821173"></p>
+<p><strong>Tips</strong>: 这里的入口流量的均衡负载方式，是采用<strong>DNS均衡负载方式</strong>，流量直接导入到k8s集群对应的公网节点上。因此<!-- raw HTML omitted -->如果有k8s节点下线，需要注意清理阿里云的A记录<!-- raw HTML omitted --></p>
+<ul>
+<li>
+<p>ingress-controoler资源常用操作命令</p>
+<pre><code class="language-shell">#1. 查看ingress-controller 网关
+kubectl  get pods -ningress-nginx
+#2. 查看ingress资源
+##目前常用项目资源分别分布在 mlweb,mgameweb,zgameweb,elastic-system等命令空间下
+kubectl  get ingress -nmlweb
+kubectl  get ingress -nzgameweb
+</code></pre>
+</li>
+</ul>
+<h4 id="11网络策略">1.1网络策略</h4>
+<ul>
+<li>
+<p>目前只针对 monitoring 空间下的ingress做了白名单，具体可通过如下命令查看对应的资源</p>
+<pre><code class="language-shell">[root@master01 config]# kubectl  get ingress  access-grafana -nmonitoring -oyaml
+---
+***
+    nginx.ingress.kubernetes.io/whitelist-source-range: 180.169.85.114/32,137.59.103.18/32,103.206.188.183/32,101.230.210.194/32,161.202.217.208/32,161.202.217.167/32
+  
+---
+</code></pre>
+</li>
+</ul>
+<hr>
+<h3 id="二jenkins-cicd发布流程">二、Jenkins CI/CD发布流程</h3>
+<blockquote>
+<p>Jenkins 实现 kubernetes的官网版本发布流程。</p>
+</blockquote>
+<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5CCICD.png" alt="image-20210219131045909"></p>
+<blockquote>
+<p>jenkins官网应用发布更新流程详情</p>
+</blockquote>
+<h4 id="1拉取svn代码">1.拉取svn代码</h4>
+<ul>
+<li>
+<p><strong>官网版本管理</strong> 是通过</p>
+<p>第一种：<strong>&ldquo;版本类型tags+&ldquo;版本release&rdquo;+&ldquo;project&rdquo;+&ldquo;站点site&rdquo;+&ldquo;location&rdquo;</strong></p>
+<p>第二种: <strong>&ldquo;版本类型truck&rdquo;+&ldquo;project&rdquo;+&ldquo;站点site&rdquo;+&ldquo;location&rdquo;</strong> 这两种方式来管理对应的分支代码。</p>
+<p>第一种可以认为是迭代版本;第二种认为是新分支,及不存在release版本号。因此拉取代码的时候，要明确知道<code>tags+release+project+site+localtion</code>。</p>
+<p><strong>举个栗子</strong>：</p>
+<p>jenkins 名为 &ldquo;k8s-ml-dev-api.mobilelegends.com job&quot;的job 执行自动发布流程，需要输入对应的参数。</p>
+<p><strong>jenkins用户输入：</strong></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cimage-20210120143636186.png" alt="image-20210120143636186"></p>
+<p><strong>然后jenkins执行如下脚本，进行版本发布：</strong></p>
+</li>
+</ul>
+<pre><code class="language-shell">## 执行shell
+array=(${release//\// }) 
+release=${array[0]}
+type=`echo ${type}|sed 's/-//'`
+bash -x /usr/local/src/k8s-dev-deploy.sh &quot;api.mobilelegends.com&quot; &quot;$location&quot; &quot;$release&quot; true &quot;$type&quot; &quot;${BUILD_NUMBER}&quot; &quot;${branch}
+</code></pre>
+<h4 id="2编译代码并打包docker镜像">2.编译代码，并打包docker镜像</h4>
+<h5 id="21-编译前准备">2.1 编译前准备</h5>
+<p>代码编译分为**：静态服务和非静态服务**</p>
+<ul>
+<li>
+<p>1。如果静态服务编译，需要在本地安装对应的静态依赖包</p>
+<pre><code class="language-shell">if [ &quot;${dynamic}&quot; == &quot;false&quot; ];then
+    if [ -f &quot;webpack.config.js&quot; ] || [ -f &quot;vue.config.js&quot; ] || [ -f &quot;package.json&quot; ];then
+        [ -d &quot;dist&quot; ] &amp;&amp; rm -rf dist
+        [ -d &quot;node_modules&quot; ] &amp;&amp; rm -rf node_modules
+        grep node-sass  package.json &gt;/dev/null
+        [ $? -eq 0 ] &amp;&amp; /usr/local/node/bin/npm install node-sass --unsafe-perm
+        /usr/local/node/bin/npm install
+        [ $? -ne 0 ] &amp;&amp; exit 1
+        /usr/local/node/bin/npm run ${project_env}
+        [ $? -ne 0 ] &amp;&amp; exit 1
+    fi
+fi
+</code></pre>
+</li>
+<li>
+<p>2.非静态地址则需要，替换MFW地址和DB地址</p>
+<pre><code class="language-shell">  cd ${SOURCE_DIR}/${project}/${site}${location}
+      sed -i &quot;s#\(MFW_LOCATOR=\).*#\1\&quot;$MFW_LOCATOR_ADDR\&quot;#g&quot; ${project_env_file}
+      sed -i &quot;s#\(DB_HOST=\).*#\1${DB_HOST_ADDR}#g&quot; ${project_env_file}
+      sed -i &quot;s#\(DB_HOST_MLWEB=\).*#\1${DB_HOST_ADDR}#g&quot; ${project_env_file}
+      sed -i &quot;s#\(DB_HOST_HERO=\).*#\1${DB_HOST_ADDR}#g&quot; ${project_env_file}
+      sed -i &quot;s#\(DB_HOST_PLAYERCARE=\).*#\1${DB_HOST_ADDR}#g&quot; ${project_env_file}
+      sed -i &quot;s#\(DB_HOST_ML_WEB=\).*#\1${DB_HOST_ADDR}#g&quot; ${project_env_file}
+      ls .[!.]*
+      [ $? -eq 0 ] &amp;&amp; tar -zcf ${app_name}-${release}.tar.gz * .[!.]* || tar -zcf ${app_name}-${release}.tar.gz *
+      rm -rf $DOCKER_IMGAE_FACTORY/SOURCES/${app_name}-${release}.tar.gz
+      mv  ${app_name}-${release}.tar.gz $DOCKER_IMGAE_FACTORY/SOURCES/
+</code></pre>
+</li>
+</ul>
+<h5 id="22-正式编译打包">2.2 正式编译打包</h5>
+<ul>
+<li>将编译文件目录拷贝到本地docker编译目录，<strong>根据不同类型</strong>生成dockerfile文件，编程生成docker镜像，<strong>上传到docker仓库服务</strong></li>
+</ul>
+<h4 id="3生成k8s资源清单并apply创建资源">3.生成k8s资源清单,并apply创建资源</h4>
+<h5 id="31-跟调度有关">3.1 跟调度有关</h5>
+<ul>
+<li>
+<p>应用pod通过<strong>deployment 控制器</strong>进行管理，通过标签选择器<strong>nodeSelector</strong>选择调度</p>
+<pre><code class="language-ml">## ml项目常见选择器
+nodeSelector:
+        kubernetes.io/project: ml
+        kubernetes.io/node-role: gateway
+        kubernetes.io/gateway: api
+nodeSelector:
+        kubernetes.io/project: ml
+        kubernetes.io/node-role: gateway
+        kubernetes.io/gateway: static        
+</code></pre>
+</li>
+</ul>
+<h5 id="32-跟存储有关">3.2 跟存储有关</h5>
+<ul>
+<li>应用pod的只针对了 应用日志和nginx日志做持久化,<strong>业务本身是无状态的</strong>。</li>
+</ul>
+<h4 id="4修改site对应的ingress资源">4.修改site对应的ingress资源.</h4>
+<p>一般操作如下</p>
+<pre><code class="language-shell"> paths=`kubectl --kubeconfig=${KUBE_CONFIG} --insecure-skip-tls-verify   -n ${NAMESAPCES}  get ingress ${domain}  -o jsonpath='{.spec.rules[0].http.paths..path}'`
+    if [ $? -eq 0 ];then
+        location_path=&quot;$location(/|$)(.*)&quot;
+        [ &quot;$location&quot; == &quot;/&quot; ] &amp;&amp; location_path=&quot;/&quot;
+        if [ &quot;$paths&quot; == &quot;&quot; ];then
+              patch=&quot;[{\&quot;op\&quot;: \&quot;add\&quot;, \&quot;path\&quot;: \&quot;/spec/rules/0/http\&quot;, \&quot;value\&quot;:{\&quot;paths\&quot;:[{\&quot;path\&quot;:\&quot;${location_path}\&quot;,\&quot;backend\&quot;:{\&quot;serviceName\&quot;:\&quot;${app_name,,}\&quot;,\&quot;servicePort\&quot;:80}}]}}]&quot;
+              kubectl --kubeconfig=${KUBE_CONFIG} --insecure-skip-tls-verify -n ${NAMESAPCES}  patch ingress ${domain} --type json -p &quot;$patch&quot;
+        else
+            echo &quot;$paths&quot; |grep -w &quot;$location&quot; &gt;/dev/null
+            if [ $? -ne 0 ];then
+              patch=&quot;[{\&quot;op\&quot;: \&quot;add\&quot;, \&quot;path\&quot;: \&quot;/spec/rules/0/http/paths/-\&quot;, \&quot;value\&quot;:{\&quot;path\&quot;:\&quot;${location_path}\&quot;,\&quot;backend\&quot;:{\&quot;serviceName\&quot;:\&quot;${app_name,,}\&quot;,\&quot;servicePort\&quot;:80}}}]&quot;
+              kubectl --kubeconfig=${KUBE_CONFIG} --insecure-skip-tls-verify -n ${NAMESAPCES}  patch ingress ${domain}  --type json -p &quot;$patch&quot;
+            fi
+        fi
+    fi
+</code></pre>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/2021/02/muban2/" title="CI/CD kubernetes落地" target="_blank" rel="external">https://zhangshunping.github.io/2021/02/muban2/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://zhangshunping.github.io/2021/01/cobra/" title="Cobra包"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://zhangshunping.github.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2021
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://zhangshunping.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://zhangshunping.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/zhangshunping.github.io',
+            CONTENT_URL: 'https:\/\/zhangshunping.github.io\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://zhangshunping.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>
