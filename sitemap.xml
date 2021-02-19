@@ -10,7 +10,14 @@
   </url>
   
   <url>
-    <loc>https://zhangshunping.github.io/2021/02/muban2/</loc>
+    <loc>https://zhangshunping.github.io/2021/02/kubernetes-cicd%E8%90%BD%E5%9C%B0/</loc>
+    <lastmod>2021-02-18T18:06:20+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhangshunping.github.io/2021/02/elasticsearch-operator%E8%90%BD%E5%9C%B0/</loc>
     <lastmod>2021-02-18T18:06:20+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -31,7 +38,28 @@
   </url>
   
   <url>
+    <loc>https://zhangshunping.github.io/tags/operator/</loc>
+    <lastmod>2021-02-18T18:06:20+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhangshunping.github.io/categories/operator/</loc>
+    <lastmod>2021-02-18T18:06:20+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://zhangshunping.github.io/posts/</loc>
+    <lastmod>2021-02-18T18:06:20+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhangshunping.github.io/2021/02/prometheus-operator-%E8%90%BD%E5%9C%B0/</loc>
     <lastmod>2021-02-18T18:06:20+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -46,6 +74,20 @@
   
   <url>
     <loc>https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/</loc>
+    <lastmod>2021-02-18T18:06:20+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhangshunping.github.io/categories/%E6%97%A5%E5%BF%97/</loc>
+    <lastmod>2021-02-18T18:06:20+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/</loc>
     <lastmod>2021-02-18T18:06:20+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -130,13 +172,6 @@
   
   <url>
     <loc>https://zhangshunping.github.io/tags/%E7%9B%91%E6%8E%A7/</loc>
-    <lastmod>2020-11-09T10:26:08+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/</loc>
     <lastmod>2020-11-09T10:26:08+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -357,24 +392,6 @@
   
   <url>
     <loc>https://zhangshunping.github.io/1/01/kubelet/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhangshunping.github.io/1/01/elasticsearch-operator%E8%90%BD%E5%9C%B0/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhangshunping.github.io/1/01/kubernetes-cicd%E8%90%BD%E5%9C%B0/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhangshunping.github.io/1/01/prometheus-operator-%E8%90%BD%E5%9C%B0/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

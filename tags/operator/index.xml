@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>operator on 背对疾风吧！</title>
+    <link>https://zhangshunping.github.io/tags/operator/</link>
+    <description>Recent content in operator on 背对疾风吧！</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 18 Feb 2021 18:06:20 +0800</lastBuildDate>
+    
+        <atom:link href="https://zhangshunping.github.io/tags/operator/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CI/CD kubernetes落地</title>
+      <link>https://zhangshunping.github.io/2021/02/kubernetes-cicd%E8%90%BD%E5%9C%B0/</link>
+      <pubDate>Thu, 18 Feb 2021 18:06:20 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/02/kubernetes-cicd%E8%90%BD%E5%9C%B0/</guid>
+      <description>k8s官网介绍 一、网站均衡负载入口策略 架构图 架构图说明 k8s对外暴露使用ingress-nginx-controoler网关的方式对外暴露服</description>
+    </item>
+    
+    <item>
+      <title>Elastic Statck Operator</title>
+      <link>https://zhangshunping.github.io/2021/02/elasticsearch-operator%E8%90%BD%E5%9C%B0/</link>
+      <pubDate>Thu, 18 Feb 2021 18:06:20 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/02/elasticsearch-operator%E8%90%BD%E5%9C%B0/</guid>
+      <description>官网日志架构 一、ECK方案介绍 官网日志方案目前使用的Elastic Cloud on Kubernetes (ECK) operator 的方案在kubernetes集群内落地日志服务。ECK方案落地文</description>
+    </item>
+    
+    <item>
+      <title>Prometheus Operator</title>
+      <link>https://zhangshunping.github.io/2021/02/prometheus-operator-%E8%90%BD%E5%9C%B0/</link>
+      <pubDate>Thu, 18 Feb 2021 18:06:20 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/02/prometheus-operator-%E8%90%BD%E5%9C%B0/</guid>
+      <description>账号管理 Elastic Stack日志方案和Prometheus监控系统的用户权限管理，都是通过接入 openladp同步自研MOA管理系统，统一管理账号，</description>
+    </item>
+    
+    <item>
+      <title>Cobra包</title>
+      <link>https://zhangshunping.github.io/2021/01/cobra/</link>
+      <pubDate>Thu, 14 Jan 2021 19:26:18 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/01/cobra/</guid>
+      <description>Cobra库 cobra 中有个重要的概念，分别是 commands、arguments 和 flags。其中 commands 代表行为，arguments 就是命令行参数(或</description>
+    </item>
+    
+    <item>
+      <title>Client-go包</title>
+      <link>https://zhangshunping.github.io/2021/01/client-go%E5%B8%B8%E7%94%A8example/</link>
+      <pubDate>Wed, 13 Jan 2021 20:10:43 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/01/client-go%E5%B8%B8%E7%94%A8example/</guid>
+      <description>client-go client-go 是用 Golang 语言编写的官方编程式交互客户端库，提供对 Kubernetes API server 服务的交互访问。 client-go源码目录 1.discovery: 提供 DiscoveryClient 发现客户端。 2.dynamic: 提供 DynamicClient 动态客户端。 3.informers:</description>
+    </item>
+    
+    <item>
+      <title>Operator(一)</title>
+      <link>https://zhangshunping.github.io/2021/01/operator-1/</link>
+      <pubDate>Fri, 01 Jan 2021 14:44:09 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/01/operator-1/</guid>
+      <description>Operator Operator 实际上作为kubernetes自定义扩展资源注册到controller-manager,通过list and watch的方式监听对应资源的变化</description>
+    </item>
+    
+    <item>
+      <title>kubernetes创建pod周期一览</title>
+      <link>https://zhangshunping.github.io/2020/11/k8s-period/</link>
+      <pubDate>Thu, 19 Nov 2020 18:06:20 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/11/k8s-period/</guid>
+      <description>[toc] kubernetes创建过程 全局周期 k8s创建pod的组件之间的交互过程，看图说话: 步骤一：用户向apiserver提交创建pod请求，k</description>
+    </item>
+    
+    <item>
+      <title>kubernetes创建pod周期一览</title>
+      <link>https://zhangshunping.github.io/2020/11/k8s%E5%88%9B%E5%BB%BApod%E5%91%A8%E6%9C%9F/</link>
+      <pubDate>Thu, 19 Nov 2020 18:06:20 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/11/k8s%E5%88%9B%E5%BB%BApod%E5%91%A8%E6%9C%9F/</guid>
+      <description>[toc] kubernetes创建过程 全局周期 k8s创建pod的组件之间的交互过程，看图说话: 步骤一：用户向apiserver提交创建pod请求，k</description>
+    </item>
+    
+    <item>
+      <title>Zabbix(一)</title>
+      <link>https://zhangshunping.github.io/2020/11/zabbix-1/</link>
+      <pubDate>Mon, 09 Nov 2020 10:26:08 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/11/zabbix-1/</guid>
+      <description>[TOC] 监控维度 怎么监控？ 硬件 温度 磁盘，主板等故障 待机时间 系统 cpu 内存 负载 磁盘 内核参数 网卡流量 tcp连接数 进程数 io 端口采集 程序 应用： nginx，my</description>
+    </item>
+    
+    <item>
+      <title>开源小工具- Dynamic Scheduler</title>
+      <link>https://zhangshunping.github.io/2020/09/dynamic-scheduler/</link>
+      <pubDate>Wed, 16 Sep 2020 11:59:59 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/09/dynamic-scheduler/</guid>
+      <description>[toc] dynamic-Scheduler 背景 kubernetes调度策略默认根据node节点的request值（cpu和mem）进行调度，dynamic-Scheduler希望</description>
+    </item>
+    
+    <item>
+      <title>Prometheus（一）</title>
+      <link>https://zhangshunping.github.io/2020/08/prometheus1/</link>
+      <pubDate>Sun, 16 Aug 2020 11:59:59 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/08/prometheus1/</guid>
+      <description>[toc] 监控的目的 在《SRE: Google运维解密》一书中指出，监控系统需要能够有效的支持白盒监控和黑盒监控。通过白盒能够了解其内部的实际运行状态</description>
+    </item>
+    
+    <item>
+      <title>开源小工具- Export-execl</title>
+      <link>https://zhangshunping.github.io/2020/07/export-execl/</link>
+      <pubDate>Mon, 20 Jul 2020 09:45:12 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/export-execl/</guid>
+      <description>[TOC] Export_execl Purpose Export_execl is my a little tool that Perform export execl tasks and send it as attachment to the designated person’s mailbox according to the needs。Only suport export execl from mysql. How to use it Develop Language python2 , Golang &amp;gt;= 1.14 step1 . Compile goEmail by go mod cd sendEmailByGo go</description>
+    </item>
+    
+    <item>
+      <title>开源小工具-objectss</title>
+      <link>https://zhangshunping.github.io/2020/07/objectss/</link>
+      <pubDate>Fri, 17 Jul 2020 09:40:12 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/objectss/</guid>
+      <description>[TOC] objectss objectss 是为大数据大并发迁移到对象存储上而设计开源小项目。 Purpose 背景： 公司战略问题，需要从阿里云迁移到华为云；使用的git服务器，有10T的存储容</description>
+    </item>
+    
+    <item>
+      <title>Gin_Router套路</title>
+      <link>https://zhangshunping.github.io/2020/07/gin_router/</link>
+      <pubDate>Wed, 15 Jul 2020 10:54:39 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/gin_router/</guid>
+      <description>我的Gin 项目结构 ├── Config //处理配置文件代码 │ └── cofig1.go ├── Controller //控制层 │ ├── controllerHanlder.go │ ├── DbHandler.go │ └── StaticHandler │ ├── HelloWorld.go │ ├── Info.go │ └── PageNotFound.go ├──</description>
+    </item>
+    
+    <item>
+      <title>开源小工具- Kubectl Addons</title>
+      <link>https://zhangshunping.github.io/2020/07/kubectl-addons/</link>
+      <pubDate>Wed, 15 Jul 2020 09:45:12 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/kubectl-addons/</guid>
+      <description>[TOC] 背景 日常工作发现用kubectl 管理k8s集群虽然方便，但是针对某一些资源的CURD不是很好。 Kubect-addons 实对kubectl 命令的一个补充。使用到的</description>
+    </item>
+    
+    <item>
+      <title>Gin框架常见用法</title>
+      <link>https://zhangshunping.github.io/2020/07/gin_%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Tue, 14 Jul 2020 10:54:39 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/gin_%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/</guid>
+      <description>[TOC] json渲染 func main() { r := gin.Default() // 1、map渲染，gin.H{} r.GET(&amp;quot;/map_json&amp;quot;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;quot;message&amp;quot;: &amp;quot;map_json&amp;quot;, }) }) //2、 结构体渲染， r.GET(&amp;quot;/other_json&amp;quot;, func(c *gin.Context) { c.JSON(http.StatusOK,Other_json{Messag: &amp;quot;otherJson&amp;quot;}) }) r.Run() // listen and serve on 0.0.0.0:8080 (for windows &amp;quot;localhost:8080&amp;quot;) } type Other_json struct{</description>
+    </item>
+    
+    <item>
+      <title>Golang-Context</title>
+      <link>https://zhangshunping.github.io/2020/06/golang-context/</link>
+      <pubDate>Sat, 27 Jun 2020 15:38:57 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/golang-context/</guid>
+      <description>[TOC] Context诞生背景 由于在Golang severs中，每个request都是在单个goroutine中完成，并且在单个goroutine</description>
+    </item>
+    
+    <item>
+      <title>Golang-闭包场景总结</title>
+      <link>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Tue, 23 Jun 2020 15:56:01 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</guid>
+      <description>[toc] 定义 所谓闭包指的是内部函数引用外部函数变量或者自由变量返回一个函数，我们称作为闭包 func outer(x int )func(int) int{ // golang一个函数体内只能用用一个函数体,</description>
+    </item>
+    
+    <item>
+      <title>Healthy</title>
+      <link>https://zhangshunping.github.io/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/</link>
+      <pubDate>Mon, 15 Jun 2020 18:27:19 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/</guid>
+      <description>[TOC] 需求背景 ​ 公司的2B业务落地后，应用服务因为一些突发状况出现不在线情况。 一些小型客户关注的是SAAS业务，不太关心运维体系，也没有充裕的资</description>
+    </item>
+    
+    <item>
+      <title>Golang-Channel死锁场景总结</title>
+      <link>https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 12 Jun 2020 14:00:23 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</guid>
+      <description>[TOC] channel，Deadlock死锁的本质 **主协程程阻塞，系统一直等待，导致系统死锁** 场景一： 主协程中使用channel // 1.1 无缓冲ch</description>
+    </item>
+    
+  </channel>
+</rss>

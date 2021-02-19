@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>日志 on 背对疾风吧！</title>
+    <link>https://zhangshunping.github.io/categories/%E6%97%A5%E5%BF%97/</link>
+    <description>Recent content in 日志 on 背对疾风吧！</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 18 Feb 2021 18:06:20 +0800</lastBuildDate>
+    
+        <atom:link href="https://zhangshunping.github.io/categories/%E6%97%A5%E5%BF%97/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>awk工具使用总结</title>
+      <link>https://zhangshunping.github.io/2020/05/awk/</link>
+      <pubDate>Fri, 15 May 2020 10:05:02 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/awk/</guid>
+      <description>[ToC] 目的 在实际的生产中能够熟练的使用awk ，sed ，grep等文本操作工具，对故障的快速定位，日志分析等有很大帮助，于是根据自己的实际的生产经</description>
+    </item>
+    
+    <item>
+      <title>Iptables(一)</title>
+      <link>https://zhangshunping.github.io/2020/05/iptables-1/</link>
+      <pubDate>Fri, 15 May 2020 10:05:02 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/iptables-1/</guid>
+      <description>四表五链 四表 五链 filter&amp;mdash; 过滤数据包 nat &amp;mdash; 用于网络地址转换（IP、端口） raw &amp;mdash; 决定数据包是否被状态跟踪机制处理 mangle &amp;mdash;修改数据包的服务类型、TT</description>
+    </item>
+    
+    <item>
+      <title>Iptables(二)</title>
+      <link>https://zhangshunping.github.io/2020/05/iptables-2/</link>
+      <pubDate>Fri, 15 May 2020 10:05:02 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/iptables-2/</guid>
+      <description>[TOC] state 模块 对于state模块的连接而言，&amp;ldquo;连接&amp;quot;其中的报文可以分为5种状态，报文状态可以为NEW、ESTABLISHED</description>
+    </item>
+    
+    <item>
+      <title>Golang-Channel</title>
+      <link>https://zhangshunping.github.io/2020/05/golang-channel/</link>
+      <pubDate>Tue, 12 May 2020 14:00:23 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/golang-channel/</guid>
+      <description>channle 都是应用于两个go程，一个读，一个写 channel 具有阻塞的作用，类似go程之间对同步资源进行锁机制 具有数据传递的功能 一、无缓冲channel &amp;mda</description>
+    </item>
+    
+    <item>
+      <title>Rsync</title>
+      <link>https://zhangshunping.github.io/2020/05/rsync/</link>
+      <pubDate>Tue, 12 May 2020 14:00:23 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/05/rsync/</guid>
+      <description>rysnc 常用选项 rsync常用选项 -a 包含-rtplgoD -r 同步目录时要加上，类似cp时的-r选项 -v 同步时显示一些信息，让我们知道同步的过程 -l 小写l</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/curl/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/curl/</guid>
+      <description>curl -o /dev/null -s -w %{time_namelookup}---%{time_connect}---%{time_starttransfer}---%{time_total}---%{speed_download}&amp;quot;\n&amp;quot; 查看链接 [root@pre-host-work02 ~]# curl -o /dev/null -s -w %{time_namelookup}---%{time_connect}---%{time_starttransfer}---%{time_total}---%{speed_download}&amp;quot;\n&amp;quot; https://test-newweb.educoder.net/api/myshixuns/training_task_status.json 0.004---31.731---34.086---34.086---1.000</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/gorm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/gorm/</guid>
+      <description>表定义 type Like struct { ID int `gorm:&amp;quot;primary_key&amp;quot;` Ip string `gorm:&amp;quot;type:varchar(20);not null;index:ip_idx&amp;quot;` Ua string `gorm:&amp;quot;type:varchar(256);not null;&amp;quot;` Title string `gorm:&amp;quot;type:varchar(128);not null;index:title_idx&amp;quot;` Hash uint64 `gorm:&amp;quot;unique_index:hash_idx;&amp;quot;` CreatedAt time.Time } 创建表 if !db.HasTable(&amp;amp;Like{}) { if err := db.Set(&amp;quot;gorm:table_options&amp;quot;, &amp;quot;ENGINE=InnoDB DEFAULT CHARSET=utf8&amp;quot;).CreateTable(&amp;amp;Like{}).Error; err != nil { panic(err) } } 增 like := &amp;amp;Like{ Ip: ip, Ua: ua, Title: title, Hash: murmur3.Sum64([]byte(strings.Join([]string{ip, ua, title}, &amp;quot;-&amp;quot;))) &amp;gt;&amp;gt; 1, CreatedAt: time.Now(), } if err</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/grpc%E4%B8%80/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/grpc%E4%B8%80/</guid>
+      <description>[TOC] Grpc Prototbuf 协议 protobuf是由Google开发的一种数据序列化协议，可以把它想象成是XML或JSON格式，但更小，更快更简洁。而且一次定义，</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/istio-1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/istio-1/</guid>
+      <description>[TOC] Istio版本 &amp;gt;=1.5 安装 ## kubernetes上安装istioctl ##1. istio安装 profile为demo的istio 集群 istioctl manifest apply --set profile=demo ##2. 修改i</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/kubelet/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/kubelet/</guid>
+      <description>下载 kubernetes windows 保持软连接 git -c core.symlinks=true clone https://github.com/kubernetes/kubernetes -b release-1.16</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/altermanager/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/altermanager/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/prometheus-rules/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/prometheus-rules/</guid>
+      <description>[toc] promethues +altermanager 告警流程 如下图所示：通过prometheus定义的AlterRule，prometheus会周期性的对alterRules进行计算，当</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/prometheus-thanos/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/prometheus-thanos/</guid>
+      <description>[toc]
+Thanos </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/vue%E4%B8%80/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/vue%E4%B8%80/</guid>
+      <description>vue指令 v-on 指令 : 为元素绑定事件 &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; &amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;vue-on&amp;quot; @click=&amp;quot;doIt&amp;quot;&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt;s new Vue({ el: &#39;#app&#39;, methods: { doIt:function () { alert(&amp;quot;do it &amp;quot;) } } }) &amp;lt;/script&amp;gt; v-on 通过改变数据来实现dom &amp;lt;div id=&amp;quot;app&amp;quot;&amp;gt; &amp;lt;input type=&amp;quot;button&amp;quot; value=&amp;quot;ChangeMes&amp;quot; @click=&amp;quot;ChangeName&amp;quot;&amp;gt; &amp;lt;h1 v-text=&amp;quot;mes&amp;quot;&amp;gt;&amp;lt;/h1&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;script&amp;gt; new Vue({ el: &#39;#app&#39;, data: { mes:</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -12,11 +12,29 @@
     
     <item>
       <title>CI/CD kubernetes落地</title>
-      <link>https://zhangshunping.github.io/2021/02/muban2/</link>
+      <link>https://zhangshunping.github.io/2021/02/kubernetes-cicd%E8%90%BD%E5%9C%B0/</link>
       <pubDate>Thu, 18 Feb 2021 18:06:20 +0800</pubDate>
       
-      <guid>https://zhangshunping.github.io/2021/02/muban2/</guid>
+      <guid>https://zhangshunping.github.io/2021/02/kubernetes-cicd%E8%90%BD%E5%9C%B0/</guid>
       <description>k8s官网介绍 一、网站均衡负载入口策略 架构图 架构图说明 k8s对外暴露使用ingress-nginx-controoler网关的方式对外暴露服</description>
+    </item>
+    
+    <item>
+      <title>Elastic Statck Operator</title>
+      <link>https://zhangshunping.github.io/2021/02/elasticsearch-operator%E8%90%BD%E5%9C%B0/</link>
+      <pubDate>Thu, 18 Feb 2021 18:06:20 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/02/elasticsearch-operator%E8%90%BD%E5%9C%B0/</guid>
+      <description>官网日志架构 一、ECK方案介绍 官网日志方案目前使用的Elastic Cloud on Kubernetes (ECK) operator 的方案在kubernetes集群内落地日志服务。ECK方案落地文</description>
+    </item>
+    
+    <item>
+      <title>Prometheus Operator</title>
+      <link>https://zhangshunping.github.io/2021/02/prometheus-operator-%E8%90%BD%E5%9C%B0/</link>
+      <pubDate>Thu, 18 Feb 2021 18:06:20 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/02/prometheus-operator-%E8%90%BD%E5%9C%B0/</guid>
+      <description>账号管理 Elastic Stack日志方案和Prometheus监控系统的用户权限管理，都是通过接入 openladp同步自研MOA管理系统，统一管理账号，</description>
     </item>
     
     <item>
@@ -170,24 +188,6 @@
       
       <guid>https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</guid>
       <description>[TOC] channel，Deadlock死锁的本质 **主协程程阻塞，系统一直等待，导致系统死锁** 场景一： 主协程中使用channel // 1.1 无缓冲ch</description>
-    </item>
-    
-    <item>
-      <title>awk工具使用总结</title>
-      <link>https://zhangshunping.github.io/2020/05/awk/</link>
-      <pubDate>Fri, 15 May 2020 10:05:02 +0800</pubDate>
-      
-      <guid>https://zhangshunping.github.io/2020/05/awk/</guid>
-      <description>[ToC] 目的 在实际的生产中能够熟练的使用awk ，sed ，grep等文本操作工具，对故障的快速定位，日志分析等有很大帮助，于是根据自己的实际的生产经</description>
-    </item>
-    
-    <item>
-      <title>Iptables(一)</title>
-      <link>https://zhangshunping.github.io/2020/05/iptables-1/</link>
-      <pubDate>Fri, 15 May 2020 10:05:02 +0800</pubDate>
-      
-      <guid>https://zhangshunping.github.io/2020/05/iptables-1/</guid>
-      <description>四表五链 四表 五链 filter&amp;mdash; 过滤数据包 nat &amp;mdash; 用于网络地址转换（IP、端口） raw &amp;mdash; 决定数据包是否被状态跟踪机制处理 mangle &amp;mdash;修改数据包的服务类型、TT</description>
     </item>
     
   </channel>
