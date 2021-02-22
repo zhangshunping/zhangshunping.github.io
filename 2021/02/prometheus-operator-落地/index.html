@@ -345,7 +345,7 @@
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
       <h2 id="账号管理">账号管理</h2>
 <p><strong>Elastic Stack日志方案和Prometheus监控系统</strong>的用户权限管理，都是通过接入 <strong>openladp</strong>同步自研MOA管理系统，统一管理账号，架构图如下：</p>
-<p><img src="../k8s.assets%5Cprometheus.png" alt="image-20210219132613696"></p>
+<p><img src="../k8s.assets/prometheus.png" alt="image-20210219132613696"></p>
 <blockquote>
 <p>架构说明</p>
 </blockquote>
@@ -405,7 +405,7 @@ NAME   VERSION   REPLICAS   AGE
 k8s    v2.22.1   1          50d
 </code></pre>
 <p>kube-prometheus管理prometheus监控大致流程图如下：</p>
-<p><img src="../k8s.assets%5Ckube-prometheus.png" alt="img"></p>
+<p><img src="../k8s.assets/kube-prometheus.png" alt="img"></p>
 <h3 id="kube-promethues日常管理">kube-promethues日常管理</h3>
 <p><strong>写在前面</strong>：以下提到的运维操作都是基于 <strong>kube-prometheus</strong>方案落地的promtheus监控体系阐述一些运维工作。</p>
 <p>kube-prometheus项目是通过注册CRD资源的方式，因此管理Prometheus集群，<strong>我们是通过promethues-promethues.yaml 文件的资源定义管理prometheus</strong>。目前官网配置可以通过查看master01节点上的<code>/usr/local/src/back/config/kube-prometheus/manifests/prometheus/prometheus-prometheus.yaml</code> 文件</p>
@@ -567,7 +567,7 @@ prometheus-operator       87d
 <ol start="2">
 <li>通过prometheus Web的方式 如下：</li>
 </ol>
-<p><img src="C:../k8s.assets/alermanager.png" alt="image-20210209160208878"></p>
+<p><img src="../k8s.assets/alermanager.png" alt="image-20210209160208878"></p>
 <hr>
 <h4 id="二prometheus告警规则">二、Prometheus告警规则</h4>
 <p>对于Prometheus而言，在原生的管理方式上，我们需要手动创建Prometheus的告警文件，并且通过在Prometheus配置中声明式的加载。而在Prometheus Operator模式中，告警规则也编程一个通过Kubernetes API 声明式创建的一个资源.告警规则创建成功后，通过在Prometheus中使用像servicemonitor那样用**<code>ruleSelector</code>通过label匹配选择需要关联的PrometheusRule即可。**</p>
