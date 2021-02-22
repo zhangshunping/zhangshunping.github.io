@@ -358,13 +358,13 @@
 <p>为什么worker要单线程，不使用多线程</p>
 </blockquote>
 <p>从一个全局角度去俯视一个web网站架构图,对数据DB的进行Write操作的时候，无论前面的server有多少在并行，处理数据一定是串行，如果是多线程，必然要考虑加锁解锁的过程，加锁的本质也是一个串行流程，因此从这点来看，redis选择单线程的模式，反而比采用多线程的模式相对而言，不会出现复杂算法问题，且效率较高。redis实际上是采用了线程封闭的观念，把任务封闭在一个线程，自然避免了线程安全问题，不过对于需要依赖多个redis操作的复合操作来说，依然需要锁，而且有可能是分布式锁，</p>
-<p><img src="redis-assets%5Cimage-20210222125603093.png" alt="image-20210222125603093"></p>
+<p><img src="redis-assets/image-20210222125603093.png" alt="image-20210222125603093"></p>
 <p>这么一来不当紧，因为redis是单线程的，一个redis服务，**worker进程只能够跑在一个cpu上，因此cpu的资源使用率会带来浪费吗？**带着着疑问我们来看一下，如果redis 是一个worker线程去处理数据请求的过程是怎样的？</p>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Credis%5Credis-assets%5Cimage-20210222115920250.png" alt="image-20210222115920250"></p>
+<p><img src="redis-assets/image-20210222115920250.png" alt="image-20210222115920250"></p>
 <p>如果只有一个woker线程的话，一个请求过来，worker线程<strong>首先</strong>要读取请求，<strong>然后</strong>计算数据 ,<strong>最后</strong>写入返回结果。当一个请求处理完之后，依次处理第二个请求。这样一来，我们会发现如果采用这种机制，redis处理请求的方式一定是不连续的，因为计算第一请求的时候，i/o处理会等待redis计算时间。</p>
 <p>因此redis,采用i/o threads的机制。用i/o threads线程来处理 i/o请求，用worker进程来计算。这样几乎可以认为是连续的响应请求。</p>
 <p><strong>Redis(6.X版本的I/O threads模式是多线程模式）</strong></p>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Credis%5Credis-assets%5Cimage-20210222120958881.png" alt="image-20210222120958881"></p>
+<p><img src="redis-assets/image-20210222120958881.png" alt="image-20210222120958881"></p>
 
     </div>
     <div class="article-footer">
