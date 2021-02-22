@@ -39,7 +39,7 @@
 <meta itemprop="description" content="redis 笔记">
 <meta itemprop="datePublished" content="2021-02-22T10:41:45+08:00" />
 <meta itemprop="dateModified" content="2021-02-22T10:41:45+08:00" />
-<meta itemprop="wordCount" content="1630">
+<meta itemprop="wordCount" content="1631">
 
 
 
@@ -330,7 +330,7 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/02/redis/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1630字</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1631字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
       </div>
     </div>
@@ -371,9 +371,9 @@
 <p>写在前面</p>
 </blockquote>
 <p>Redis是采用<strong>二进制安全的机制</strong>。二进制安全是一种主要用于字符串操作函数相关的计算机编程术语。一个二进制安全功能（函数），其本质上将操作输入作为原始的、无任何特殊格式意义的数据流。对于每个字符都公平对待，不特殊处理某一个字符。</p>
-<pre><code class="language-shell">举个栗子：
-C语言中的字符串是根据特殊字符“\0”来判断该字符串是否结束，对于字符串str=&quot;0123456789\0123456789”来说，在C语言里面str的长度就是10（strlen(str)=10），所以strlen()函数不是二进制安全的。而在Redis中，strlen str的结果是21，是二进制安全的（Redis底层所使用的字符串表示是Sds），它只关心二进制化的字符串，不关心字符串的具体格式，里面有啥字符，只会严格的按照二进制的数据存取，不会以某种特殊格式解析字符串。
-</code></pre>
+<blockquote>
+<p>举个栗子：C语言中的字符串是根据特殊字符“\0”来判断该字符串是否结束，对于字符串str=&ldquo;0123456789\0123456789”来说，在C语言里面str的长度就是10（strlen(str)=10），所以strlen()函数不是二进制安全的。而在Redis中，strlen str的结果是21，是二进制安全的（Redis底层所使用的字符串表示是Sds），它只关心二进制化的字符串，不关心字符串的具体格式，里面有啥字符，只会严格的按照二进制的数据存取，不会以某种特殊格式解析字符串。</p>
+</blockquote>
 
     </div>
     <div class="article-footer">
