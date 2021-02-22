@@ -2,7 +2,7 @@
 <html lang="zh">
   <head>
     <title>
-        CI/CD kubernetes落地 - 背对疾风吧！
+        Redis - 背对疾风吧！
       </title>
         <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -20,33 +20,33 @@
     <meta http-equiv="window-target" content="_top" />
     
     
-    <meta name="description" content="ingress CI/CD kubernetes落地" />
+    <meta name="description" content="redis 笔记" />
     <meta name="generator" content="Hugo 0.79.1 with theme pure" />
-    <title>CI/CD kubernetes落地 - 背对疾风吧！</title>
+    <title>Redis - 背对疾风吧！</title>
     
     
     <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
     
     <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
-    <meta property="og:title" content="CI/CD kubernetes落地" />
-<meta property="og:description" content="ingress CI/CD kubernetes落地" />
+    <meta property="og:title" content="Redis" />
+<meta property="og:description" content="redis 笔记" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhangshunping.github.io/2021/02/muban2/" />
-<meta property="article:published_time" content="2021-02-18T18:06:20+08:00" />
-<meta property="article:modified_time" content="2021-02-18T18:06:20+08:00" />
-<meta itemprop="name" content="CI/CD kubernetes落地">
-<meta itemprop="description" content="ingress CI/CD kubernetes落地">
-<meta itemprop="datePublished" content="2021-02-18T18:06:20+08:00" />
-<meta itemprop="dateModified" content="2021-02-18T18:06:20+08:00" />
-<meta itemprop="wordCount" content="2215">
+<meta property="og:url" content="https://zhangshunping.github.io/2021/02/redis/" />
+<meta property="article:published_time" content="2021-02-22T10:41:45+08:00" />
+<meta property="article:modified_time" content="2021-02-22T10:41:45+08:00" />
+<meta itemprop="name" content="Redis">
+<meta itemprop="description" content="redis 笔记">
+<meta itemprop="datePublished" content="2021-02-22T10:41:45+08:00" />
+<meta itemprop="dateModified" content="2021-02-22T10:41:45+08:00" />
+<meta itemprop="wordCount" content="1255">
 
 
 
-<meta itemprop="keywords" content="kubernetes," />
+<meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="CI/CD kubernetes落地"/>
-<meta name="twitter:description" content="ingress CI/CD kubernetes落地"/>
+<meta name="twitter:title" content="Redis"/>
+<meta name="twitter:description" content="redis 笔记"/>
 
     <!--[if lte IE 9]>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -158,11 +158,14 @@
     <div class="widget-body">
         <ul class="category-list">
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/gin/" class="category-list-link">gin</a><span class="category-list-count">2</span></li>
-            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">6</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">8</span></li>
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/operator/" class="category-list-link">operator</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/redis/" class="category-list-link">redis</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="category-list-link">个人开源小工具</a><span class="category-list-count">5</span></li>
-            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="category-list-link">云原生</a><span class="category-list-count">7</span></li>
-            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/" class="category-list-link">监控</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="category-list-link">云原生</a><span class="category-list-count">9</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E6%97%A5%E5%BF%97/" class="category-list-link">日志</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/" class="category-list-link">监控</a><span class="category-list-count">3</span></li>
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/" class="category-list-link">语言-golang</a><span class="category-list-count">5</span></li>
         </ul>
     </div>
@@ -194,15 +197,15 @@
             
             
             <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes/" class="tag-list-link">kubernetes</a><span
-                    class="tag-list-count">4</span></li>
-            
-            
-            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes%E6%BA%90%E7%A0%81/" class="tag-list-link">kubernetes源码</a><span
-                    class="tag-list-count">1</span></li>
+                    class="tag-list-count">6</span></li>
             
             
             <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/linux/" class="tag-list-link">linux</a><span
                     class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/operator/" class="tag-list-link">operator</a><span
+                    class="tag-list-count">3</span></li>
             
             
             <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/prometheus/" class="tag-list-link">prometheus</a><span
@@ -236,7 +239,37 @@
             <li>
                 <div class="item-inner">
                     <p class="item-title">
-                        <a href="https://zhangshunping.github.io/2021/02/muban2/" class="title">CI/CD kubernetes落地</a>
+                        <a href="https://zhangshunping.github.io/2021/02/redis/" class="title">Redis</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-22 10:41:45 &#43;0800 CST" itemprop="datePublished">2021-02-22</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/02/kubernetes-cicd%E8%90%BD%E5%9C%B0/" class="title">CI/CD kubernetes落地</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-18 18:06:20 &#43;0800 CST" itemprop="datePublished">2021-02-18</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/02/elasticsearch-operator%E8%90%BD%E5%9C%B0/" class="title">Elastic Statck Operator</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-18 18:06:20 &#43;0800 CST" itemprop="datePublished">2021-02-18</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/02/prometheus-operator-%E8%90%BD%E5%9C%B0/" class="title">Prometheus Operator</a>
                     </p>
                     <p class="item-date">
                         <time datetime="2021-02-18 18:06:20 &#43;0800 CST" itemprop="datePublished">2021-02-18</time>
@@ -250,36 +283,6 @@
                     </p>
                     <p class="item-date">
                         <time datetime="2021-01-14 19:26:18 &#43;0800 CST" itemprop="datePublished">2021-01-14</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://zhangshunping.github.io/2021/01/client-go%E5%B8%B8%E7%94%A8example/" class="title">Client-go包</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2021-01-13 20:10:43 &#43;0800 CST" itemprop="datePublished">2021-01-13</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://zhangshunping.github.io/2021/01/operator-1/" class="title">Operator(一)</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2021-01-01 14:44:09 &#43;0800 CST" itemprop="datePublished">2021-01-01</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://zhangshunping.github.io/2020/11/k8s-period/" class="title">kubernetes创建pod周期一览</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2020-11-19 18:06:20 &#43;0800 CST" itemprop="datePublished">2020-11-19</time>
                     </p>
                 </div>
             </li>
@@ -307,8 +310,8 @@
       <h1 itemprop="name">
   <a
     class="article-title"
-    href="/2021/02/muban2/"
-    >CI/CD kubernetes落地</a
+    href="/2021/02/redis/"
+    >Redis</a
   >
 </h1>
 
@@ -316,191 +319,52 @@
         
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://zhangshunping.github.io/2021/02/muban2/" class="article-date">
-  <time datetime="2021-02-18 18:06:20 &#43;0800 CST" itemprop="datePublished">2021-02-18</time>
+<a href="https://zhangshunping.github.io/2021/02/redis/" class="article-date">
+  <time datetime="2021-02-22 10:41:45 &#43;0800 CST" itemprop="datePublished">2021-02-22</time>
 </a>
 </span>
 <span class="article-category">
   <i class="icon icon-folder"></i>&nbsp;
-  <a class="article-category-link" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"> 云原生 </a>
-  <a class="article-category-link" href="/categories/k8s/"> k8s </a>
-</span>  
-  <span class="article-tag">
-    <i class="icon icon-tags"></i>&nbsp;
-    <a class="article-tag-link" href="/tags/kubernetes/"> kubernetes </a>
-  </span>
+  <a class="article-category-link" href="/categories/redis/"> redis </a>
+</span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/02/muban2/#comments"
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/02/redis/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2215字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1255字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
-      <h1 id="k8s官网介绍">k8s官网介绍</h1>
-<h3 id="一网站均衡负载入口策略">一、<strong>网站均衡负载入口策略</strong></h3>
+      <p>[toc]</p>
+<h3 id="redis-特点">Redis 特点</h3>
+<ul>
+<li>
+<p>Value有类型，自带本地计算方法（数据运算）</p>
+</li>
+<li>
+<p>多路复用模型（redis 优先选则epoll模型）</p>
+</li>
+<li>
+<p>woker单线程，i/o threads 多线程（redis 6.x版本以上）</p>
+</li>
+</ul>
+<h4 id="value有类型自带本地计算方法数据运算">Value有类型，自带本地计算方法（数据运算）</h4>
+<p>redis的value是多类型且自带本地方法，这与memc样，memchache的值类型只有字符串。比如发送请求获取一个list的key的value，redis可以在本地调用index（）计算，而memcache只能够返回一段json，只能客户端从着端json里先反序列化，然后获取对应的key。这也是为什么memcache比redis早，却流行多不如redis的原因之一吧。</p>
+<h4 id="多路复用模型">多路复用模型</h4>
+<p>i/O 多路复用模型是利用select、poll、epoll可以同时监察多个流的 I/O 事件的能力，在空闲的时候，会把当前线程阻塞掉，当有一个或<strong>多个流有I/O事件时，就从阻塞态中唤醒，于是程序就会轮询一遍所有的流（epoll是只轮询那些真正发出了事件的流），依次顺序的处理就绪的流，这种做法就避免了大量的无用操作</strong>。这里“多路”指的是多个网络连接，“复用”指的是复用同一个线程。采用多路 I/O 复用技术可以让单个线程高效的处理多个连接请求（尽量减少网络IO的时间消耗），且Redis在内存中操作数据的速度非常快（内存内的操作不会成为这里的性能瓶颈），主要以上两点造就了Redis具有很高的吞吐量。</p>
+<p><a href="https://blog.csdn.net/xd_rbt_/article/details/80287959">点击跳转i/o复用理解</a></p>
+<h4 id="woker单线程io-threads-多线程6x-之后的版本">woker单线程，i/o threads 多线程（6.X 之后的版本）</h4>
 <blockquote>
-<p>架构图</p>
+<p>为什么worker要单线程，不使用多线程</p>
 </blockquote>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5Cweb.png" alt="web"></p>
-<blockquote>
-<p>架构图说明</p>
-</blockquote>
-<p>k8s对外暴露使用<strong>ingress-nginx-controoler</strong>网关的方式对外暴露服务。</p>
-<p>用户登录域名，通过<strong>阿里云 DNS服务器</strong>解析，一般<strong>A记录</strong>解析 k8s集群上的<strong>ingress-nginx-controller网关</strong>所在的k8s节点的外网ip，k8s 集群内的<strong>ingress-nginx-controller</strong>以daemonset的方式运行在集群节点上，listen 80和443端口；<strong>CNAME记录</strong>则解析到对应的<strong>CDN服务</strong>。</p>
-<p><strong>ingress-nginx 部署方式如下：</strong></p>
-<pre><code class="language-shell">[root@master01 ingress]# kubectl  get daemonset -ningress-nginx 
-NAME                                 DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE 
-admin-ingress-nginx-controller       3         3         3       3            3         
-ml-api-ingress-nginx-controller      5         5         5       5            5         
-ml-static-ingress-nginx-controller   3         3         3       3            3         
-zgame-ingress-nginx-controller       2         2         2       2            2    
-
-## admin-ingress-nginx-controller      管理员网关（用作日志，监控的服务注册）
-## ml-api-ingress-nginx-controller     ml服务的api网关
-## ml-static-ingress-nginx-controller  ml服务的静态网关
-## zgame-ingress-nginx-controller      zame服务网关
-</code></pre>
-<p>当通过A记录解析，把流量分发到k8s对应的<strong>ingress-controller网关</strong>之后，网关会解析域名，分发到对应的<strong>ingress资源</strong>上去，然后ingress将流量分发到对应的<strong>service上去</strong>，service通过k8s原生的<strong>endpoint资源</strong>将流量转发到<strong>真实的pod服务上去</strong>。</p>
-<blockquote>
-<p><strong>举个栗子：</strong>
-当请求访问 ”api.XXXXXX.com“时候，首先经过阿里云DNS服务解析（阿里云A记录如图），假如A记录解析的IP为：&ldquo;X.x.x.202&rdquo;,这个时候流量就会导入到外网地址为&quot;X.x.x.202&quot;这台k8s节点上.与此同时ingress-nginx-controller是以damoneset的方式运行，通过采用hostnetwork的方式共享宿主机网络命名空间，所以这个时候listen的80的端口正是admin-ingress-nginx-controller控制器产生的pod为&quot;ml-api-ingress-nginx-controller-7tscl&quot;的ingress-controller pod服务，这个时候流量就会导入到这个pod服务内。这个ingress-controller pod会根据上面注册的ingress，将流量通过service代理导入到提供服务的pod。从而实现一次流量转发.如下图：</p>
-</blockquote>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5CDNS.png" alt="image-20210219130821173"></p>
-<p><strong>Tips</strong>: 这里的入口流量的均衡负载方式，是采用<strong>DNS均衡负载方式</strong>，流量直接导入到k8s集群对应的公网节点上。因此<!-- raw HTML omitted -->如果有k8s节点下线，需要注意清理阿里云的A记录<!-- raw HTML omitted --></p>
-<ul>
-<li>
-<p>ingress-controoler资源常用操作命令</p>
-<pre><code class="language-shell">#1. 查看ingress-controller 网关
-kubectl  get pods -ningress-nginx
-#2. 查看ingress资源
-##目前常用项目资源分别分布在 mlweb,mgameweb,zgameweb,elastic-system等命令空间下
-kubectl  get ingress -nmlweb
-kubectl  get ingress -nzgameweb
-</code></pre>
-</li>
-</ul>
-<h4 id="11网络策略">1.1网络策略</h4>
-<ul>
-<li>
-<p>目前只针对 monitoring 空间下的ingress做了白名单，具体可通过如下命令查看对应的资源</p>
-<pre><code class="language-shell">[root@master01 config]# kubectl  get ingress  access-grafana -nmonitoring -oyaml
----
-***
-    nginx.ingress.kubernetes.io/whitelist-source-range: 180.169.85.114/32,137.59.103.18/32,103.206.188.183/32,101.230.210.194/32,161.202.217.208/32,161.202.217.167/32
-  
----
-</code></pre>
-</li>
-</ul>
-<hr>
-<h3 id="二jenkins-cicd发布流程">二、Jenkins CI/CD发布流程</h3>
-<blockquote>
-<p>Jenkins 实现 kubernetes的官网版本发布流程。</p>
-</blockquote>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5CCICD.png" alt="image-20210219131045909"></p>
-<blockquote>
-<p>jenkins官网应用发布更新流程详情</p>
-</blockquote>
-<h4 id="1拉取svn代码">1.拉取svn代码</h4>
-<ul>
-<li>
-<p><strong>官网版本管理</strong> 是通过</p>
-<p>第一种：<strong>&ldquo;版本类型tags+&ldquo;版本release&rdquo;+&ldquo;project&rdquo;+&ldquo;站点site&rdquo;+&ldquo;location&rdquo;</strong></p>
-<p>第二种: <strong>&ldquo;版本类型truck&rdquo;+&ldquo;project&rdquo;+&ldquo;站点site&rdquo;+&ldquo;location&rdquo;</strong> 这两种方式来管理对应的分支代码。</p>
-<p>第一种可以认为是迭代版本;第二种认为是新分支,及不存在release版本号。因此拉取代码的时候，要明确知道<code>tags+release+project+site+localtion</code>。</p>
-<p><strong>举个栗子</strong>：</p>
-<p>jenkins 名为 &ldquo;k8s-ml-dev-api.mobilelegends.com job&quot;的job 执行自动发布流程，需要输入对应的参数。</p>
-<p><strong>jenkins用户输入：</strong></p>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cimage-20210120143636186.png" alt="image-20210120143636186"></p>
-<p><strong>然后jenkins执行如下脚本，进行版本发布：</strong></p>
-</li>
-</ul>
-<pre><code class="language-shell">## 执行shell
-array=(${release//\// }) 
-release=${array[0]}
-type=`echo ${type}|sed 's/-//'`
-bash -x /usr/local/src/k8s-dev-deploy.sh &quot;api.mobilelegends.com&quot; &quot;$location&quot; &quot;$release&quot; true &quot;$type&quot; &quot;${BUILD_NUMBER}&quot; &quot;${branch}
-</code></pre>
-<h4 id="2编译代码并打包docker镜像">2.编译代码，并打包docker镜像</h4>
-<h5 id="21-编译前准备">2.1 编译前准备</h5>
-<p>代码编译分为**：静态服务和非静态服务**</p>
-<ul>
-<li>
-<p>1。如果静态服务编译，需要在本地安装对应的静态依赖包</p>
-<pre><code class="language-shell">if [ &quot;${dynamic}&quot; == &quot;false&quot; ];then
-    if [ -f &quot;webpack.config.js&quot; ] || [ -f &quot;vue.config.js&quot; ] || [ -f &quot;package.json&quot; ];then
-        [ -d &quot;dist&quot; ] &amp;&amp; rm -rf dist
-        [ -d &quot;node_modules&quot; ] &amp;&amp; rm -rf node_modules
-        grep node-sass  package.json &gt;/dev/null
-        [ $? -eq 0 ] &amp;&amp; /usr/local/node/bin/npm install node-sass --unsafe-perm
-        /usr/local/node/bin/npm install
-        [ $? -ne 0 ] &amp;&amp; exit 1
-        /usr/local/node/bin/npm run ${project_env}
-        [ $? -ne 0 ] &amp;&amp; exit 1
-    fi
-fi
-</code></pre>
-</li>
-<li>
-<p>2.非静态地址则需要，替换MFW地址和DB地址</p>
-<pre><code class="language-shell">  cd ${SOURCE_DIR}/${project}/${site}${location}
-      sed -i &quot;s#\(MFW_LOCATOR=\).*#\1\&quot;$MFW_LOCATOR_ADDR\&quot;#g&quot; ${project_env_file}
-      sed -i &quot;s#\(DB_HOST=\).*#\1${DB_HOST_ADDR}#g&quot; ${project_env_file}
-      sed -i &quot;s#\(DB_HOST_MLWEB=\).*#\1${DB_HOST_ADDR}#g&quot; ${project_env_file}
-      sed -i &quot;s#\(DB_HOST_HERO=\).*#\1${DB_HOST_ADDR}#g&quot; ${project_env_file}
-      sed -i &quot;s#\(DB_HOST_PLAYERCARE=\).*#\1${DB_HOST_ADDR}#g&quot; ${project_env_file}
-      sed -i &quot;s#\(DB_HOST_ML_WEB=\).*#\1${DB_HOST_ADDR}#g&quot; ${project_env_file}
-      ls .[!.]*
-      [ $? -eq 0 ] &amp;&amp; tar -zcf ${app_name}-${release}.tar.gz * .[!.]* || tar -zcf ${app_name}-${release}.tar.gz *
-      rm -rf $DOCKER_IMGAE_FACTORY/SOURCES/${app_name}-${release}.tar.gz
-      mv  ${app_name}-${release}.tar.gz $DOCKER_IMGAE_FACTORY/SOURCES/
-</code></pre>
-</li>
-</ul>
-<h5 id="22-正式编译打包">2.2 正式编译打包</h5>
-<ul>
-<li>将编译文件目录拷贝到本地docker编译目录，<strong>根据不同类型</strong>生成dockerfile文件，编程生成docker镜像，<strong>上传到docker仓库服务</strong></li>
-</ul>
-<h4 id="3生成k8s资源清单并apply创建资源">3.生成k8s资源清单,并apply创建资源</h4>
-<h5 id="31-跟调度有关">3.1 跟调度有关</h5>
-<ul>
-<li>
-<p>应用pod通过<strong>deployment 控制器</strong>进行管理，通过标签选择器<strong>nodeSelector</strong>选择调度</p>
-<pre><code class="language-ml">## ml项目常见选择器
-nodeSelector:
-        kubernetes.io/project: ml
-        kubernetes.io/node-role: gateway
-        kubernetes.io/gateway: api
-nodeSelector:
-        kubernetes.io/project: ml
-        kubernetes.io/node-role: gateway
-        kubernetes.io/gateway: static        
-</code></pre>
-</li>
-</ul>
-<h5 id="32-跟存储有关">3.2 跟存储有关</h5>
-<ul>
-<li>应用pod的只针对了 应用日志和nginx日志做持久化,<strong>业务本身是无状态的</strong>。</li>
-</ul>
-<h4 id="4修改site对应的ingress资源">4.修改site对应的ingress资源.</h4>
-<p>一般操作如下</p>
-<pre><code class="language-shell"> paths=`kubectl --kubeconfig=${KUBE_CONFIG} --insecure-skip-tls-verify   -n ${NAMESAPCES}  get ingress ${domain}  -o jsonpath='{.spec.rules[0].http.paths..path}'`
-    if [ $? -eq 0 ];then
-        location_path=&quot;$location(/|$)(.*)&quot;
-        [ &quot;$location&quot; == &quot;/&quot; ] &amp;&amp; location_path=&quot;/&quot;
-        if [ &quot;$paths&quot; == &quot;&quot; ];then
-              patch=&quot;[{\&quot;op\&quot;: \&quot;add\&quot;, \&quot;path\&quot;: \&quot;/spec/rules/0/http\&quot;, \&quot;value\&quot;:{\&quot;paths\&quot;:[{\&quot;path\&quot;:\&quot;${location_path}\&quot;,\&quot;backend\&quot;:{\&quot;serviceName\&quot;:\&quot;${app_name,,}\&quot;,\&quot;servicePort\&quot;:80}}]}}]&quot;
-              kubectl --kubeconfig=${KUBE_CONFIG} --insecure-skip-tls-verify -n ${NAMESAPCES}  patch ingress ${domain} --type json -p &quot;$patch&quot;
-        else
-            echo &quot;$paths&quot; |grep -w &quot;$location&quot; &gt;/dev/null
-            if [ $? -ne 0 ];then
-              patch=&quot;[{\&quot;op\&quot;: \&quot;add\&quot;, \&quot;path\&quot;: \&quot;/spec/rules/0/http/paths/-\&quot;, \&quot;value\&quot;:{\&quot;path\&quot;:\&quot;${location_path}\&quot;,\&quot;backend\&quot;:{\&quot;serviceName\&quot;:\&quot;${app_name,,}\&quot;,\&quot;servicePort\&quot;:80}}}]&quot;
-              kubectl --kubeconfig=${KUBE_CONFIG} --insecure-skip-tls-verify -n ${NAMESAPCES}  patch ingress ${domain}  --type json -p &quot;$patch&quot;
-            fi
-        fi
-    fi
-</code></pre>
+<p>从一个全局角度去俯视一个web网站架构图,对数据DB的进行Write操作的时候，无论前面的server有多少在并行，处理数据一定是串行，如果是多线程，必然要考虑加锁解锁的过程，加锁的本质也是一个串行流程，因此从这点来看，redis选择单线程的模式，反而比采用多线程的模式相对而言，不会出现复杂算法问题，且效率较高。redis实际上是采用了线程封闭的观念，把任务封闭在一个线程，自然避免了线程安全问题，不过对于需要依赖多个redis操作的复合操作来说，依然需要锁，而且有可能是分布式锁，</p>
+<p><img src="redis-assets%5Cimage-20210222125603093.png" alt="image-20210222125603093"></p>
+<p>这么一来不当紧，因为redis是单线程的，一个redis服务，**worker进程只能够跑在一个cpu上，因此cpu的资源使用率会带来浪费吗？**带着着疑问我们来看一下，如果redis 是一个worker线程去处理数据请求的过程是怎样的？</p>
+<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Credis%5Credis-assets%5Cimage-20210222115920250.png" alt="image-20210222115920250"></p>
+<p>如果只有一个woker线程的话，一个请求过来，worker线程<strong>首先</strong>要读取请求，<strong>然后</strong>计算数据 ,<strong>最后</strong>写入返回结果。当一个请求处理完之后，依次处理第二个请求。这样一来，我们会发现如果采用这种机制，redis处理请求的方式一定是不连续的，因为计算第一请求的时候，i/o处理会等待redis计算时间。</p>
+<p>因此redis,采用i/o threads的机制。用i/o threads线程来处理 i/o请求，用worker进程来计算。这样几乎可以认为是连续的响应请求。</p>
+<p><strong>Redis(6.X版本的I/O threads模式是多线程模式）</strong></p>
+<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Credis%5Credis-assets%5Cimage-20210222120958881.png" alt="image-20210222120958881"></p>
 
     </div>
     <div class="article-footer">
@@ -508,7 +372,7 @@ nodeSelector:
   <ul class="post-copyright list-unstyled">
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接: </strong>
-      <a href="https://zhangshunping.github.io/2021/02/muban2/" title="CI/CD kubernetes落地" target="_blank" rel="external">https://zhangshunping.github.io/2021/02/muban2/</a>
+      <a href="https://zhangshunping.github.io/2021/02/redis/" title="Redis" target="_blank" rel="external">https://zhangshunping.github.io/2021/02/redis/</a>
     </li>
     <li class="post-copyright-license">
       <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
@@ -540,7 +404,7 @@ nodeSelector:
     <div class="bar-inner">
         <ul class="pager pull-left">
             <li class="prev">
-                <a href="https://zhangshunping.github.io/2021/01/cobra/" title="Cobra包"><i
+                <a href="https://zhangshunping.github.io/2021/02/kubernetes-cicd%E8%90%BD%E5%9C%B0/" title="CI/CD kubernetes落地"><i
                         class="icon icon-angle-left"
                         aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
             </li>

@@ -5,10 +5,19 @@
     <link>https://zhangshunping.github.io/categories/</link>
     <description>Recent content in Categories on 背对疾风吧！</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 18 Feb 2021 18:06:20 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 22 Feb 2021 10:41:45 +0800</lastBuildDate>
     
         <atom:link href="https://zhangshunping.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Golang-Channel死锁场景总结</title>
+      <link>https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Fri, 12 Jun 2020 14:00:23 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</guid>
+      <description>[TOC] channel，Deadlock死锁的本质 **主协程程阻塞，系统一直等待，导致系统死锁** 场景一： 主协程中使用channel // 1.1 无缓冲ch</description>
+    </item>
     
     <item>
       <title>awk工具使用总结</title>

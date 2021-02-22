@@ -10,6 +10,15 @@
     
     
     <item>
+      <title>Redis</title>
+      <link>https://zhangshunping.github.io/2021/02/redis/</link>
+      <pubDate>Mon, 22 Feb 2021 10:41:45 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/02/redis/</guid>
+      <description>[toc] Redis 特点 Value有类型，自带本地计算方法（数据运算） 多路复用模型（redis 优先选则epoll模型） woker单线程，i/o threads 多线程（re</description>
+    </item>
+    
+    <item>
       <title>CI/CD kubernetes落地</title>
       <link>https://zhangshunping.github.io/2021/02/kubernetes-cicd%E8%90%BD%E5%9C%B0/</link>
       <pubDate>Thu, 18 Feb 2021 18:06:20 +0800</pubDate>
@@ -178,15 +187,6 @@
       
       <guid>https://zhangshunping.github.io/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/</guid>
       <description>[TOC] 需求背景 ​ 公司的2B业务落地后，应用服务因为一些突发状况出现不在线情况。 一些小型客户关注的是SAAS业务，不太关心运维体系，也没有充裕的资</description>
-    </item>
-    
-    <item>
-      <title>Golang-Channel死锁场景总结</title>
-      <link>https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</link>
-      <pubDate>Fri, 12 Jun 2020 14:00:23 +0800</pubDate>
-      
-      <guid>https://zhangshunping.github.io/2020/06/channel-%E6%AD%BB%E9%94%81%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</guid>
-      <description>[TOC] channel，Deadlock死锁的本质 **主协程程阻塞，系统一直等待，导致系统死锁** 场景一： 主协程中使用channel // 1.1 无缓冲ch</description>
     </item>
     
   </channel>
