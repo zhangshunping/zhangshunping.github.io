@@ -369,7 +369,7 @@ zgame-ingress-nginx-controller       2         2         2       2            2
 <p><strong>举个栗子：</strong>
 当请求访问 ”api.XXXXXX.com“时候，首先经过阿里云DNS服务解析（阿里云A记录如图），假如A记录解析的IP为：&ldquo;X.x.x.202&rdquo;,这个时候流量就会导入到外网地址为&quot;X.x.x.202&quot;这台k8s节点上.与此同时ingress-nginx-controller是以damoneset的方式运行，通过采用hostnetwork的方式共享宿主机网络命名空间，所以这个时候listen的80的端口正是admin-ingress-nginx-controller控制器产生的pod为&quot;ml-api-ingress-nginx-controller-7tscl&quot;的ingress-controller pod服务，这个时候流量就会导入到这个pod服务内。这个ingress-controller pod会根据上面注册的ingress，将流量通过service代理导入到提供服务的pod。从而实现一次流量转发.如下图：</p>
 </blockquote>
-<p><img src="../k8s.assets%5CDNS.png" alt="image-20210219130821173"></p>
+<p><img src="../k8s.assets/DNS.png" alt="image-20210219130821173"></p>
 <p><strong>Tips</strong>: 这里的入口流量的均衡负载方式，是采用<strong>DNS均衡负载方式</strong>，流量直接导入到k8s集群对应的公网节点上。因此<!-- raw HTML omitted -->如果有k8s节点下线，需要注意清理阿里云的A记录<!-- raw HTML omitted --></p>
 <ul>
 <li>

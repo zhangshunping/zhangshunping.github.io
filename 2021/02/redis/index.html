@@ -39,7 +39,7 @@
 <meta itemprop="description" content="redis 笔记">
 <meta itemprop="datePublished" content="2021-02-22T10:41:45+08:00" />
 <meta itemprop="dateModified" content="2021-02-22T10:41:45+08:00" />
-<meta itemprop="wordCount" content="1255">
+<meta itemprop="wordCount" content="1630">
 
 
 
@@ -330,8 +330,8 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/02/redis/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1255字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1630字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
@@ -348,12 +348,12 @@
 <p>woker单线程，i/o threads 多线程（redis 6.x版本以上）</p>
 </li>
 </ul>
-<h4 id="value有类型自带本地计算方法数据运算">Value有类型，自带本地计算方法（数据运算）</h4>
+<h4 id="value自带本地方法">Value自带本地方法</h4>
 <p>redis的value是多类型且自带本地方法，这与memc样，memchache的值类型只有字符串。比如发送请求获取一个list的key的value，redis可以在本地调用index（）计算，而memcache只能够返回一段json，只能客户端从着端json里先反序列化，然后获取对应的key。这也是为什么memcache比redis早，却流行多不如redis的原因之一吧。</p>
 <h4 id="多路复用模型">多路复用模型</h4>
 <p>i/O 多路复用模型是利用select、poll、epoll可以同时监察多个流的 I/O 事件的能力，在空闲的时候，会把当前线程阻塞掉，当有一个或<strong>多个流有I/O事件时，就从阻塞态中唤醒，于是程序就会轮询一遍所有的流（epoll是只轮询那些真正发出了事件的流），依次顺序的处理就绪的流，这种做法就避免了大量的无用操作</strong>。这里“多路”指的是多个网络连接，“复用”指的是复用同一个线程。采用多路 I/O 复用技术可以让单个线程高效的处理多个连接请求（尽量减少网络IO的时间消耗），且Redis在内存中操作数据的速度非常快（内存内的操作不会成为这里的性能瓶颈），主要以上两点造就了Redis具有很高的吞吐量。</p>
 <p><a href="https://blog.csdn.net/xd_rbt_/article/details/80287959">点击跳转i/o复用理解</a></p>
-<h4 id="woker单线程io-threads-多线程6x-之后的版本">woker单线程，i/o threads 多线程（6.X 之后的版本）</h4>
+<h4 id="单线程-worker">单线程 worker</h4>
 <blockquote>
 <p>为什么worker要单线程，不使用多线程</p>
 </blockquote>
@@ -365,6 +365,15 @@
 <p>因此redis,采用i/o threads的机制。用i/o threads线程来处理 i/o请求，用worker进程来计算。这样几乎可以认为是连续的响应请求。</p>
 <p><strong>Redis(6.X版本的I/O threads模式是多线程模式）</strong></p>
 <p><img src="redis-assets/image-20210222120958881.png" alt="image-20210222120958881"></p>
+<p>拓展下:其实这种worker+I/O threads也是微服务架构设计的思想之一。</p>
+<h3 id="redis-值类型">Redis 值类型</h3>
+<blockquote>
+<p>写在前面</p>
+</blockquote>
+<p>Redis是采用<strong>二进制安全的机制</strong>。二进制安全是一种主要用于字符串操作函数相关的计算机编程术语。一个二进制安全功能（函数），其本质上将操作输入作为原始的、无任何特殊格式意义的数据流。对于每个字符都公平对待，不特殊处理某一个字符。</p>
+<pre><code class="language-shell">举个栗子：
+C语言中的字符串是根据特殊字符“\0”来判断该字符串是否结束，对于字符串str=&quot;0123456789\0123456789”来说，在C语言里面str的长度就是10（strlen(str)=10），所以strlen()函数不是二进制安全的。而在Redis中，strlen str的结果是21，是二进制安全的（Redis底层所使用的字符串表示是Sds），它只关心二进制化的字符串，不关心字符串的具体格式，里面有啥字符，只会严格的按照二进制的数据存取，不会以某种特殊格式解析字符串。
+</code></pre>
 
     </div>
     <div class="article-footer">
