@@ -345,7 +345,7 @@
 <blockquote>
 <p>架构图</p>
 </blockquote>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5Cweb.png" alt="web"></p>
+<p><img src="k8s.assets/image-20210222142545803.png" alt="image-20210222142545803"></p>
 <blockquote>
 <p>架构图说明</p>
 </blockquote>
@@ -369,7 +369,7 @@ zgame-ingress-nginx-controller       2         2         2       2            2
 <p><strong>举个栗子：</strong>
 当请求访问 ”api.XXXXXX.com“时候，首先经过阿里云DNS服务解析（阿里云A记录如图），假如A记录解析的IP为：&ldquo;X.x.x.202&rdquo;,这个时候流量就会导入到外网地址为&quot;X.x.x.202&quot;这台k8s节点上.与此同时ingress-nginx-controller是以damoneset的方式运行，通过采用hostnetwork的方式共享宿主机网络命名空间，所以这个时候listen的80的端口正是admin-ingress-nginx-controller控制器产生的pod为&quot;ml-api-ingress-nginx-controller-7tscl&quot;的ingress-controller pod服务，这个时候流量就会导入到这个pod服务内。这个ingress-controller pod会根据上面注册的ingress，将流量通过service代理导入到提供服务的pod。从而实现一次流量转发.如下图：</p>
 </blockquote>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5CDNS.png" alt="image-20210219130821173"></p>
+<p><img src="k8s.assets%5CDNS.png" alt="image-20210219130821173"></p>
 <p><strong>Tips</strong>: 这里的入口流量的均衡负载方式，是采用<strong>DNS均衡负载方式</strong>，流量直接导入到k8s集群对应的公网节点上。因此<!-- raw HTML omitted -->如果有k8s节点下线，需要注意清理阿里云的A记录<!-- raw HTML omitted --></p>
 <ul>
 <li>
@@ -401,7 +401,7 @@ kubectl  get ingress -nzgameweb
 <blockquote>
 <p>Jenkins 实现 kubernetes的官网版本发布流程。</p>
 </blockquote>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5CCICD.png" alt="image-20210219131045909"></p>
+<p><img src="k8s.assets%5CCICD.png" alt="image-20210219131045909"></p>
 <blockquote>
 <p>jenkins官网应用发布更新流程详情</p>
 </blockquote>
@@ -413,7 +413,7 @@ kubectl  get ingress -nzgameweb
 <p>第二种: <strong>&ldquo;版本类型truck&rdquo;+&ldquo;project&rdquo;+&ldquo;站点site&rdquo;+&ldquo;location&rdquo;</strong> 这两种方式来管理对应的分支代码。</p>
 <p>第一种可以认为是迭代版本;第二种认为是新分支,及不存在release版本号。因此拉取代码的时候，要明确知道<code>tags+release+project+site+localtion</code>。</p>
 <p><strong>举个栗子</strong>：</p>
-<p>jenkins 名为 &ldquo;k8s-ml-dev-api.mobilelegends.com job&quot;的job 执行自动发布流程，需要输入对应的参数。</p>
+<p>jenkins 名为 &ldquo;k8s-ml-dev-api.xxxx.com job&quot;的job 执行自动发布流程，需要输入对应的参数。</p>
 <p><strong>jenkins用户输入：</strong></p>
 <p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cimage-20210120143636186.png" alt="image-20210120143636186"></p>
 <p><strong>然后jenkins执行如下脚本，进行版本发布：</strong></p>
@@ -423,7 +423,7 @@ kubectl  get ingress -nzgameweb
 array=(${release//\// }) 
 release=${array[0]}
 type=`echo ${type}|sed 's/-//'`
-bash -x /usr/local/src/k8s-dev-deploy.sh &quot;api.mobilelegends.com&quot; &quot;$location&quot; &quot;$release&quot; true &quot;$type&quot; &quot;${BUILD_NUMBER}&quot; &quot;${branch}
+bash -x /usr/local/src/k8s-dev-deploy.sh &quot;api.xxxxxxxxxx.com&quot; &quot;$location&quot; &quot;$release&quot; true &quot;$type&quot; &quot;${BUILD_NUMBER}&quot; &quot;${branch}
 </code></pre>
 <h4 id="2编译代码并打包docker镜像">2.编译代码，并打包docker镜像</h4>
 <h5 id="21-编译前准备">2.1 编译前准备</h5>

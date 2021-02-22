@@ -375,7 +375,7 @@ elastic-operator     1/1     95d
 <blockquote>
 <p>日志方案架构图</p>
 </blockquote>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5CECK.png" alt="image-20210219132153381"></p>
+<p><img src="k8s.assets%5CECK.png" alt="image-20210219132153381"></p>
 <h3 id="21-filebeat">2.1 Filebeat</h3>
 <p>Filebeat是通过daemonset控制器的方式在每一个k8s节点上以pod的方式运行，主要收集 k8s各个节点上的**/data/applog/nginx-ingress**和**/data/applog/nginx**下的日志文件。</p>
 <p>以收集**/data/applog/nginx-ingress/**日志为列，这里需要注意的是：</p>
@@ -556,8 +556,8 @@ kibana-ingress   kibana.k8s.moonton.net   10.142.87.198,10.142.87.209,10.142.87.
 <p>这个是定义当上面的 condition 被满足时，需要采取的一些行动。这些行动可以在<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/actions.html">地址</a>找到。目前 Watcher 支持的action为: <code>email，``webhook，``index，``logging，``slack 及``pagerduty。</code></p>
 <h4 id="官网报警配置">官网报警配置</h4>
 <p>可以通过kibana查看。</p>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5Cwatcher.png" alt="image-20210217163123302"></p>
-<p><img src="C:%5CUsers%5CAdministrator%5CDesktop%5Cmyblog%5Chugo_pure%5Ccontent%5Cposts%5Ckubernetes%5Ck8s.assets%5Cwathcer.png" alt="image-20210217195309039"></p>
+<p><img src="k8s.assets/watcher.png" alt="image-20210217163123302"></p>
+<p><img src="k8s.assets/wathcer.png" alt="image-20210217195309039"></p>
 <p>具体规则可以根据<strong>trigger，input，condition，actions</strong>的配置规则查看</p>
 <p>&mdash;-未完待续</p>
 
