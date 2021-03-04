@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Kube Eventer二次开发 - 背对疾风吧！
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="写在前面 目的 总结学习下阿里云kube-eventer项目的编程方法。 总结下自己的二次开发思路，方便团队协作，同时也能暴露代码可能存在的问题 k" />
+    <meta name="generator" content="Hugo 0.79.1 with theme pure" />
+    <title>Kube Eventer二次开发 - 背对疾风吧！</title>
+    
+    
+    <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Kube Eventer二次开发" />
+<meta property="og:description" content="写在前面 目的 总结学习下阿里云kube-eventer项目的编程方法。 总结下自己的二次开发思路，方便团队协作，同时也能暴露代码可能存在的问题 k" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" />
+<meta property="article:published_time" content="2021-03-03T11:38:12+08:00" />
+<meta property="article:modified_time" content="2021-03-03T11:38:12+08:00" />
+<meta itemprop="name" content="Kube Eventer二次开发">
+<meta itemprop="description" content="写在前面 目的 总结学习下阿里云kube-eventer项目的编程方法。 总结下自己的二次开发思路，方便团队协作，同时也能暴露代码可能存在的问题 k">
+<meta itemprop="datePublished" content="2021-03-03T11:38:12+08:00" />
+<meta itemprop="dateModified" content="2021-03-03T11:38:12+08:00" />
+<meta itemprop="wordCount" content="3131">
+
+
+
+<meta itemprop="keywords" content="kubernetes,golang," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Kube Eventer二次开发"/>
+<meta name="twitter:description" content="写在前面 目的 总结学习下阿里云kube-eventer项目的编程方法。 总结下自己的二次开发思路，方便团队协作，同时也能暴露代码可能存在的问题 k"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/zhangshunping" target="_blank">
+            <img class="img-circle img-rotate" src="https://zhangshunping.github.io/touxiang.ico" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">张顺平</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">个人头像</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>Weclome to my Blog!! </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/gin/" class="category-list-link">gin</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">8</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s-addon%E5%BC%80%E5%8F%91/" class="category-list-link">k8s-addon开发</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/operator/" class="category-list-link">operator</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/redis/" class="category-list-link">redis</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="category-list-link">个人开源小工具</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="category-list-link">云原生</a><span class="category-list-count">11</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E6%97%A5%E5%BF%97/" class="category-list-link">日志</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/" class="category-list-link">监控</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/" class="category-list-link">语言-golang</a><span class="category-list-count">5</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/awk/" class="tag-list-link">awk</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/gin/" class="tag-list-link">gin</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang/" class="tag-list-link">golang</a><span
+                    class="tag-list-count">12</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang-channel/" class="tag-list-link">golang-channel</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/iptables/" class="tag-list-link">iptables</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes/" class="tag-list-link">kubernetes</a><span
+                    class="tag-list-count">8</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/operator/" class="tag-list-link">operator</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/prometheus/" class="tag-list-link">prometheus</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/rync/" class="tag-list-link">rync</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/zabbix/" class="tag-list-link">zabbix</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/%E7%9B%91%E6%8E%A7/" class="tag-list-link">监控</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" class="title">Kube Eventer二次开发</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-03-03 11:38:12 &#43;0800 CST" itemprop="datePublished">2021-03-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" class="title">Kube Eventer二次开发</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-03-03 11:38:12 &#43;0800 CST" itemprop="datePublished">2021-03-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/02/redis/" class="title">Redis</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-22 10:41:45 &#43;0800 CST" itemprop="datePublished">2021-02-22</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/02/kubernetes-cicd%E8%90%BD%E5%9C%B0/" class="title">CI/CD kubernetes落地</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-18 18:06:20 &#43;0800 CST" itemprop="datePublished">2021-02-18</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/02/elasticsearch-operator%E8%90%BD%E5%9C%B0/" class="title">Elastic Statck Operator</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-18 18:06:20 &#43;0800 CST" itemprop="datePublished">2021-02-18</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/"
+    >Kube Eventer二次开发</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" class="article-date">
+  <time datetime="2021-03-03 11:38:12 &#43;0800 CST" itemprop="datePublished">2021-03-03</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"> 云原生 </a>
+  <a class="article-category-link" href="/categories/k8s-addon%E5%BC%80%E5%8F%91/"> k8s-Addon开发 </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/kubernetes/"> kubernetes </a>
+    <a class="article-tag-link" href="/tags/golang/"> golang </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3131字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <blockquote>
+<p>写在前面</p>
+</blockquote>
+<p><strong>目的</strong></p>
+<ul>
+<li>总结学习下阿里云<a href="https://github.com/AliyunContainerService/kube-eventer">kube-eventer</a>项目的编程方法。</li>
+<li>总结下自己的二次开发思路，方便团队协作，同时也能暴露代码可能存在的问题</li>
+</ul>
+<h2 id="kube-eventer介绍">kube-eventer介绍</h2>
+<blockquote>
+<p>为什么要用kube-eventer</p>
+</blockquote>
+<p>kubernetes集群除了原生组件日志,业务日志之外还会生成集群事件日志。</p>
+<p>比如我们创建一个pod，如果pod创建<strong>成功</strong>，则会显示如下日志：</p>
+<pre><code class="language-shell">Events:
+  Type    Reason     Age        From               Message
+  ----    ------     ----       ----               -------
+  Normal  Scheduled  &lt;unknown&gt;  default-scheduler  Successfully assigned default/web-f6fbdd86c-kmzr2 to node02
+  Normal  Pulling    43s        kubelet, node02    Pulling image &quot;nginx&quot;
+  Normal  Pulled     18s        kubelet, node02    Successfully pulled image &quot;nginx&quot;
+  Normal  Created    18s        kubelet, node02    Created container web
+  Normal  Started    18s        kubelet, node02    Started container web
+
+</code></pre>
+<p>由上可知，events事件 记录了一个kubernetes的资源从0-Running经历了哪些事件，一般大规模的kubernetes集群，可以通过收集events事件的耗时，从而来提高kuberentes集群分发性能。</p>
+<p>如果一个pod创建**失败，**则其事件日志如下：</p>
+<pre><code class="language-shell">  Type     Reason     Age                    From               Message
+  ----     ------     ----                   ----               -------
+  Normal   Scheduled  &lt;unknown&gt;              default-scheduler  Successfully assigned default/hello-5759cbd576-kdzpl to node03
+  Normal   Pulling    27m (x4 over 29m)      kubelet, node03    Pulling image &quot;1&quot;
+  Warning  Failed     27m (x4 over 29m)      kubelet, node03    Failed to pull image &quot;1&quot;: rpc error: code = Unknown desc = Error response from daemon: pull access denied for 1, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+  Warning  Failed     27m (x4 over 29m)      kubelet, node03    Error: ErrImagePull
+  Warning  Failed     18m (x41 over 28m)     kubelet, node03    Error: ImagePullBackOff
+  Normal   BackOff    3m50s (x107 over 28m)  kubelet, node03    Back-off pulling image &quot;1&quot;
+</code></pre>
+<p>由此可以看出，我们如果通过收集pod的events事件，当发生错误的时候，既可以通过收集到Warning事件来多一个维度的分析失败原因。</p>
+<p>因为目前官网k8s集群规模不是很大，也未出现分发问题，因此目前收集kubernetes集群事件，可能没有多大的意义，且会造成多余的磁盘浪费，因此使用kube-eventer项目，将产生Warning事件通过钉钉报警通知运维人员，这样能够方便快速定位问题。</p>
+<blockquote>
+<p>kube-eventer 用户视角</p>
+</blockquote>
+<p><img src="https://github.com/zhangshunping/kube-eventer/blob/master/docs/images/arch.png?raw=true" alt="arch.png"></p>
+<h3 id="核心接口编程逻辑"><strong>核心接口编程逻辑</strong></h3>
+<blockquote>
+<p>kube-eventer代码设计架构</p>
+</blockquote>
+<p><img src="struct.png" alt="image-20210301110050942"></p>
+<p>kube-eventer 通过接口编程的思想来开发的项目（个人理解），可以通过 <code>core/type.go</code> 查看</p>
+<p>简单叙述一下，<strong>它定义了两个interface类型的接口（EventSink，EventSource），一个用作收集events的struct 类型</strong></p>
+<pre><code class="language-go">type EventBatch struct {
+	// When this batch was created.
+	Timestamp time.Time
+	// List of events included in the batch.
+	Events []*kube_api.Event
+}
+
+// A place from where the events should be scraped.
+type EventSource interface {
+	// This is a mutable method. Each call to this method clears the internal buffer so that
+	// each event can be obtained only once.
+	GetNewEvents() *EventBatch
+}
+
+type EventSink interface {
+	Name() string
+
+	// Exports data to the external storage. The function should be synchronous/blocking and finish only
+	// after the given EventBatch was written. This will allow sink manager to push data only to these
+	// sinks that finished writing the previous data.
+	ExportEvents(*EventBatch)
+	// Stops the sink at earliest convenience.
+	Stop()
+}
+</code></pre>
+<p>我们知道在golang中，只要一个struct实现了一个interface的所有的方法，那么这个struct就可以认为是这个interface类型，因此只需要对应的 <strong>SourceFactory SinkManager sinks</strong>等定义的struct实现具体的接口，就可以达到泛型编程的目的，这样一来对整个架构的扩展维护非常方便，大致流程如下：</p>
+<p><img src="kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91.assets/image-20210304115404721.png" alt="image-20210304115404721"></p>
+<p>因此可以简单的认为，kube-eventer的项目抽象的看的话，其逻辑可以简单的认为是下面的编程逻辑，比如想接入kafka作为sinks，只需要sinks实现EventSink 的interface即可。</p>
+<p><img src="kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91.assets/image-20210304115417693.png" alt="image-20210304115417693"></p>
+<h3 id="源码分析">源码分析</h3>
+<h4 id="代码入口">代码入口</h4>
+<p>eventer.go，简洁代码如下，我们看下它做了什么。</p>
+<pre><code class="language-go">func main() {
+    // 1.申请一个channel，控制主程
+	quitChannel := make(chan struct{}, 0)
+	...
+
+	...
+	//2. sources
+	if len(argSources) != 1 {
+		klog.Fatal(&quot;Wrong number of sources specified&quot;)
+	}
+	sourceFactory := sources.NewSourceFactory()
+	sources, err := sourceFactory.BuildAll(argSources)
+	
+	//3. sinks
+	sinksFactory := sinks.NewSinkFactory()
+	sinkList := sinksFactory.BuildAll(argSinks)
+	
+	for _, sink := range sinkList {
+		klog.Infof(&quot;Starting with %s sink&quot;, sink.Name())
+	}
+	sinkManager, err := sinks.NewEventSinkManager(sinkList, sinks.DefaultSinkExportEventsTimeout, sinks.DefaultSinkStopTimeout)
+	
+	// 4. main manager
+	manager, err := manager.NewManager(sources[0], sinkManager, *argFrequency)
+	if err != nil {
+		klog.Fatalf(&quot;Failed to create main manager: %v&quot;, err)
+	}
+	manager.Start()
+	klog.Infof(&quot;Starting eventer&quot;)
+	
+    ...
+    
+    ...
+    ...
+    // 5. 阻塞
+	&lt;-quitChannel
+}
+
+</code></pre>
+<blockquote>
+<p>流程如下</p>
+</blockquote>
+<ul>
+<li>1.申请一个无缓冲的channel ，用作主程序控制</li>
+<li>2.初始化SourceFactory 实例，及通过传入参数，初始化一个可以收集kubernetes的控制器</li>
+<li>3.初始化SinkManager实例，作用是，将收集的kubernetes 集群事件信息存储到指定的接收器中，这里支持的接口有钉钉，es，redis，mysql等</li>
+<li>4.将新生成的SourceFactory和SinkManager 注册到主manager中去，通过manager.Start()的方式启动整个集群事件监控收集的服务。</li>
+<li>5.quitChannel用来阻塞服务，当接收到quit信号时候退出。</li>
+</ul>
+<h4 id="getnewevents实现">GetNewEvents实现</h4>
+<p>kube-eventer实现<code>GetNewEvetns</code>接口，可以对比operator的实现方式，他的本质上也是通过list/watch的方式来获取events.</p>
+<p>通过<code>sources/kubernetes/kubernetes_source.go</code>查看，主要代码逻辑如下：</p>
+<p>第一步：watch() 逻辑 ，起一个go程，在后台一直运行，他的主要作用是一直，watch kubernetes api 只收集新的evnets事件， 根据<code>		resourceVersion := events.ResourceVersion</code>判断，将新生成的events事件 ，放入<code>localEventsBuffer chan *kubeapi.Event</code>的channel里</p>
+<p>第二步：GetNewEvents() 逻辑，根据定义的<code>frequency</code> 的时间窗口变量，定时的将 localEventsBuffer 中的数据 追加到类型为<code>core.EventBatch.Events</code>的切片中去，将这个slice返回。</p>
+<pre><code class="language-go">// Implements core.EventSource interface.
+type KubernetesEventSource struct {
+	// Large local buffer, periodically read.
+	localEventsBuffer chan *kubeapi.Event
+
+	stopChannel chan struct{}
+
+	eventClient kubev1core.EventInterface
+}
+
+func (this *KubernetesEventSource) GetNewEvents() *core.EventBatch {
+	startTime := time.Now()
+	defer func() {
+		lastEventTimestamp.Set(float64(time.Now().Unix()))
+		scrapEventsDuration.Observe(float64(time.Since(startTime)) / float64(time.Millisecond))
+	}()
+	result := core.EventBatch{
+		Timestamp: time.Now(),
+		Events:    []*kubeapi.Event{},
+	}
+	// Get all data from the buffer.
+event_loop:
+	for {
+		select {
+		case event := &lt;-this.localEventsBuffer:
+			result.Events = append(result.Events, event)
+		default:
+			break event_loop
+		}
+	}
+
+	totalEventsNum.Add(float64(len(result.Events)))
+
+	return &amp;result
+}
+
+func (this *KubernetesEventSource) watch() {
+	// Outer loop, for reconnections.
+	for {
+		events, err := this.eventClient.List(metav1.ListOptions{})
+		if err != nil {
+			klog.Errorf(&quot;Failed to load events: %v&quot;, err)
+			time.Sleep(time.Second)
+			continue
+		}
+		// Do not write old events.
+
+		resourceVersion := events.ResourceVersion
+
+		watcher, err := this.eventClient.Watch(
+			metav1.ListOptions{
+				Watch:           true,
+				ResourceVersion: resourceVersion})
+		if err != nil {
+			klog.Errorf(&quot;Failed to start watch for new events: %v&quot;, err)
+			time.Sleep(time.Second)
+			continue
+		}
+
+		watchChannel := watcher.ResultChan()
+		// Inner loop, for update processing.
+	inner_loop:
+		for {
+			select {
+			case watchUpdate, ok := &lt;-watchChannel:
+				if !ok {
+					klog.Errorf(&quot;Event watch channel closed&quot;)
+					break inner_loop
+				}
+
+				if watchUpdate.Type == kubewatch.Error {
+					if status, ok := watchUpdate.Object.(*metav1.Status); ok {
+						klog.Errorf(&quot;Error during watch: %#v&quot;, status)
+						break inner_loop
+					}
+					klog.Errorf(&quot;Received unexpected error: %#v&quot;, watchUpdate.Object)
+					break inner_loop
+				}
+
+				if event, ok := watchUpdate.Object.(*kubeapi.Event); ok {
+					switch watchUpdate.Type {
+					case kubewatch.Added, kubewatch.Modified:
+						select {
+						case this.localEventsBuffer &lt;- event:
+							// Ok, buffer not full.
+						default:
+							// Buffer full, need to drop the event.
+							klog.Errorf(&quot;Event buffer full, dropping event&quot;)
+						}
+					case kubewatch.Deleted:
+						// Deleted events are silently ignored.
+					default:
+						klog.Warningf(&quot;Unknown watchUpdate.Type: %#v&quot;, watchUpdate.Type)
+					}
+				} else {
+					klog.Errorf(&quot;Wrong object received: %v&quot;, watchUpdate)
+				}
+
+			case &lt;-this.stopChannel:
+				watcher.Stop()
+				klog.Infof(&quot;Event watching stopped&quot;)
+				return
+			}
+		}
+	}
+}
+
+</code></pre>
+<h3 id="二次开发改了什么">二次开发改了什么</h3>
+<ol>
+<li>
+<p><strong>解决官方issue：</strong> kube-eventer 原本存在的<a href="https://github.com/AliyunContainerService/kube-eventer/issues/68">issue #68</a>,及同一个消息会重复反复发送，但是与阿里云产品冲突，因此官方不打算解决这个问题</p>
+</li>
+<li>
+<p><strong>增加合并消息功能：</strong>  合并一段时间内 level=Warning 的events，统一发送</p>
+</li>
+<li>
+<p>自定义消息息的markdown格式。</p>
+</li>
+</ol>
+<h4 id="1-解决官方issue">1. <strong>解决官方issue：</strong></h4>
+<p>在 core/type.go增加去重接口</p>
+<pre><code>func (eventBatch *EventBatch) DistinctSameResourceEvent() {
+	tempMap := make(map[string]bool)
+	var finalEvents []*kube_api.Event
+	for _, event := range eventBatch.Events {
+		involvedObject := event.InvolvedObject
+		if &amp;involvedObject == nil {
+			continue
+		}
+		resourceName := involvedObject.Name
+		reason := event.Reason
+		msg:=event.Message
+		key := resourceName + reason + msg
+		if _, contain := tempMap[key]; !contain {
+			// fmt.Printf(&quot;key: %s \n&quot;, key)
+			tempMap[key] = true
+			finalEvents = append(finalEvents, event)
+		}
+	}
+
+	if len(finalEvents) &gt; 0 {
+		eventBatch.Events = finalEvents
+	}
+}
+</code></pre>
+<p>在sinks/manager中每次发送给sinkManager时候，去重</p>
+<pre><code class="language-go">func export(s core.EventSink, data *core.EventBatch) {
+	...
+
+	data.DistinctSameResourceEvent()
+    ...
+	s.ExportEvents(data)
+}
+
+</code></pre>
+<h4 id="2合并warning-消息">2.合并Warning 消息</h4>
+<p>增加<code>sinks/dingtalk/dingtalkbuffer.go</code>. 在不改变原逻辑的基础上，通过开关变量 <code>bufferwindows</code> 来控制是否开启 合并消息</p>
+<p><code>bufferwindows=0 </code>代表了不开启，则用原来的方式发送；<code>bufferwindows=10 </code>代表的开启聚合， 聚合创建时间=frequency*bufferwindows,比如 frequency=10s ,bufferwindows=10,即表示聚合这100s内的事件级别为Warning 的消息发送给钉钉</p>
+<p>我的具体实现逻辑，将一段窗口时间内的events信息，落地到本地缓存，通过数据转换的方式，对message相同的资源合并，以下是落地去重逻辑</p>
+<pre><code class="language-go">//构造新的类型，用作合并消息去重
+type BufferEventBatch map[string][]*kube_api.Event
+       
+//去重内存聚合逻辑
+func DumpbufferEventBatch(batch *core.EventBatch) {
+        klog.V(2).Info(&quot;start count:&quot;,count)
+        i:=0
+        j:=0
+        for _, event := range batch.Events {
+                // only handler Warning Buffer
+                if event.Type == &quot;Warning&quot; {
+                        if len(BbufferEventBatch)!=0{
+                                //1.if  event.name is new then append
+                                if _,contain:=BbufferEventBatch[event.InvolvedObject.Name];!contain{
+                                        BbufferEventBatch[event.InvolvedObject.Name] = append(BbufferEventBatch[event.InvolvedObject.Name], event)
+                                        continue
+                                }
+                                //2.if event.name is exits ;then diff message
+                                for _,ev:=range(BbufferEventBatch[event.InvolvedObject.Name]){
+                                        j=j+1
+                                        if ev.Message != event.Message{
+                                                i=i+1
+                                        }
+                                }
+                                if i==j{
+                                        klog.V(2).Info(&quot;i:&quot;,i,&quot;j:&quot;,j)
+                                        BbufferEventBatch[event.InvolvedObject.Name] = append(BbufferEventBatch[event.InvolvedObject.Name], event)
+                                }
+                                i=0
+                                j=0
+                        }else{
+                                //if lenth=0;then append
+                                BbufferEventBatch[event.InvolvedObject.Name] = append(BbufferEventBatch[event.InvolvedObject.Name], event)
+                        }
+                }
+        }
+        klog.V(2).Info(&quot;count:&quot;,count)
+}
+
+
+//聚合发送给钉钉逻辑
+func (d *DingTalkSink) ExportBufferEvents(batch core.BufferEventBatch) {
+        klog.V(2).Info(&quot;BbuferEventBatch len :&quot;,len(batch))
+        if count &gt;=ArgDDbufferWindows {
+                count =0
+                if len(BbufferEventBatch)!=0{
+                        for _, bufferEvent := range BbufferEventBatch {
+                                d.DingBuffer(bufferEvent)
+                                // add threshold
+                                time.Sleep(time.Millisecond * 50)
+                        }
+                        BbufferEventBatch=core.BufferEventBatch{}
+                        count=0
+                }
+        }
+}
+
+
+
+
+</code></pre>
+<p><strong>测试截图：</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/730755/1614586075150-5e6d7538-fdf2-4655-b7fa-48ed84ab6b02.png?x-oss-process=image%2Fwatermark%2Ctype_d3F5LW1pY3JvaGVp%2Csize_10%2Ctext_TW9vbnRvbueJiOadg--8jOivt-WLv-WkluazhA%3D%3D%2Ccolor_FFFFFF%2Cshadow_50%2Ct_80%2Cg_se%2Cx_10%2Cy_10" alt="img"></p>
+<p>资源使用量：pod本身只带limit控制，测试下来资源使用率也较少</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/730755/1614586090436-116da8c9-c3e6-49ad-811c-c9bbd1b824d3.png" alt="img"></p>
+<h3 id="我的仓库地址">我的仓库地址</h3>
+<p><a href="https://github.com/zhangshunping/kube-eventer">https://github.com/zhangshunping/kube-eventer</a></p>
+<h3 id="部署方式">部署方式</h3>
+<pre><code class="language-shell">git clone https://github.com/zhangshunping/kube-eventer
+cd kube-eventer  
+make docker-container VERSION:v3 ## 编译生成docker image
+docker push  ***                 ## 推送docker image
+
+kubectl apply -f deploy/deploy.yaml #生成kube-eventer资源
+</code></pre>
+<h3 id="后期可迭代功能">后期可迭代功能</h3>
+<ol>
+<li>可以增加钉钉的抑制功能。比如一台机器宕机了，这时候可以通过抑制的方法，抑制这台机器上的钉钉资源报警。</li>
+<li>可以增加报警冷却功能， 解决当同一个资源反复报警。</li>
+</ol>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" title="Kube Eventer二次开发" target="_blank" rel="external">https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://zhangshunping.github.io/2021/02/redis/" title="Redis"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            <li class="next">
+                <a href="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/"
+                    title="Kube Eventer二次开发"><span>上一篇&nbsp;&nbsp;</span><i
+                        class="icon icon-angle-right" aria-hidden="true"></i></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://zhangshunping.github.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2021
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://zhangshunping.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://zhangshunping.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/zhangshunping.github.io',
+            CONTENT_URL: 'https:\/\/zhangshunping.github.io\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://zhangshunping.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

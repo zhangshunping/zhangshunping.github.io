@@ -5,10 +5,28 @@
     <link>https://zhangshunping.github.io/tags/golang/</link>
     <description>Recent content in golang on 背对疾风吧！</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 14 Jan 2021 19:26:18 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 03 Mar 2021 11:38:12 +0800</lastBuildDate>
     
         <atom:link href="https://zhangshunping.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Kube Eventer二次开发</title>
+      <link>https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Wed, 03 Mar 2021 11:38:12 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/</guid>
+      <description>写在前面 目的 总结学习下阿里云kube-eventer项目的编程方法。 总结下自己的二次开发思路，方便团队协作，同时也能暴露代码可能存在的问题 k</description>
+    </item>
+    
+    <item>
+      <title>Kube Eventer二次开发</title>
+      <link>https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Wed, 03 Mar 2021 11:38:12 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/</guid>
+      <description>写在前面 目的 总结学习下阿里云kube-eventer项目的编程方法。 总结下自己的二次开发思路，方便团队协作，同时也能暴露代码可能存在的问题 k</description>
+    </item>
     
     <item>
       <title>Redis</title>
@@ -170,24 +188,6 @@
       
       <guid>https://zhangshunping.github.io/2020/06/golang-context/</guid>
       <description>[TOC] Context诞生背景 由于在Golang severs中，每个request都是在单个goroutine中完成，并且在单个goroutine</description>
-    </item>
-    
-    <item>
-      <title>Golang-闭包场景总结</title>
-      <link>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</link>
-      <pubDate>Tue, 23 Jun 2020 15:56:01 +0800</pubDate>
-      
-      <guid>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</guid>
-      <description>[toc] 定义 所谓闭包指的是内部函数引用外部函数变量或者自由变量返回一个函数，我们称作为闭包 func outer(x int )func(int) int{ // golang一个函数体内只能用用一个函数体,</description>
-    </item>
-    
-    <item>
-      <title>Healthy</title>
-      <link>https://zhangshunping.github.io/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/</link>
-      <pubDate>Mon, 15 Jun 2020 18:27:19 +0800</pubDate>
-      
-      <guid>https://zhangshunping.github.io/2020/06/%E5%B0%8F%E5%B7%A5%E5%85%B7-projecthealthy/</guid>
-      <description>[TOC] 需求背景 ​ 公司的2B业务落地后，应用服务因为一些突发状况出现不在线情况。 一些小型客户关注的是SAAS业务，不太关心运维体系，也没有充裕的资</description>
     </item>
     
   </channel>
