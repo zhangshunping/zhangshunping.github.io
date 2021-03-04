@@ -387,7 +387,7 @@
 <blockquote>
 <p>kube-eventer代码设计架构</p>
 </blockquote>
-<p><img src="kube-eventer-AddonsOps.assets/struct.png" alt="struct"></p>
+<p><img src="kube-eventer-AddonsOps.assets/image-20210304143053667.png" alt="image-20210304143053667"></p>
 <p>kube-eventer 通过接口编程的思想来开发的项目（个人理解），可以通过 <code>core/type.go</code> 查看</p>
 <p>简单叙述一下，<strong>它定义了两个interface类型的接口（EventSink，EventSource），一个用作收集events的struct 类型</strong></p>
 <pre><code class="language-go">type EventBatch struct {
@@ -698,7 +698,7 @@ func (d *DingTalkSink) ExportBufferEvents(batch core.BufferEventBatch) {
 
 </code></pre>
 <p><strong>测试截图：</strong></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2021/png/730755/1614586075150-5e6d7538-fdf2-4655-b7fa-48ed84ab6b02.png?x-oss-process=image%2Fwatermark%2Ctype_d3F5LW1pY3JvaGVp%2Csize_10%2Ctext_TW9vbnRvbueJiOadg--8jOivt-WLv-WkluazhA%3D%3D%2Ccolor_FFFFFF%2Cshadow_50%2Ct_80%2Cg_se%2Cx_10%2Cy_10" alt="img"></p>
+<p><img src="kube-eventer-AddonsOps.assets/image-20210304143028031.png" alt="image-20210304143028031"></p>
 <p>资源使用量：pod本身只带limit控制，测试下来资源使用率也较少</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2021/png/730755/1614586090436-116da8c9-c3e6-49ad-811c-c9bbd1b824d3.png" alt="img"></p>
 <h3 id="我的仓库地址">我的仓库地址</h3>
