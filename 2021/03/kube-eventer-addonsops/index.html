@@ -32,7 +32,7 @@
     <meta property="og:title" content="Kube Eventer二次开发" />
 <meta property="og:description" content="写在前面 目的 总结学习下阿里云kube-eventer项目的编程方法。 总结下自己的二次开发思路，方便团队协作，同时也能暴露代码可能存在的问题 k" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" />
+<meta property="og:url" content="https://zhangshunping.github.io/2021/03/kube-eventer-addonsops/" />
 <meta property="article:published_time" content="2021-03-03T11:38:12+08:00" />
 <meta property="article:modified_time" content="2021-03-03T11:38:12+08:00" />
 <meta itemprop="name" content="Kube Eventer二次开发">
@@ -159,12 +159,12 @@
         <ul class="category-list">
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/gin/" class="category-list-link">gin</a><span class="category-list-count">2</span></li>
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">8</span></li>
-            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s-addon%E5%BC%80%E5%8F%91/" class="category-list-link">k8s-addon开发</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s-addon%E5%BC%80%E5%8F%91/" class="category-list-link">k8s-addon开发</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">4</span></li>
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/operator/" class="category-list-link">operator</a><span class="category-list-count">3</span></li>
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/redis/" class="category-list-link">redis</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="category-list-link">个人开源小工具</a><span class="category-list-count">5</span></li>
-            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="category-list-link">云原生</a><span class="category-list-count">11</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="category-list-link">云原生</a><span class="category-list-count">10</span></li>
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E6%97%A5%E5%BF%97/" class="category-list-link">日志</a><span class="category-list-count">1</span></li>
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/" class="category-list-link">监控</a><span class="category-list-count">3</span></li>
             <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/" class="category-list-link">语言-golang</a><span class="category-list-count">5</span></li>
@@ -186,7 +186,7 @@
             
             
             <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang/" class="tag-list-link">golang</a><span
-                    class="tag-list-count">12</span></li>
+                    class="tag-list-count">11</span></li>
             
             
             <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang-channel/" class="tag-list-link">golang-channel</a><span
@@ -198,7 +198,7 @@
             
             
             <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes/" class="tag-list-link">kubernetes</a><span
-                    class="tag-list-count">8</span></li>
+                    class="tag-list-count">7</span></li>
             
             
             <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/linux/" class="tag-list-link">linux</a><span
@@ -240,17 +240,7 @@
             <li>
                 <div class="item-inner">
                     <p class="item-title">
-                        <a href="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" class="title">Kube Eventer二次开发</a>
-                    </p>
-                    <p class="item-date">
-                        <time datetime="2021-03-03 11:38:12 &#43;0800 CST" itemprop="datePublished">2021-03-03</time>
-                    </p>
-                </div>
-            </li>
-            <li>
-                <div class="item-inner">
-                    <p class="item-title">
-                        <a href="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" class="title">Kube Eventer二次开发</a>
+                        <a href="https://zhangshunping.github.io/2021/03/kube-eventer-addonsops/" class="title">Kube Eventer二次开发</a>
                     </p>
                     <p class="item-date">
                         <time datetime="2021-03-03 11:38:12 &#43;0800 CST" itemprop="datePublished">2021-03-03</time>
@@ -287,6 +277,16 @@
                     </p>
                 </div>
             </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/02/prometheus-operator-%E8%90%BD%E5%9C%B0/" class="title">Prometheus Operator</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-18 18:06:20 &#43;0800 CST" itemprop="datePublished">2021-02-18</time>
+                    </p>
+                </div>
+            </li>
         </ul>
     </div>
 </div>
@@ -311,7 +311,7 @@
       <h1 itemprop="name">
   <a
     class="article-title"
-    href="/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/"
+    href="/2021/03/kube-eventer-addonsops/"
     >Kube Eventer二次开发</a
   >
 </h1>
@@ -320,7 +320,7 @@
         
 <span class="article-date">
   <i class="icon icon-calendar-check"></i>&nbsp;
-<a href="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" class="article-date">
+<a href="https://zhangshunping.github.io/2021/03/kube-eventer-addonsops/" class="article-date">
   <time datetime="2021-03-03 11:38:12 &#43;0800 CST" itemprop="datePublished">2021-03-03</time>
 </a>
 </span>
@@ -335,7 +335,7 @@
     <a class="article-tag-link" href="/tags/golang/"> golang </a>
   </span>
 
-        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/#comments"
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/03/kube-eventer-addonsops/#comments"
             class="article-comment-link">评论</a></span>
 		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3131字</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7分 </span>
@@ -387,7 +387,7 @@
 <blockquote>
 <p>kube-eventer代码设计架构</p>
 </blockquote>
-<p><img src="struct.png" alt="image-20210301110050942"></p>
+<p><img src="kube-eventer-AddonsOps.assets/struct.png" alt="struct"></p>
 <p>kube-eventer 通过接口编程的思想来开发的项目（个人理解），可以通过 <code>core/type.go</code> 查看</p>
 <p>简单叙述一下，<strong>它定义了两个interface类型的接口（EventSink，EventSource），一个用作收集events的struct 类型</strong></p>
 <pre><code class="language-go">type EventBatch struct {
@@ -416,9 +416,9 @@ type EventSink interface {
 }
 </code></pre>
 <p>我们知道在golang中，只要一个struct实现了一个interface的所有的方法，那么这个struct就可以认为是这个interface类型，因此只需要对应的 <strong>SourceFactory SinkManager sinks</strong>等定义的struct实现具体的接口，就可以达到泛型编程的目的，这样一来对整个架构的扩展维护非常方便，大致流程如下：</p>
-<p><img src="kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91.assets/image-20210304115404721.png" alt="image-20210304115404721"></p>
+<p><img src="kube-eventer-AddonsOps.assets/image-20210304115404721.png" alt="image-20210304115404721"></p>
 <p>因此可以简单的认为，kube-eventer的项目抽象的看的话，其逻辑可以简单的认为是下面的编程逻辑，比如想接入kafka作为sinks，只需要sinks实现EventSink 的interface即可。</p>
-<p><img src="kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91.assets/image-20210304115417693.png" alt="image-20210304115417693"></p>
+<p><img src="kube-eventer-AddonsOps.assets/image-20210304115417693.png" alt="image-20210304115417693"></p>
 <h3 id="源码分析">源码分析</h3>
 <h4 id="代码入口">代码入口</h4>
 <p>eventer.go，简洁代码如下，我们看下它做了什么。</p>
@@ -723,7 +723,7 @@ kubectl apply -f deploy/deploy.yaml #生成kube-eventer资源
   <ul class="post-copyright list-unstyled">
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接: </strong>
-      <a href="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/" title="Kube Eventer二次开发" target="_blank" rel="external">https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/</a>
+      <a href="https://zhangshunping.github.io/2021/03/kube-eventer-addonsops/" title="Kube Eventer二次开发" target="_blank" rel="external">https://zhangshunping.github.io/2021/03/kube-eventer-addonsops/</a>
     </li>
     <li class="post-copyright-license">
       <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
@@ -758,11 +758,6 @@ kubectl apply -f deploy/deploy.yaml #生成kube-eventer资源
                 <a href="https://zhangshunping.github.io/2021/02/redis/" title="Redis"><i
                         class="icon icon-angle-left"
                         aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
-            </li>
-            <li class="next">
-                <a href="https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/"
-                    title="Kube Eventer二次开发"><span>上一篇&nbsp;&nbsp;</span><i
-                        class="icon icon-angle-right" aria-hidden="true"></i></a>
             </li>
             
             <li class="toggle-toc">

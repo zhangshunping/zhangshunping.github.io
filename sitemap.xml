@@ -24,14 +24,7 @@
   </url>
   
   <url>
-    <loc>https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2021-03-03T11:38:12+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhangshunping.github.io/2021/03/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://zhangshunping.github.io/2021/03/kube-eventer-addonsops/</loc>
     <lastmod>2021-03-03T11:38:12+08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -426,12 +419,6 @@
   
   <url>
     <loc>https://zhangshunping.github.io/1/01/kubelet/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zhangshunping.github.io/1/01/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E6%BA%90%E6%96%87%E4%BB%B6/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
