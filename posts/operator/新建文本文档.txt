@@ -1,0 +1,14 @@
+10.67.100.146    161.202.213.146    slave  10.67.39.5
+
+
+10.117.56.60     161.202.207.142
+
+
+
+
+/data/tools/TestTools/test_dirserver 'env=g&op=modify&id=9470&is_manual=1&manual_status=3'
+/data/tools/TestTools/test_dirserver 'env=g&op=modify&id=9475&is_manual=1&manual_status=3'
+/data/tools/TestTools/test_dirserver 'env=g&op=modify&id=9480&is_manual=1&manual_status=3'
+/data/tools/TestTools/test_dirserver 'env=g&op=modify&id=9485&is_manual=1&manual_status=3'
+/data/tools/TestTools/test_dirserver 'env=g&op=modify&id=9861&is_manual=1&manual_status=3'
+/data/tools/TestTools/test_dirserver 'env=g&op=modify&id=9885&is_manual=1&manual_status=3'

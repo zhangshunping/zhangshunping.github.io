@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <title>
+        Ucloud Redis Operator Notes - 背对疾风吧！
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="redis-cluster-operator notes" />
+    <meta name="generator" content="Hugo 0.79.1 with theme pure" />
+    <title>Ucloud Redis Operator Notes - 背对疾风吧！</title>
+    
+    
+    <link rel="stylesheet" href="https://zhangshunping.github.io/css/style.min.7dc20efbc53647d41aa9ddea0c48e59300223d084e66ea0cbe7c30bd88903acc.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="Ucloud Redis Operator Notes" />
+<meta property="og:description" content="redis-cluster-operator notes" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhangshunping.github.io/2021/04/ucloud-redis-operator-notes/" />
+<meta property="article:published_time" content="2021-04-08T15:23:08+08:00" />
+<meta property="article:modified_time" content="2021-04-08T15:23:08+08:00" />
+<meta itemprop="name" content="Ucloud Redis Operator Notes">
+<meta itemprop="description" content="redis-cluster-operator notes">
+<meta itemprop="datePublished" content="2021-04-08T15:23:08+08:00" />
+<meta itemprop="dateModified" content="2021-04-08T15:23:08+08:00" />
+<meta itemprop="wordCount" content="4445">
+
+
+
+<meta itemprop="keywords" content="kubernetes,redis," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ucloud Redis Operator Notes"/>
+<meta name="twitter:description" content="redis-cluster-operator notes"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-black" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/zhangshunping" target="_blank">
+            <img class="img-circle img-rotate" src="https://zhangshunping.github.io/touxiang.ico" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">张顺平</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">个人头像</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Shanghai, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder="想要查找什么..."
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>Weclome to my Blog!! </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> 分类</h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/gin/" class="category-list-link">gin</a><span class="category-list-count">2</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s/" class="category-list-link">k8s</a><span class="category-list-count">9</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/k8s-addon%E5%BC%80%E5%8F%91/" class="category-list-link">k8s-addon开发</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/linux/" class="category-list-link">linux</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/operator/" class="category-list-link">operator</a><span class="category-list-count">4</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/redis/" class="category-list-link">redis</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%B8%AA%E4%BA%BA%E5%BC%80%E6%BA%90%E5%B0%8F%E5%B7%A5%E5%85%B7/" class="category-list-link">个人开源小工具</a><span class="category-list-count">5</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/" class="category-list-link">云原生</a><span class="category-list-count">11</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E6%97%A5%E5%BF%97/" class="category-list-link">日志</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E7%9B%91%E6%8E%A7/" class="category-list-link">监控</a><span class="category-list-count">3</span></li>
+            <li class="category-list-item"><a href="https://zhangshunping.github.io/categories/%E8%AF%AD%E8%A8%80-golang/" class="category-list-link">语言-golang</a><span class="category-list-count">5</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> 标签</h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/awk/" class="tag-list-link">awk</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/gin/" class="tag-list-link">gin</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang/" class="tag-list-link">golang</a><span
+                    class="tag-list-count">11</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/golang-channel/" class="tag-list-link">golang-channel</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/iptables/" class="tag-list-link">iptables</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/kubernetes/" class="tag-list-link">kubernetes</a><span
+                    class="tag-list-count">8</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/linux/" class="tag-list-link">linux</a><span
+                    class="tag-list-count">4</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/operator/" class="tag-list-link">operator</a><span
+                    class="tag-list-count">3</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/prometheus/" class="tag-list-link">prometheus</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/python/" class="tag-list-link">python</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/redis/" class="tag-list-link">redis</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/rync/" class="tag-list-link">rync</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/zabbix/" class="tag-list-link">zabbix</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://zhangshunping.github.io/tags/%E7%9B%91%E6%8E%A7/" class="tag-list-link">监控</a><span
+                    class="tag-list-count">2</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/04/ucloud-redis-operator-notes/" class="title">Ucloud Redis Operator Notes</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-04-08 15:23:08 &#43;0800 CST" itemprop="datePublished">2021-04-08</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/03/operator-sdk1/" class="title">Operator Sdk1</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-03-26 11:17:41 &#43;0800 CST" itemprop="datePublished">2021-03-26</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/03/kube-eventer-addonsops/" class="title">Kube Eventer二次开发</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-03-03 11:38:12 &#43;0800 CST" itemprop="datePublished">2021-03-03</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/02/redis/" class="title">Redis</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-22 10:41:45 &#43;0800 CST" itemprop="datePublished">2021-02-22</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://zhangshunping.github.io/2021/02/kubernetes-cicd%E8%90%BD%E5%9C%B0/" class="title">CI/CD kubernetes落地</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2021-02-18 18:06:20 &#43;0800 CST" itemprop="datePublished">2021-02-18</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title">文章目录</h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2021/04/ucloud-redis-operator-notes/"
+    >Ucloud Redis Operator Notes</a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://zhangshunping.github.io/2021/04/ucloud-redis-operator-notes/" class="article-date">
+  <time datetime="2021-04-08 15:23:08 &#43;0800 CST" itemprop="datePublished">2021-04-08</time>
+</a>
+</span>
+<span class="article-category">
+  <i class="icon icon-folder"></i>&nbsp;
+  <a class="article-category-link" href="/categories/%E4%BA%91%E5%8E%9F%E7%94%9F/"> 云原生 </a>
+  <a class="article-category-link" href="/categories/k8s/"> k8s </a>
+  <a class="article-category-link" href="/categories/operator/"> operator </a>
+</span>  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/kubernetes/"> kubernetes </a>
+    <a class="article-tag-link" href="/tags/redis/"> redis </a>
+  </span>
+
+        <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/04/ucloud-redis-operator-notes/#comments"
+            class="article-comment-link">评论</a></span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4445字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 9分 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <p>[toc]</p>
+<h2 id="先从crd说起">先从CRD说起</h2>
+<p><a href="https://github.com/ucloud/redis-cluster-operator">redis-cluster-operator</a> 项目自定义了两个crd资源 <strong>DistributedRedisCluster, RedisClusterBackup</strong></p>
+<p>在已经申请crd资源的k8s集群内可以通过以下命令查看</p>
+<pre><code class="language-shell">[root@node01 ~]# kubectl  get crd |grep redis
+distributedredisclusters.redis.kun                              2020-10-16T10:58:47Z
+redisclusterbackups.redis.kun                                   2020-10-16T10:58:47Z
+
+</code></pre>
+<p>也可以通过apiserver 资源查看命令<code>kubectl api-resources|grep drc</code>查看；drc，drcb为<strong>DistributedRedisCluster, RedisClusterBackup</strong>的<strong>shortname</strong>。</p>
+<h2 id="operator-保证集群服务配置的最终一致性">operator 保证集群服务配置的最终一致性</h2>
+<p>kubernetes operator 是通过list/watch 特定资源，进行一个loop调谐过程，通过比较对应crd自定义资源<strong>drc</strong>的spec和status状态，从而保证资源redis-cluster的最终一致性。</p>
+<ol>
+<li>operator pod可以通过以下命令查看</li>
+</ol>
+<pre><code class="language-shell">[root@node01 ~]# kubectl  get pods -nredis-cluster|grep operator
+redis-cluster-operator-78b45cdb6b-7lm5z   1/1     Running   3          8d
+</code></pre>
+<p>**Tips：**这里要说明下operator和k8s，redis-cluster的边界问题，Operator可以理解为只是会控制对应的k8s资源，例如cm，statefulset控制器配置等。Kubernetes和Operator不去介入Redis Cluster的高可用机制，若有冲突以Redis Cluster的为准。</p>
+<h2 id="集群管理">集群管理</h2>
+<h3 id="一pdb托底redis实例pod可用性"><strong>一、PDB托底redis实例pod可用性</strong></h3>
+<p>redis-cluster-operator项目在落地redis-cluster集群的时候，会在k8s内针对每一个pod生成PDB资源<a href="https://jimmysong.io/kubernetes-handbook/concepts/pod-disruption-budget.html">pdb介绍</a>。每一个pdb资源通过<strong>matchLabels</strong>的标签选择方式维护着<strong>statefulset</strong>的可用性。其默认配置maxUnavailable=1，从而保证redis-cluster的在自愿情况（及人工操作)下保证一个statefulset控制的pod副本数最大的不可用数只能为一个，防止误操作导致服务不可用。</p>
+<pre><code class="language-shell">[root@node01 ~]# kubectl  get PodDisruptionBudget -nredis-cluster
+NAME                               MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+drc-ml-distributedrediscluster-0   N/A             1                 1                     21d
+drc-ml-distributedrediscluster-1   N/A             1                 1                     21d
+drc-ml-distributedrediscluster-2   N/A             1                 1                     21d
+
+</code></pre>
+<h3 id="二redis-cluster主从分布">二、redis-cluster主从分布</h3>
+<h4 id="21-pod反亲和">2.1 pod反亲和</h4>
+<p>在容器化部署时，同一分片的主从节点Pod不能调度在同一K8S节点，防止由于K8S节点宕机分片整体下线导致数据丢失，使用pod反亲和保证redis实例的主从副本分布在不同的node节点上。</p>
+<p>定义好drc之后，redis-cluster-operator会在节点类生成管理redis实列的<strong>statefulset</strong>资源控制器。通过<strong>statefulset</strong>的方式控制数据的有状态存储，通过spec.affinity.podAntiAffinity的pod间的软亲和方式保证主从副本尽量分散到各个不同的node，(因为redis-cluster采用的master-slave机制，保证master和slave节点在不同的节点，从而保证数据的安全性）。</p>
+<p>以drc-ml-distributedrediscluster-0 这个statefulset这个资源举个栗子:</p>
+<p>其yaml文件定义如下：</p>
+<pre><code class="language-yaml"> spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  redis.kun/name: ml-distributedrediscluster
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+</code></pre>
+<p>这里使用了k8s的pod之间的反亲和。大致意思就是 drc-ml-distributedrediscluster-0这个statefulset控制器在创建pod的时候，以kubernetes.io/hostname为一个拓扑，及hostname相同的一个node节点为一个拓扑单位，创建的pod的时候最大可能的让两个pod副本不在同一个node上</p>
+<h4 id="22-故障之后redis的master节点的重启">2.2 故障之后，redis的master节点的重启</h4>
+<ul>
+<li>1.在drc对象的statefulset控制器里我们可以看到每次执行stop事件的时候，会执行prestop动作，及执行/conf/shutdown.sh脚本，当reids节点发生故障时，会触发prestop。</li>
+</ul>
+<pre><code class="language-yaml">        preStop:
+            exec:
+              command:
+              - /bin/sh
+              - /conf/shutdown.sh
+</code></pre>
+<p><code>/conf/shutdown.sh</code>大概意思是，每次执行对pod容器执行stop事件时，都需要执行shutdown.sh，这个showdonw.sh脚本主要去判断自己是否是master角色，如果是是master角色，则向对应的slave节点发送Cluster FAILOVER命令，从而让对应的slave变成master。</p>
+<pre><code class="language-shell">### shutdown.sh 脚本内容如下：
+
+#!/bin/sh
+CLUSTER_CONFIG=&quot;/data/nodes.conf&quot;
+failover() {
+	echo &quot;Do CLUSTER FAILOVER&quot;
+	masterID=$(cat ${CLUSTER_CONFIG} | grep &quot;myself&quot; | awk '{print $1}')
+	echo &quot;Master: ${masterID}&quot;
+	slave=$(cat ${CLUSTER_CONFIG} | grep ${masterID} | grep &quot;slave&quot; | awk 'NR==1{print $2}' | sed 's/:6379@16379//')
+	echo &quot;Slave: ${slave}&quot;
+	password=$(cat /etc/redis_password)
+	if [[ -z &quot;${password}&quot; ]]; then
+		redis-cli -h ${slave} CLUSTER FAILOVER
+	else
+		redis-cli -h ${slave} -a &quot;${password}&quot; CLUSTER FAILOVER
+	fi
+	echo &quot;Wait for MASTER &lt;-&gt; SLAVE syncFinished&quot;
+	sleep 20
+}
+if [ -f ${CLUSTER_CONFIG} ]; then
+	cat ${CLUSTER_CONFIG} | grep &quot;myself&quot; | grep &quot;master&quot; &amp;&amp; \
+	failover
+</code></pre>
+<h3 id="三集群伸缩管理">三、集群伸缩管理</h3>
+<h4 id="31-redis集群大小管理">3.1. redis集群大小管理</h4>
+<p><strong>drc</strong>资源有两个关键资源来控制redic-cluster集群大小：</p>
+<p><strong>spec.clusterReplicas： 负责控制着集群的一个master节点对应的slave的副本数 ，原生定义必须 &gt;=1</strong></p>
+<p><strong>spec.masterSize： 控制着集群的规模大小 spec.masterSize=3则表示启动了redis-cluster的master节点个数为3</strong></p>
+<p>查看redis-cluster对应的drc资源</p>
+<pre><code class="language-shell">[root@node01 ~]# kubectl  get drc -nredis-cluster
+NAME                         MASTERSIZE   STATUS    AGE
+ml-distributedrediscluster   3            Healthy   21d
+</code></pre>
+<h4 id="32-redis-cluster-扩缩容">3.2 redis-cluster 扩缩容</h4>
+<p>修改spce.masterSize 。redis opartor通过内嵌的实现了slot的扩容和缩容策略，具体的可以查看源码分析，这里就不一一例举了。</p>
+<p>比如目前的masterSize=3，想扩容及把masterSize改成4即可，想缩容把masterSize改成2即可。</p>
+<p>验证：扩容缩容之后，可以通过cluster nodes或者cluster slots方式查看新建的pods节点是否被分配slots，或者从cluster nodes中去掉信息</p>
+<p><img src="ucloud-redis-operator-notes.assets/image-20210421163615744.png" alt="image-20210421163615744"></p>
+<h3 id="四redis-cluster-存储管理">四、redis-cluster 存储管理</h3>
+<h4 id="41-pvpvc-pod-持久化">4.1 pv/pvc pod 持久化</h4>
+<p>目前生成落地redis-cluster的集群使用的是通过向<strong>openebs</strong>提供的storageclass申请pv，从而实现pvc和pv绑定，达到pod的数据持久化如下。<strong>drc</strong>资源如下，定义storageclassname ，可以通过<code>kubectl  get drc -nredis-cluster -oyaml</code>查看</p>
+<pre><code class="language-yaml">  storage:
+      class: openebs-hostpath
+      size: 10Gi
+      type: persistent-claim
+
+</code></pre>
+<p>定义完之后提交申请在statefulset资源中生成如下配置</p>
+<pre><code class="language-yaml">  volumeClaimTemplates:
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        managed-by: redis-cluster-operator
+        redis.kun/name: ml-distributedrediscluster
+        statefulSet: drc-ml-distributedrediscluster-0
+      name: redis-data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 10Gi
+      ## 向openebs的存储申请pv
+      storageClassName: openebs-hostpath
+      volumeMode: Filesystem
+</code></pre>
+<p>值得注意的时候，如果使用pv 的RECLAIM POLICY 尽量使用Retain，不建议使用delete。（由于nfs和openebs存储目前不支持pv的</p>
+<p>delete事件，因此这两种引擎使用pv的delete和retain策略的效果一致，都需要手动删除pv.）</p>
+<h4 id="42-redis-cluster集群备份">4.2 redis-cluster集群备份</h4>
+<p><strong>原生备份方案</strong>：目前ucloud 提供的redis-cluster-operator提供的备份方案支持<strong>本地备份</strong>到pv和<strong>远程备份</strong>到s3，其实现方式都是通过list/watch drcb资源，通过读取drcb资源获取对应的drc集群的一些信息，创建一个job任务进行一次性备份。</p>
+<p><strong>不采用原生的备份原因：</strong></p>
+<ul>
+<li>
+<p>原生方案提供的备份方案，在进行rdb dump备份方案时只针对master节点备份，而实际情况下我们备份策略是对slave节点进行备份。</p>
+<p><code>redis-cluster-operator/pkg/controller/redisclusterbackup/sync_handler.go</code></p>
+<pre><code class="language-go">  ...
+  	
+for _, node := range cluster.Status.Nodes {
+      if node.Role == redisv1alpha1.RedisClusterNodeRoleMaster {
+          if i == masterNum {
+              break
+          }
+          folderName, err := backup.RemotePath()
+  ...
+</code></pre>
+<p>如果需要备份slave节点把这段代码改 即可</p>
+<pre><code class="language-go">  if node.Role == redisv1alpha1.RedisClusterNodeRoleSlave
+</code></pre>
+</li>
+<li>
+<p>本地备份存储的位置不固定</p>
+<ul>
+<li>
+<p>备份节点不固定，虽然可以加nodeselector固定 实现如下</p>
+<pre><code class="language-go">func (r *ReconcileRedisClusterBackup) getBackupJob(reqLogger logr.Logger, backup *redisv1alpha1.RedisClusterBackup, cluster *redisv1alpha1.DistributedRedisCluster) (*batchv1.Job, error) {
+// add drcb select node to backup rdp files
+        jobPostion:=make(map[string]string)
+        jobPostion[&quot;drcback&quot;]=&quot;yes&quot;
+        
+        
+    ...
+        
+    ...
+    Spec: batchv1.JobSpec{
+                        ActiveDeadlineSeconds: backup.Spec.ActiveDeadlineSeconds,
+                        Template: corev1.PodTemplateSpec{
+                                Spec: corev1.PodSpec{
+                                        NodeSelector: jobPostion,       
+    ...                                    
+</code></pre>
+</li>
+<li>
+<p>pv不固定，因为触发备份job是通过drcb资源的更新，这样一来生成pv名称会变，会导致redisback的位置不固定</p>
+</li>
+<li>
+<p>不支持cronjob策略，及不能满足日常定时备份策略</p>
+</li>
+</ul>
+</li>
+<li>
+<p>远程备份到s3原生的备份策略报错，原生包不正确。。。。</p>
+</li>
+</ul>
+<p><strong>自定义脚本备份</strong>：</p>
+<p>redis-cluster-operator脚本里备份做了这几件事，参考他的代码实现</p>
+<p><img src="ucloud-redis-operator-notes.assets/image-20210421170524348.png" alt="image-20210421170524348"></p>
+<p>自定义<code>redisback.sh</code>脚本，备份slave节点，并上传到s3. 内容如下：</p>
+<pre><code class="language-shell">k8sconfig=&quot;/root/.kube/config&quot;
+
+slaveip=$(kubectl  --kubeconfig=$k8sconfig get drc -nredis-cluster -oyaml|grep Slave -B 8|grep &quot;ip: &quot;|awk -F ':' '{print $2}')
+
+[ $? -ne 0 ]  &amp;&amp; echo &quot;visit k8s failed&quot; &amp;&amp; exit 1
+echo $slaveip
+
+backupdir=&quot;/data/redisbakup&quot;
+now=`date '+%Y%m%d_%H'`
+backupdir_current=$backupdir/&quot;redis_slave_bak&quot;$now
+mkdir -p $backupdir_current
+
+
+## check 
+# 判断磁盘使用百分比, 超过设置值不再执行备份
+data_use_max=85
+data_use=$(df /data/ | tail -1 | awk '{print $5}'| awk -F'%' '{print $1}')
+if [[ $data_use -gt $data_use_max ]]; then
+    echo &quot;/data dir use &quot;$data_use&quot;%, exit script&quot;
+    exit -1
+fi
+
+## 测试可用
+for i in $slaveip
+do
+	redis-cli -r 3 -h $i ping &amp;&gt;/dev/null
+	if [ $? -ne 0 ];then
+		echo &quot;err: redis instance $i ping out  &quot;
+		exit 1
+	fi
+	
+done
+
+##备份 slave rdp 到本地
+for i in $slaveip
+do
+	podname=$(kubectl  get drc -nredis-cluster -oyaml|grep &quot;ip: $i&quot; -A 5|grep podName|awk -F &quot;: &quot; '{print $2}')
+	redis-cli --rdb $backupdir_current/&quot;redis.dump.$podname&quot;.rdb -h $i 
+done
+
+
+## 上传到s3
+if [ -d &quot;$backupdir_current&quot; ];then
+    cd $backupdir
+    tar -jcf ${backupdir_current}.tar $backupdir_current
+    [ $? -eq 0 ] &amp;&amp; rm -fr ${backupdir_current}
+    ## 备份到s3
+    /usr/local/bin/aws s3 cp ${backupdir_current}.tar s3:XXXXXXXX  --profile  ops
+    if [ $? -ne 0 ];then
+	echo &quot;upload to aws fialed&quot;
+    fi 
+fi
+
+</code></pre>
+<p>**Tips：**经过测试当dump 4G的rdb文件时，需要的磁盘的吞吐量大概在50M/s,因此对于redis的dump操作要使用规格比较好的磁盘，并测试下最大的吞吐量。</p>
+<h4 id="43-redis-restore">4.3 redis restore</h4>
+<p>原生的方案是通过指定pv的方式恢复。</p>
+<p>restore.yaml</p>
+<pre><code class="language-yaml">apiVersion: redis.kun/v1alpha1
+kind: DistributedRedisCluster
+metadata:
+  annotations:
+    # if your operator run as cluster-scoped, add this annotations
+    redis.kun/scope: cluster-scoped
+  name: example-restore
+spec:
+  init:
+    backupSource:
+      name: example-redisclusterbackup
+      namespace: default
+</code></pre>
+<p>我们用的localpv（如果遇到pv，pvc存在的情况下，restore经常会出现<code>[ x node(s) had volume node affinity conflict]</code>报错，且恢复麻烦；当备份数据在同一个pv中的时候，恢复会出现异常。因此原生的restore_frompvc的方式并不适用localpv模型。</p>
+<h5 id="自定义恢复">自定义恢复</h5>
+<p><strong>redis  RDB restore原理：</strong></p>
+<p>​     RDB文件的载入工作是在服务器启动时自动执行的，没有专门用于载入RDB文件的命令，只要Redis服务器在启动时检测到RDB文件存在，它就会自动载入RDB文件，服务器在载入RDB文件期间，会一直处于阻塞状态，直到载入工作完成为止。</p>
+<p>当appendonly 设置成yes 时候不会将dump.rdb文件中的数据恢复，因此需要将appendonly设置为no</p>
+<p>因此在集群额外添加一个cm资源<code>redis-cluster-ml-distributedrediscluster-restore  </code>其内容与operator生成的<code>redis-cluster-ml-distributedrediscluster </code>内容一致，唯一的区别及设置**<code>appendonly=no</code>**</p>
+<pre><code class="language-shell">[root@node01 drcb-2021042605-0]# kubectl  get cm -nredis-cluster
+NAME                                               DATA   AGE
+redis-admin                                        1      192d
+redis-cluster-ml-distributedrediscluster           3      50m
+redis-cluster-ml-distributedrediscluster-restore   3      42m
+redis-cluster-operator-lock                        0      177m
+</code></pre>
+<p><strong>举个例子：</strong></p>
+<p>集群pods如下：</p>
+<p><img src="ucloud-redis-operator-notes.assets/image-20210426221335499.png" alt="image-20210426221335499"></p>
+<p>当主从实列<code>drc-ml-distributedrediscluster-0-0</code>   和<code>drc-ml-distributedrediscluster-0-1</code>数据丢失后，恢复步骤：</p>
+<ul>
+<li>
+<p>步骤一： 将备份的slave节点的rdb.dump文件拷贝到<code>drc-ml-distributedrediscluster-0-0</code>和<code>drc-ml-distributedrediscluster-0-1</code>对应的pv目录下</p>
+</li>
+<li>
+<p>步骤二： 修改pod对应的 statefulset 资源，drc-ml-distributedrediscluster-0 将cm 设置成 <code>redis-cluster-ml-distributedrediscluster-restore</code> 及关闭appendonly</p>
+</li>
+<li>
+<p>步骤三： 待pod启动完成之后，连进去看keys是否恢复</p>
+</li>
+<li>
+<p>步骤四： 步骤三确认ok之后，重复步骤二，将<code>redis-cluster-ml-distributedrediscluster-restore</code>变成原生<code>redis-cluster-ml-distributedrediscluster</code>，让pod重新启动，pod会顺序启动，到此redis restore完成。</p>
+</li>
+</ul>
+<h3 id="五基于kube-prometheus-operator的监控落地">五、基于kube-prometheus operator的监控落地</h3>
+<h3 id="六redis-cluster集群使用过程中的注意事项">六、redis-cluster集群使用过程中的注意事项</h3>
+<h3 id="七redis-cluster-故障演练">七、redis-cluster 故障演练</h3>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接: </strong>
+      <a href="https://zhangshunping.github.io/2021/04/ucloud-redis-operator-notes/" title="Ucloud Redis Operator Notes" target="_blank" rel="external">https://zhangshunping.github.io/2021/04/ucloud-redis-operator-notes/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>License：</strong><a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/zhangshunping" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://zhangshunping.github.io/touxiang.ico" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/zhangshunping" target="_blank"><span class="text-dark">张顺平</span><small class="ml-1x">个人头像</small></a></h3>
+        <div>Good Good Study, Day Day Up~</div>
+      </div>
+    </figure>
+  </div>
+</div>
+    </div>
+  </article>
+<section id="comments">
+</section>
+
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://zhangshunping.github.io/2021/03/operator-sdk1/" title="Operator Sdk1"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;下一篇</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="文章目录" role="button">
+                    <span>[&nbsp;</span><span>文章目录</span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/zhangshunping" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://zhangshunping.github.io/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2021
+    <div class="publishby">
+        Theme by <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a>base on<a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://zhangshunping.github.io/js/application.min.bdeb64b910570b6c41badc6a05b7afb0c8ad9efd8525de3c7257d59e786326a3.js"></script>
+<script src="https://zhangshunping.github.io/js/plugin.min.51ff8c7317566f82259170fa36e09c4493adc9b9378b427a01ad3f017ebac7dd.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(未命名)',
+            },
+            ROOT_URL: 'https:\/\/zhangshunping.github.io',
+            CONTENT_URL: 'https:\/\/zhangshunping.github.io\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://zhangshunping.github.io/js/insight.min.a343cd9a5a7698336b28ef3a7c16a3a1b1d2d5fb17dc8ed04022bbe08cc5459073a15bdafa3a8a58cdd56080784bdd69fa70b1ae8597565c799c57ed00f0e120.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>

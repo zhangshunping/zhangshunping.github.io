@@ -5,10 +5,37 @@
     <link>https://zhangshunping.github.io/tags/</link>
     <description>Recent content in Tags on 背对疾风吧！</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 03 Mar 2021 11:38:12 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 08 Apr 2021 15:23:08 +0800</lastBuildDate>
     
         <atom:link href="https://zhangshunping.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Gin框架常见用法</title>
+      <link>https://zhangshunping.github.io/2020/07/gin_%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/</link>
+      <pubDate>Tue, 14 Jul 2020 10:54:39 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/07/gin_%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/</guid>
+      <description>[TOC] json渲染 func main() { r := gin.Default() // 1、map渲染，gin.H{} r.GET(&amp;quot;/map_json&amp;quot;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;quot;message&amp;quot;: &amp;quot;map_json&amp;quot;, }) }) //2、 结构体渲染， r.GET(&amp;quot;/other_json&amp;quot;, func(c *gin.Context) { c.JSON(http.StatusOK,Other_json{Messag: &amp;quot;otherJson&amp;quot;}) }) r.Run() // listen and serve on 0.0.0.0:8080 (for windows &amp;quot;localhost:8080&amp;quot;) } type Other_json struct{</description>
+    </item>
+    
+    <item>
+      <title>Golang-Context</title>
+      <link>https://zhangshunping.github.io/2020/06/golang-context/</link>
+      <pubDate>Sat, 27 Jun 2020 15:38:57 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/golang-context/</guid>
+      <description>[TOC] Context诞生背景 由于在Golang severs中，每个request都是在单个goroutine中完成，并且在单个goroutine</description>
+    </item>
+    
+    <item>
+      <title>Golang-闭包场景总结</title>
+      <link>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</link>
+      <pubDate>Tue, 23 Jun 2020 15:56:01 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</guid>
+      <description>[toc] 定义 所谓闭包指的是内部函数引用外部函数变量或者自由变量返回一个函数，我们称作为闭包 func outer(x int )func(int) int{ // golang一个函数体内只能用用一个函数体,</description>
+    </item>
     
     <item>
       <title>Healthy</title>
@@ -111,20 +138,20 @@
     
     <item>
       <title></title>
-      <link>https://zhangshunping.github.io/1/01/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E6%BA%90%E6%96%87%E4%BB%B6/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://zhangshunping.github.io/1/01/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E6%BA%90%E6%96%87%E4%BB%B6/</guid>
-      <description>写在前面 目的 总结学习下阿里云kube-eventer项目的编程方法。 总结下自己的二次开发思路，方便团队协作，同时也能暴露代码可能存在的问题 k</description>
-    </item>
-    
-    <item>
-      <title></title>
       <link>https://zhangshunping.github.io/1/01/kubelet/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://zhangshunping.github.io/1/01/kubelet/</guid>
       <description>下载 kubernetes windows 保持软连接 git -c core.symlinks=true clone https://github.com/kubernetes/kubernetes -b release-1.16</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://zhangshunping.github.io/1/01/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E6%BA%90%E6%96%87%E4%BB%B6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://zhangshunping.github.io/1/01/kube-eventer%E4%BA%8C%E6%AC%A1%E5%BC%80%E5%8F%91%E6%BA%90%E6%96%87%E4%BB%B6/</guid>
+      <description>写在前面 目的 总结学习下阿里云kube-eventer项目的编程方法。 总结下自己的二次开发思路，方便团队协作，同时也能暴露代码可能存在的问题 k</description>
     </item>
     
     <item>

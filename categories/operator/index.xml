@@ -5,10 +5,28 @@
     <link>https://zhangshunping.github.io/categories/operator/</link>
     <description>Recent content in operator on 背对疾风吧！</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 18 Feb 2021 18:06:20 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 08 Apr 2021 15:23:08 +0800</lastBuildDate>
     
         <atom:link href="https://zhangshunping.github.io/categories/operator/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Ucloud Redis Operator Notes</title>
+      <link>https://zhangshunping.github.io/2021/04/ucloud-redis-operator-notes/</link>
+      <pubDate>Thu, 08 Apr 2021 15:23:08 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/04/ucloud-redis-operator-notes/</guid>
+      <description>[toc] 先从CRD说起 redis-cluster-operator 项目自定义了两个crd资源 DistributedRedisCluster, RedisClusterBackup 在已经申请crd资源的k8s集群内可以通过以下命令查看 [root@node01 ~]# kubectl get crd |grep redis distributedredisclusters.redis.kun 2020-10-16T10:58:47Z redisclusterbackups.redis.kun 2020-10-16T10:58:47Z 也可以通过api</description>
+    </item>
+    
+    <item>
+      <title>Operator Sdk1</title>
+      <link>https://zhangshunping.github.io/2021/03/operator-sdk1/</link>
+      <pubDate>Fri, 26 Mar 2021 11:17:41 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/03/operator-sdk1/</guid>
+      <description>[toc] Operator-sdk, this project is a component of the Operator Framework, an open source toolkit to manage Kubernetes native applications, called Operators, in an effective, automated, and scalable way. Read more in the introduction blog post. operator-sdk项目源码分析 main.go 程序入口 cmd/manage/main.go 主要做了以下几件事情</description>
+    </item>
     
     <item>
       <title>Kube Eventer二次开发</title>
@@ -71,6 +89,15 @@
       
       <guid>https://zhangshunping.github.io/2021/01/client-go%E5%B8%B8%E7%94%A8example/</guid>
       <description>client-go client-go 是用 Golang 语言编写的官方编程式交互客户端库，提供对 Kubernetes API server 服务的交互访问。 client-go源码目录 1.discovery: 提供 DiscoveryClient 发现客户端。 2.dynamic: 提供 DynamicClient 动态客户端。 3.informers:</description>
+    </item>
+    
+    <item>
+      <title>Operator Sdk</title>
+      <link>https://zhangshunping.github.io/2021/01/operator-sdk/</link>
+      <pubDate>Mon, 11 Jan 2021 16:23:24 +0800</pubDate>
+      
+      <guid>https://zhangshunping.github.io/2021/01/operator-sdk/</guid>
+      <description>不错的文档 main.go operator-sdk 不错的文档 https://blog.csdn.net/xixihahalelehehe/article/details/104279855 /root/gocode/pkg/mod/sigs.k8s.io/controller-runtime@v0.4.0/pkg/manager/internal.go graph TB A[cmd/manager/main.go] -.-&amp;gt;|启动|B[&amp;quot;mgr.Start(signals.SetupSignalHandl</description>
     </item>
     
     <item>
@@ -161,33 +188,6 @@
       
       <guid>https://zhangshunping.github.io/2020/07/kubectl-addons/</guid>
       <description>[TOC] 背景 日常工作发现用kubectl 管理k8s集群虽然方便，但是针对某一些资源的CURD不是很好。 Kubect-addons 实对kubectl 命令的一个补充。使用到的</description>
-    </item>
-    
-    <item>
-      <title>Gin框架常见用法</title>
-      <link>https://zhangshunping.github.io/2020/07/gin_%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/</link>
-      <pubDate>Tue, 14 Jul 2020 10:54:39 +0800</pubDate>
-      
-      <guid>https://zhangshunping.github.io/2020/07/gin_%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/</guid>
-      <description>[TOC] json渲染 func main() { r := gin.Default() // 1、map渲染，gin.H{} r.GET(&amp;quot;/map_json&amp;quot;, func(c *gin.Context) { c.JSON(200, gin.H{ &amp;quot;message&amp;quot;: &amp;quot;map_json&amp;quot;, }) }) //2、 结构体渲染， r.GET(&amp;quot;/other_json&amp;quot;, func(c *gin.Context) { c.JSON(http.StatusOK,Other_json{Messag: &amp;quot;otherJson&amp;quot;}) }) r.Run() // listen and serve on 0.0.0.0:8080 (for windows &amp;quot;localhost:8080&amp;quot;) } type Other_json struct{</description>
-    </item>
-    
-    <item>
-      <title>Golang-Context</title>
-      <link>https://zhangshunping.github.io/2020/06/golang-context/</link>
-      <pubDate>Sat, 27 Jun 2020 15:38:57 +0800</pubDate>
-      
-      <guid>https://zhangshunping.github.io/2020/06/golang-context/</guid>
-      <description>[TOC] Context诞生背景 由于在Golang severs中，每个request都是在单个goroutine中完成，并且在单个goroutine</description>
-    </item>
-    
-    <item>
-      <title>Golang-闭包场景总结</title>
-      <link>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</link>
-      <pubDate>Tue, 23 Jun 2020 15:56:01 +0800</pubDate>
-      
-      <guid>https://zhangshunping.github.io/2020/06/golang-%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/</guid>
-      <description>[toc] 定义 所谓闭包指的是内部函数引用外部函数变量或者自由变量返回一个函数，我们称作为闭包 func outer(x int )func(int) int{ // golang一个函数体内只能用用一个函数体,</description>
     </item>
     
   </channel>
