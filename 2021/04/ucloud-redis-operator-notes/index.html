@@ -782,7 +782,7 @@ sysctl vm.overcommit_memory=1
   
 vm.overcommit_memoy=1 ：表示内核允许超量使用内存直到用完为止
   
-vm.overcommit_memoy=1 ：表示内核决不过量的(“never overcommit”)使用内存，即系统整个内存地址空间不能超过swap+50%的RAM值，50%是overcommit_ratio默认值，此参数同样支持修改
+vm.overcommit_memoy=2 ：表示内核决不过量的(“never overcommit”)使用内存，即系统整个内存地址空间不能超过swap+50%的RAM值，50%是overcommit_ratio默认值，此参数同样支持修改
 </code></pre>
 <p>如果vm.overcommit_memory=0，代表如果没有可用内存，就申请内存失败，对应到Redis就是fork执行失败，在Redis的日志会出现：</p>
 <pre><code>Cannot allocate memory
