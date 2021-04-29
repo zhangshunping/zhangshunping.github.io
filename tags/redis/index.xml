@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>redis on 背对疾风吧！</title>
+    <title>Redis on 背对疾风吧！</title>
     <link>https://zhangshunping.github.io/tags/redis/</link>
-    <description>Recent content in redis on 背对疾风吧！</description>
+    <description>Recent content in Redis on 背对疾风吧！</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Thu, 08 Apr 2021 15:23:08 +0800</lastBuildDate>
     
