@@ -39,7 +39,7 @@
 <meta itemprop="description" content="redis-cluster-operator notes">
 <meta itemprop="datePublished" content="2021-04-08T15:23:08+08:00" />
 <meta itemprop="dateModified" content="2021-04-08T15:23:08+08:00" />
-<meta itemprop="wordCount" content="4445">
+<meta itemprop="wordCount" content="6686">
 
 
 
@@ -342,8 +342,8 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/04/ucloud-redis-operator-notes/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 4445字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 9分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 6686字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 14分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
@@ -441,8 +441,25 @@ ml-distributedrediscluster   3            Healthy   21d
 <h4 id="32-redis-cluster-扩缩容">3.2 redis-cluster 扩缩容</h4>
 <p>修改spce.masterSize 。redis opartor通过内嵌的实现了slot的扩容和缩容策略，具体的可以查看源码分析，这里就不一一例举了。</p>
 <p>比如目前的masterSize=3，想扩容及把masterSize改成4即可，想缩容把masterSize改成2即可。</p>
+<h4 id="33-reids-slots迁移流程">3.3 reids slots迁移流程</h4>
+<ul>
+<li>对目标节点发送 <strong>cluster setslot importing</strong> 命令，让目标节点准备导入槽的数据。</li>
+<li>对源节点发送 <strong>cluster setslot migrating</strong> 命令，让源节点准备迁出槽的数据。</li>
+<li>源节点循环执行 <strong>cluster getkeysinslot</strong> 命令，获取count个属于槽slot的键。</li>
+<li>在源节点上执行 <strong>migrate “” 0 keys &lt;keys…&gt;</strong> 命令，把获取的键通过流水线（pipeline）机制批量迁移到目标节点。</li>
+<li>重复执行步骤3和步骤4直到槽下所有的键值数据迁移到目标节点。向集群内所有主节点发送cluster setslot node 命令，通知槽分配给目标节点。为了保证槽节点映射变更及时传播，需要遍历发送给所有主节点更新被迁移的槽指向新节点。</li>
+</ul>
 <p>验证：扩容缩容之后，可以通过cluster nodes或者cluster slots方式查看新建的pods节点是否被分配slots，或者从cluster nodes中去掉信息</p>
 <p><img src="ucloud-redis-operator-notes.assets/image-20210421163615744.png" alt="image-20210421163615744"></p>
+<h4 id="34-redis-cluster-operator实现的slots迁移源码"><strong>3.4 redis-cluster-operator实现的slots迁移源码</strong></h4>
+<p>主要逻辑在<code>redis-cluster-operator/pkg/controller/clustering/rebalance.go</code> 如下：</p>
+<p><img src="ucloud-redis-operator-notes.assets/image-20210429160019390.png" alt="image-20210429160019390"></p>
+<p>主要逻辑：分别调用了<code>redis-cluster-operator/pkg/redisutil/admin.go</code>中的<code>SetSlots</code>，<code>MigrateKeysInSlot</code>函数。</p>
+<p><strong>SetSlots</strong> 分别执行了  <strong>cluster setslot importing</strong>   <strong>cluster setslot migrating</strong>  命令</p>
+<p><img src="ucloud-redis-operator-notes.assets/image-20210429160244323.png" alt="image-20210429160244323"></p>
+<p><strong>MigrateKeysInSlot</strong>，for循环执行执行 <strong>cluster getkeysinslot</strong> 命令  和执行 <strong>migrate “” 0 keys &lt;keys…&gt;</strong> 命令</p>
+<p><img src="ucloud-redis-operator-notes.assets/image-20210429160534296.png" alt="image-20210429160534296"></p>
+<p>由此可以看出，redis-operator-cluster对节点的扩缩容，其实也是调用了Redis 本身的Cluster命令。因此用operator触发的slots迁移跟传统的通过redis-cli的方式迁移如出一辙。</p>
 <h3 id="四redis-cluster-存储管理">四、redis-cluster 存储管理</h3>
 <h4 id="41-pvpvc-pod-持久化">4.1 pv/pvc pod 持久化</h4>
 <p>目前生成落地redis-cluster的集群使用的是通过向<strong>openebs</strong>提供的storageclass申请pv，从而实现pvc和pv绑定，达到pod的数据持久化如下。<strong>drc</strong>资源如下，定义storageclassname ，可以通过<code>kubectl  get drc -nredis-cluster -oyaml</code>查看</p>
@@ -605,8 +622,20 @@ spec:
       name: example-redisclusterbackup
       namespace: default
 </code></pre>
-<p>我们用的localpv（如果遇到pv，pvc存在的情况下，restore经常会出现<code>[ x node(s) had volume node affinity conflict]</code>报错，且恢复麻烦；当备份数据在同一个pv中的时候，恢复会出现异常。因此原生的restore_frompvc的方式并不适用localpv模型。</p>
-<h5 id="自定义恢复">自定义恢复</h5>
+<p>不选择用原生的方式restore的原因：</p>
+<ol>
+<li>
+<p>我们用的localpv（如果遇到pv，pvc存在的情况下，restore经常会出现<code>[ x node(s) had volume node affinity conflict]</code>报错，且恢复麻烦；</p>
+</li>
+<li>
+<p>当备份数据在同一个pv中的时候，恢复会出现异常。</p>
+</li>
+<li>
+<p>原生恢复方式，是针对整个集群，而实际restore的场景一般是，负责一个区间的slots的主从宕机的情况。</p>
+</li>
+</ol>
+<p>因此原生的restore_frompvc的方式并不适合我们。</p>
+<p><strong>自定义恢复</strong></p>
 <p><strong>redis  RDB restore原理：</strong></p>
 <p>​     RDB文件的载入工作是在服务器启动时自动执行的，没有专门用于载入RDB文件的命令，只要Redis服务器在启动时检测到RDB文件存在，它就会自动载入RDB文件，服务器在载入RDB文件期间，会一直处于阻塞状态，直到载入工作完成为止。</p>
 <p>当appendonly 设置成yes 时候不会将dump.rdb文件中的数据恢复，因此需要将appendonly设置为no</p>
@@ -636,9 +665,144 @@ redis-cluster-operator-lock                        0      177m
 <p>步骤四： 步骤三确认ok之后，重复步骤二，将<code>redis-cluster-ml-distributedrediscluster-restore</code>变成原生<code>redis-cluster-ml-distributedrediscluster</code>，让pod重新启动，pod会顺序启动，到此redis restore完成。</p>
 </li>
 </ul>
-<h3 id="五基于kube-prometheus-operator的监控落地">五、基于kube-prometheus operator的监控落地</h3>
+<h3 id="五基于kube-prometheus-operator的监控方案落地">五、基于kube-prometheus operator的监控方案落地</h3>
+<h4 id="51-添加redis-metrics抓取">5.1 添加redis metrics抓取</h4>
+<p>operator 默认会创建一个<code>servicemonitor</code>的资源,用户<strong>prometheus operator</strong>方案的抓取。</p>
+<p><code>redis-cluster-operator/cmd/manager/maing.go</code> 默认定义servicemonitor资源如下</p>
+<pre><code class="language-go">   // CreateServiceMonitors will automatically create the prometheus-operator ServiceMonitor resources
+        // necessary to configure Prometheus to scrape metrics from this operator.
+        services := []*v1.Service{service}
+        _, err = metrics.CreateServiceMonitors(cfg, namespace, services)
+        if err != nil {
+                log.Info(&quot;Could not create ServiceMonitor object&quot;, &quot;error&quot;, err.Error())
+                // If this operator is deployed to a cluster without the prometheus-operator running, it will return
+                // ErrServiceMonitorNotPresent, which can be used to safely skip ServiceMonitor creation.
+                if err == metrics.ErrServiceMonitorNotPresent {
+                        log.Info(&quot;Install prometheus-operator in your cluster to create ServiceMonitor objects&quot;, &quot;error&quot;, err.Error())
+                }
+        }
+
+</code></pre>
+<p>可以通过如下命令查看operator 创建redis 生成的<code>servicemonitor</code>资源</p>
+<pre><code class="language-shell">[root@node01 manager]# kubectl  get servicemonitor -nredis-cluster 
+NAME                             AGE
+redis-cluster-operator-monotor   174d
+</code></pre>
+<p>servicemonitor 通过 namespaceSelector和标签选择selector的方式跟<strong>service</strong>资源关联</p>
+<pre><code class="language-shell">   endpoints:
+    - interval: 15s
+      port: metrics
+    namespaceSelector:
+      matchNames:
+      - redis-cluster
+    selector:
+      matchLabels:
+        app: redis-cluster-monotor
+        name: redis-cluster-monotor
+</code></pre>
+<p>创建redis的监控service 内容如下：</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis-cluster-monotor
+    name: redis-cluster-monotor
+  name: ml-redis-cluster-monotor
+  namespace: redis-cluster
+spec:
+  ports:
+  - name: metrics
+    port: 9100
+    protocol: TCP
+    targetPort: 9100
+  selector:
+    managed-by: redis-cluster-operator
+    redis.kun/name: ml-distributedrediscluster
+  sessionAffinity: None
+  type: ClusterIP
+</code></pre>
+<p>注意的是如果要开启监控，那么redis的<strong>drc</strong>资源里必须添加<strong>monitor选项</strong>,内容如下：</p>
+<pre><code class="language-yaml">  monitor:
+    image: oliver006/redis_exporter
+    prometheus:
+      port: 9100
+    resources: {}
+
+</code></pre>
+<h4 id="52-添加prometheus-rules-监控报警规则">5.2 添加prometheus Rules 监控报警规则</h4>
+<p>基于prometheus operator 方案中，获取prometheus rules的规则是通过定义在<code>Prometheus</code>资源中,可以通过</p>
+<p><code>kubectl  get prometheus -nmonitoring k8s  -oyaml</code>查看 ，及通过ruleSelector选项选择PrometheusRule资源，且标签为<code>prometheus: k8s</code> 和 <code>role: alert-rules</code></p>
+<pre><code class="language-yaml"> ruleSelector:
+    matchLabels:
+      prometheus: k8s
+      role: alert-rules
+
+</code></pre>
+<p>定义<code>redis-cluster-rule.yaml</code>示例如下：</p>
+<pre><code class="language-yaml">apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  labels:
+    prometheus: k8s
+    role: alert-rules
+  name: redis-cluster-rules
+  namespace: monitoring
+spec:
+  groups:
+  - name: redis-cluster.rules
+    rules:
+    - alert: redis down
+      annotations:
+        description: redis instance is down
+        summary: redis down (instance {{ $labels.instance }})
+        value: '{{ $value }}'
+      expr: redis_up == 0
+      for: 30s
+      labels:
+        name: redis
+        severity: error
+...
+
+</code></pre>
+<p><strong>TIPS</strong>：operator默认给prometheus实例的serviceaccount是放开了权限，当servicemonitor，svc设置完之后，等待一段时间发现prometheus 的targets无显示添加的监控项，可以看下prometheus的logs查找，一般情况下可以看看binding的clusterrole或者role是否有访问集群资源的权限。</p>
+<p>目前对redis集群的监控方案，包括redis的健康状态，redis-cluster的主从状态，数据dump状态进行监控，具体的可以通过如下命令查看</p>
+<pre><code class="language-shell"> kubectl  get prometheusrules -nmonitoring redis-cluster-rules -oyaml
+</code></pre>
 <h3 id="六redis-cluster集群使用过程中的注意事项">六、redis-cluster集群使用过程中的注意事项</h3>
-<h3 id="七redis-cluster-故障演练">七、redis-cluster 故障演练</h3>
+<h4 id="61-redis的linux系统优化">6.1 Redis的Linux系统优化</h4>
+<ul>
+<li>
+<p><strong>vm.overcommit_memory</strong></p>
+<p>设置vm.overcommit_memory=1，防止极端情况下，会造成fork失败。</p>
+<pre><code>echo &quot;vm.overcommit_memory=1&quot; &gt;&gt; /etc/sysctl.conf
+sysctl vm.overcommit_memory=1
+</code></pre>
+<p><strong>说明：</strong></p>
+<pre><code>vm.overcommit_memoy=0 ：表示内核将检查是否有足够的可用内存。如果有足够的可用内存，内存申请通过，否则内存申请失败，并把错误返回给应用进程
+  
+vm.overcommit_memoy=1 ：表示内核允许超量使用内存直到用完为止
+  
+vm.overcommit_memoy=1 ：表示内核决不过量的(“never overcommit”)使用内存，即系统整个内存地址空间不能超过swap+50%的RAM值，50%是overcommit_ratio默认值，此参数同样支持修改
+</code></pre>
+<p>如果vm.overcommit_memory=0，代表如果没有可用内存，就申请内存失败，对应到Redis就是fork执行失败，在Redis的日志会出现：</p>
+<pre><code>Cannot allocate memory
+</code></pre>
+<p>Redis建议把这个值设置为1，是为了让fork能够在低内存下也执行成功。</p>
+</li>
+<li>
+<p><strong>Transparent Huge Pages</strong></p>
+</li>
+</ul>
+<p>Redis建议修改Transparent Huge Pages (THP)的相关配置，Linux kernel在2.6.38内核增加了Transparent Huge Pages (THP)特性 ，支持大内存页(2MB)分配，默认开启。当开启时可以降低fork子进程的速度，但fork之后，每个内存页从原来4KB变为2MB，会大幅增加重写期间父进程内存消耗。同时每次写命令引起的复制内存页单位放大了512倍，会拖慢写操作的执行时间，导致大量写操作慢查询。例如简单的incr命令也会出现在慢查询中。因此Redis日志中建议将此特性进行禁用，禁用方法如下：</p>
+<pre><code class="language-shell">echo never &gt;  /sys/kernel/mm/transparent_hugepage/enabled
+</code></pre>
+<ul>
+<li>
+<p>somaxconn</p>
+<p>在/etc/sysctl.conf中添加,修改默认somaxconn=128值</p>
+<p><code>net.core.somaxconn = 65535</code></p>
+</li>
+</ul>
 
     </div>
     <div class="article-footer">
