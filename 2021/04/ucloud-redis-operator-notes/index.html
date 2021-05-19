@@ -39,7 +39,7 @@
 <meta itemprop="description" content="redis-cluster-operator notes">
 <meta itemprop="datePublished" content="2021-04-08T15:23:08+08:00" />
 <meta itemprop="dateModified" content="2021-04-08T15:23:08+08:00" />
-<meta itemprop="wordCount" content="6686">
+<meta itemprop="wordCount" content="8402">
 
 
 
@@ -342,8 +342,8 @@
 
         <span class="post-comment"><i class="icon icon-comment"></i>&nbsp;<a href="/2021/04/ucloud-redis-operator-notes/#comments"
             class="article-comment-link">评论</a></span>
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 6686字</span>
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 14分 </span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 8402字</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 17分 </span>
       </div>
     </div>
     <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
@@ -665,6 +665,82 @@ redis-cluster-operator-lock                        0      177m
 <p>步骤四： 步骤三确认ok之后，重复步骤二，将<code>redis-cluster-ml-distributedrediscluster-restore</code>变成原生<code>redis-cluster-ml-distributedrediscluster</code>，让pod重新启动，pod会顺序启动，到此redis restore完成。</p>
 </li>
 </ul>
+<h4 id="远程备份恢复">远程备份恢复</h4>
+<h5 id="bug修复">Bug修复</h5>
+<p>原生的程序执行s3 备份和restore的时候，会出现如下等bug，目前已经修复，代码提交到内网gitlab仓库。bug报错如下</p>
+<pre><code class="language-shell">phase: Failed
+  reason: |-
+    GetBucketLocation: RequestError: send request failed
+    caused by: Get &quot;https://s3.us-east-1.amazonaws.com.cn/ops-s3-storage?location=&quot;: net/http: invalid header field value &quot;AWS4-HMAC-SHA256 Credential=\x00\xa2\x00Um\x8a\x18\x04\aem\xd2e#8/20210508/us-east-1/s3/aws4_request, SignedHeaders=host;x-amz-content-sha256;x-amz-date, Signature=86b3bc48251cd36900093e10671be2b8b9349b2d23e37752d57ce95e53a59f1d&quot; for key Authorization
+
+</code></pre>
+<h5 id="s3-远程backup原理">S3 远程Backup原理</h5>
+<p>Operator 会 Watch 集群所有的 RedisClusterBackup 实例变化，当用户提交一个备份的 CR 之后，Operator 会：</p>
+<ol>
+<li>
+<p>创建一个 Kubernetes batch job，根据 Redis 集群分布数，在 job 中注入相同数量的 container，每个 container 向一个 <strong>Slave</strong>（原生是Master节点，现在已经改为Slave节点）发起备份请求，设置开始时间及备份状态。</p>
+</li>
+<li>
+<p>同步完成 RDB 文件后，将 Redis 集群每个分片的 RDB 文件和 cluster-config-file(记录节点slots信息) 上传到对象存储，同时将 CR 的状态置为 Succeeded，设置完成时间。redis集群备份的快照和节点元数据信息，上传到对象存储后，有统一的路径，当前的规则是：redis/{Namespace}/{RedisClusterName}/{StartTime}/{BackupName}-x 比如一个备份一个在 default 命名空间的名为 redis-cluster-test 的 Redis 集群（集群含有三个 master 节点），备份名为 backup , 备份开始时间为 20191101083020这样的格式。</p>
+<p>每个master节点备份的快照和节点元数据信息会存储在上述路径，用户可以到相应的 bucket 中查看。执行如下命令接口</p>
+</li>
+</ol>
+<pre><code class="language-shell">[root@node01 MTWB]#   aws s3 ls ops-s3-storage/produce-rediscluster-backup/redis/redis-cluster/ml-rediscluster/20210519081753/  --profile ops
+                           PRE 20210519-0017-bak-0/
+                           PRE 20210519-0017-bak-1/
+                           PRE 20210519-0017-bak-2/
+                           PRE 20210519-0017-bak-3/
+                           PRE 20210519-0017-bak-4/
+                           PRE 20210519-0017-bak-5/
+
+</code></pre>
+<h5 id="s3远程restore-原理">s3远程Restore 原理</h5>
+<p>从备份恢复和创建步骤不同，分为两阶段，第一阶段同步数据，从快照启动 Master 节点；第二阶段启动 Slave 节点。</p>
+<ol>
+<li>设置<code>DistributedRedisCluster.Status.Restore.Phase=Running</code>，根据备份信息，创建与备份集群切片数相同的 Statefulset， 设置 Replicas 为 1，只启动 master 节点，注入 <strong>init container，init container</strong> 的作用是拉取对象存储上的快照数据。</li>
+<li>等待第1步同步数据完成，master 启动完成后，设置<code>DistributedRedisCluster.Status.Restore.Phase=Restart</code>，移除 init container 后等待节点重启。</li>
+<li>第2步完成之后，增加每个分片的副本数调大 Statefulset 的 Replicas，拉起 Slave 节点，设置<code>DistributedRedisCluster.Status.Restore.Phase=Succeeded</code>， 等待所有 Pod 节点状态变为 Runing 之后，设置每个 Statefulset 的 Slave 节点 replicate Master 节点，加入集群。</li>
+</ol>
+<p><strong>Backup步骤：</strong></p>
+<ul>
+<li>
+<p><code> cd /data/UseDrcbToBakRedis/;bash CronDrcbBak.sh</code>    Crontab 执行脚本任务，根据日期定时在集群创建定时job，备份redis数据到s3上</p>
+<pre><code class="language-shell">[root@node01 MTWB]# kubectl get drcb -nredis-cluster
+NAME                AGE     PHASE
+20210517-0158-bak   2d2h    Succeeded
+20210518-0100-bak   27h     Succeeded
+20210518-0334-bak   24h     Succeeded
+20210518-2334-bak   4h33m   Succeeded
+20210518-2343-bak   4h24m   Running
+</code></pre>
+</li>
+<li>
+<p><code> cd /data/UseDrcbToBakRedis/;bash CronCheckDrcb.sh</code>  Crontab 定时巡检Drcb 任务是否有异常分三个维度检查  <strong>1.创建任务是否失败，2.执行任务是否失败，3.执行成功后，s3是否存在</strong>。</p>
+<p>如有异常则发送报警到飞书群，飞书截图如下：</p>
+</li>
+</ul>
+<p><img src="ucloud-redis-operator-notes.assets/image-20210519201106802.png" alt="image-20210519201106802"></p>
+<p><strong>值得注意的是</strong></p>
+<p>Backup的pod 运行在  带有 <strong>drcback=yes</strong>的节点，因此需要对node节点打上 <strong>drcback=yes</strong>的label。 对节点的磁盘要求非常高，目前生产redis 执行backup的时候**，磁盘写入i/o达到200MB/s**</p>
+<h5 id="restore步骤">Restore步骤：</h5>
+<ul>
+<li>
+<p>在原集群的drc资源里添加如下init配置,这里命名为restore.yaml</p>
+<pre><code class="language-yaml"> init:
+   backupSource:
+     name: 20210516-2329-backup   #drcb 的name
+     namespace: redis-cluster
+</code></pre>
+</li>
+<li>
+<p>执行<code>apply -f restore.yaml</code>恢复清单，向集群提交restore 资源申请，这个时候会在k8s内创建一个新的drc 集群资源（<strong>新集群的名字尽量与就集群的名字不一样</strong>，因为用的localpv 的方式，所以防止pvc名字一样，指定的文件目录一样）</p>
+</li>
+<li>
+<p><code>kubeclt log -f  operator-pod -nredis-cluster  </code> 查看  operator，当发现如下的日志的时候，说明集群已经恢复完成。</p>
+</li>
+</ul>
+<p><img src="ucloud-redis-operator-notes.assets/image-20210517162047896.png" alt="image-20210517162047896"></p>
+<p>​	可以通过<code> redis-cli -h  $Nodeip cluster nodes</code> 查看节点信息，一般情况这个时候只有Master节点存在，没有slave节点，是因为原生的又一个bug，yaml中有init字段后，operator会进行恢复操作，当恢复完成之后，operator很难watch到cr的变化，则不会去执行创建slave节点的操作。当发现如上日志，且 <code>执行cluster nodes</code> 发现slot信息已经完整之后，将<strong>步骤一</strong>添加的init字段删掉，这个时候opeator会感受到cr的变化，执行创建slave节点。</p>
 <h3 id="五基于kube-prometheus-operator的监控方案落地">五、基于kube-prometheus operator的监控方案落地</h3>
 <h4 id="51-添加redis-metrics抓取">5.1 添加redis metrics抓取</h4>
 <p>operator 默认会创建一个<code>servicemonitor</code>的资源,用户<strong>prometheus operator</strong>方案的抓取。</p>
