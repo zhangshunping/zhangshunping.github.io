@@ -717,9 +717,9 @@ NAME                AGE     PHASE
 <li>
 <p><code> cd /data/UseDrcbToBakRedis/;bash CronCheckDrcb.sh</code>  Crontab 定时巡检Drcb 任务是否有异常分三个维度检查  <strong>1.创建任务是否失败，2.执行任务是否失败，3.执行成功后，s3是否存在</strong>。</p>
 <p>如有异常则发送报警到飞书群，飞书截图如下：</p>
+<p><img src="ucloud-redis-operator-notes.assets/image-20210526112605318.png" alt="image-20210526112605318"></p>
 </li>
 </ul>
-<p><img src="ucloud-redis-operator-notes.assets/image-20210519201106802.png" alt="image-20210519201106802"></p>
 <p><strong>值得注意的是</strong></p>
 <p>Backup的pod 运行在  带有 <strong>drcback=yes</strong>的节点，因此需要对node节点打上 <strong>drcback=yes</strong>的label。 对节点的磁盘要求非常高，目前生产redis 执行backup的时候**，磁盘写入i/o达到200MB/s**</p>
 <h5 id="restore步骤">Restore步骤：</h5>
